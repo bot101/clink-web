@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import { TicketEventService } from '../../services/ticket-event.service';
 import { ApiService } from '../../services/api.service';
 import { NgxCurrencyDirective } from 'ngx-currency';
+import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
 
 @Component({
   selector: 'app-ticket-event-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, LogoComponent, NgxCurrencyDirective],
+  imports: [CommonModule, FormsModule, LogoComponent, NgxCurrencyDirective, OnboardingHeaderComponent],
   providers: [CurrencyPipe],
   templateUrl: './ticket-event-detail.component.html',
   styleUrls: ['./ticket-event-detail.component.scss']

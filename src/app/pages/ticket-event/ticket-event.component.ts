@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { TicketEventService } from '../../services/ticket-event.service';
+import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
+import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-ticket-event',
   standalone: true,
-  imports: [CommonModule, FormsModule, LogoComponent],
+  imports: [CommonModule, FormsModule, OnboardingHeaderComponent, DatePickerComponent],
   templateUrl: './ticket-event.component.html',
   styleUrls: ['./ticket-event.component.scss']
 })

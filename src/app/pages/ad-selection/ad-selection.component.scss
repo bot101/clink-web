@@ -1,0 +1,22 @@
+.selection:checked + svg, .selection:checked + span {
+    color: white;
+}
+.selection:checked + svg {
+    fill: white;
+}
+.selection:checked + span {
+    color: white;
+}
+.selection:checked + label {
+    background-color: #072d4c;
+}
+
+.selection {
+    border: 1px solid #072d4c;
+    background-color: #072d4c;
+    color: white;
+    svg {
+        stroke: white;
+        fill: white;
+    }
+}

@@ -1,0 +1,21 @@
+<div class="bg-[#072d4c] p-4">
+  <div class="text-center mb-1">
+    <app-progress-bar *ngIf="!hideStep" class="mb-10" [max]="totalSteps" [current]="currentStep"></app-progress-bar>
+    
+    <div class="flex text-center justify-between items-center mb-3">
+     
+      <button (click)="onBack()" class="lowercase font-medium">
+        <svg width="25" height="24" viewBox="0 0 25 24" class="h-6 w-6 inline-block mr-2" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.45312 18.75L16.2031 12L9.45313 5.25" stroke="white" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      <div class="flex-grow">
+        <app-logo *ngIf="showLogo"></app-logo>
+        <h1 class="text-white text-2xl font-medium text-center">{{ title }}</h1>
+      </div>
+      
+    </div>
+  </div>
+</div>
