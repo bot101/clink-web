@@ -1,34 +1,34 @@
 <div class="container mx-auto px-4 py-8 max-w-sm">
-  <app-onboarding-header class="mb-4" [title]="'Header'"></app-onboarding-header>
+  <app-onboarding-header iconType="flight" class="mb-4" [title]="'Selling a flight ticket'"></app-onboarding-header>
 
   <form [formGroup]="flightForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-y-4">
-    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">header</h2>
+    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">Outbound flight details</h2>
 
     <app-date-picker 
-      label="outbound flight departure date" 
+      label="flight departure date" 
       formControlName="departureDate" 
       required>
     </app-date-picker>
 
     <app-time-picker 
-      label="outbound flight departure time" 
+      label="flight departure time" 
       formControlName="departureTime" 
       required>
     </app-time-picker>
 
     <app-date-picker 
-      label="outbound flight landing date" 
+      label="flight landing date" 
       formControlName="arrivalDate" 
       required>
     </app-date-picker>
 
     <app-time-picker 
-      label="outbound flight landing time" 
+      label="flight landing time" 
       formControlName="arrivalTime" 
       required>
     </app-time-picker>
 
-    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">header</h2>
+    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">Flight details Return</h2>
 
 
     <ng-container>

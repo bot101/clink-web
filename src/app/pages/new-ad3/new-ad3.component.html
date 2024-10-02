@@ -1,5 +1,5 @@
 <div class="container mx-auto px-4 py-8">
-  <app-onboarding-header class="mb-4" [title]="'Header'"></app-onboarding-header>
+  <app-onboarding-header iconType="flight" class="mb-4" [title]="'Selling a flight ticket'"></app-onboarding-header>
 
   <form class="space-y-6 mb-12">
     <h2 class="block text-lg font-[700] text-gray-700">header</h2>
@@ -17,30 +17,34 @@
     </div>
 
     <div>
-      <label for="costPrice" class="block text-sm lowercase text-gray-700">Buy Price</label>
+      <label for="costPrice" class="block text-md lowercase text-gray-700">How much did you buy each ticket for?</label>
+      <p class="text-sm text-gray-700">For example, if you purchased 2 tickets for NIS 1000 each, enter NIS 1000</p>
       <input type="text" id="costPrice" [ngModelOptions]="{standalone: true}" name="costPrice" [(ngModel)]="costPrice"
         currencyMask [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }" required
         class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
     </div>
 
     <div>
-      <label for="salePrice" class="block text-sm lowercase text-gray-700">Sell Price</label>
+      <label for="salePrice" class="block text-md lowercase text-gray-700">How much are you selling each ticket for?</label>
+      <p class="text-sm text-gray-700">For example, if you sell 2 tickets for NIS 900 each, enter NIS 900</p>
       <input type="text" id="salePrice" name="salePrice" [ngModelOptions]="{standalone: true}" [(ngModel)]="salePrice"
         currencyMask [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }" required
         class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
     </div>
 
+    <p class="text-md">Enter a price in shekels only. Do you need to calculate a conversion? <a href="https://www.google.com/search?q=convert+currency" target="_blank" class="text-[#072d4c] underline font-bold">Link</a> . <a href="https://www.google.com/search?q=convert+currency" target="_blank" class="text-[#072d4c]">Google Calculator</a></p>
+
     <div>
-      <label class="block text-sm lowercase text-gray-700">Flight Details</label>
+      <label class="block text-sm lowercase text-gray-700">General details on the card</label>
       <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="generalDetails"
         class="mt-1 block w-full min-h-36 rounded-xl border-[#D9D9D9] border px-4 py-3"></textarea>
     </div>
 
-    <div class="flex items-center">
-      <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="isChecked" />
-      <label class="ml-2 text-sm lowercase text-gray-700 mr-1">agree</label>
+    <div class="flex items-start">
+      <input class="mt-1" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="isChecked" />
+      <label class="ml-2 text-sm lowercase text-gray-700 mr-1">I checked with the airline/tourist company and they confirmed that it is possible to change the passenger's full name on ticket</label>
     </div>
   </form>
-  <app-button buttonClasses="w-full px-4 py-3 border rounded-2xl shadow-sm text-sm font-medium text-white bg-[#072d4c] hover:bg-[#072d4c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" label="Finish" (click)="onFinish()" [disabled]="!isFormValid()"></app-button>
+  <app-button buttonClasses="" label="Finish" (click)="onFinish()" [disabled]="!isFormValid()"></app-button>
 
 </div>

@@ -7,11 +7,21 @@ import { TicketEventService } from '../../services/ticket-event.service';
 import { ApiService } from '../../services/api.service';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
+import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'app-ticket-event-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, LogoComponent, NgxCurrencyDirective, OnboardingHeaderComponent],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    LogoComponent, 
+    NgxCurrencyDirective, 
+    OnboardingHeaderComponent, 
+    RadioGroupComponent,
+    ButtonComponent
+  ],
   providers: [CurrencyPipe],
   templateUrl: './ticket-event-detail.component.html',
   styleUrls: ['./ticket-event-detail.component.scss']

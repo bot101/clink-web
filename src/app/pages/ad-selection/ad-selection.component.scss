@@ -20,3 +20,13 @@
         fill: white;
     }
 }
+
+label:not(.selection) {
+    border: 1px solid #072d4c;
+    background-color: transparent;
+    // color: #072d4c;
+    svg {
+        stroke: #072d4c;
+        fill: #072d4c;
+    }
+}

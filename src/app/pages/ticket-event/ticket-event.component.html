@@ -1,14 +1,14 @@
   
-  <app-onboarding-header class="mb-4" title="header"></app-onboarding-header>
+  <app-onboarding-header class="mb-4" title="Ticket sale for the event" iconType="ticket"></app-onboarding-header>
   <form class="space-y-5 lowercase">
-    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">header</h2>
+    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">Event details</h2>
     <div>
-      <label for="eventName" class="block text-sm text-gray-700">Event Name</label>
+      <label for="eventName" class="block text-sm text-gray-700">The name of the event</label>
       <input type="text" id="eventName" [ngModelOptions]="{standalone: true}" name="eventName" [(ngModel)]="eventName" required
         class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3">
     </div>
 
-    <app-date-picker [ngModelOptions]="{standalone: true}" [(ngModel)]="eventDate"></app-date-picker>
+    <app-date-picker label="the date of the event" [ngModelOptions]="{standalone: true}" [(ngModel)]="eventDate"></app-date-picker>
 
     <app-time-picker [ngModelOptions]="{standalone: true}" [(ngModel)]="eventTime"></app-time-picker>
 
@@ -25,8 +25,8 @@
     </div>
 
     <div>
-      <label for="eventName" class="block text-sm text-gray-700">header 3</label>
-      <p class="mt-1 block text-sm w-full px-4 py-3">text</p>
+      <label for="eventName" class="block text-sm text-gray-700">Upload ticket(s) for sale</label>
+      <!-- <p class="mt-1 block text-sm w-full px-4 py-3">text</p> -->
     </div>
 
     <div class="flex border border-dashed rounded-xl px-4 py-3 border-[#D9D9D9] items-center">
@@ -43,15 +43,15 @@
       </svg>
 
       <div class="flex flex-col text-start">
-        <span class="block text-sm font-medium text-gray-700">drag or click button</span>
-        <p class="text-end">text</p>
+        <span class="block text-sm font-bold text-gray-700">Choose a file</span>
+        <p class="text-end">upload a PDF file</p>
       </div>
 
       <input #uploadInput type="file" (change)="onFileUpload($event)" accept=".pdf"
         [disabled]="uploadedFiles.length >= 5"
         class="mt-1 hidden w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
       <button type="button" (click)="uploadInput.click()"
-        class="flex-grow px-4 py-1 my-auto mr-5 h-[fit-content] border   rounded-xl text-sm font-medium text-black border-blue-600 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+        class="flex-grow px-4 py-1 my-auto mr-5 h-[fit-content] border rounded-xl text-sm font-medium text-black border-[#072d4c] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
         upload
       </button>
     </div>
@@ -93,12 +93,12 @@
     </ul>
     
     <button type="button" (click)="onContinue()" [disabled]="!isFormValid()"
-      class="w-full px-4 py-3 border   rounded-xl shadow-sm text-sm font-medium text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+      class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-white bg-[#072d4c] disabled:text-[#072d4c] disabled:bg-slate-300 disabled:opacity-50 disabled:cursor-not-allowed">
       Continue
     </button>
 
     <button type="button" (click)="onBack()"
-      class="w-full px-4 py-3 border   rounded-xl shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+      class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
       Cancel
     </button>
   </form>

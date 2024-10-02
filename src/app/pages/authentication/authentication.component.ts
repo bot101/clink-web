@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
 import { LogoComponent } from '../../components/logo/logo.component';
+import { MainHeaderComponent } from "../../components/main-header/main-header.component";
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'app-authentication',
@@ -13,10 +15,12 @@ import { LogoComponent } from '../../components/logo/logo.component';
     ReactiveFormsModule,
     CommonModule,
     OnboardingHeaderComponent,
-    LogoComponent
+    LogoComponent,
+    ButtonComponent,
+    MainHeaderComponent
   ],
   templateUrl: './authentication.component.html',
-  styleUrl: './authentication.component.scss'
+  styleUrls: ['./authentication.component.scss']
 })
 export class AuthenticationComponent {
   authForm: FormGroup;

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { CommonModule } from '@angular/common';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
+import { FlightIconComponent } from "../../components/icons/flight-icon/flight-icon.component";
+import { TicketIconComponent } from "../../components/icons/ticket-icon/ticket-icon.component";
 
 @Component({
   selector: 'app-ad-selection',
@@ -9,8 +11,10 @@ import { OnboardingHeaderComponent } from '../../components/onboarding-header/on
   imports: [
     OnboardingHeaderComponent,
     LogoComponent,
-    CommonModule
-  ],
+    CommonModule,
+    FlightIconComponent,
+    TicketIconComponent
+],
   templateUrl: './ad-selection.component.html',
   styleUrl: './ad-selection.component.scss'
 })

@@ -1,21 +1,27 @@
 <div class="bg-[#072d4c] p-4">
-  <div class="text-center mb-1">
-    <app-progress-bar *ngIf="!hideStep" class="mb-10" [max]="totalSteps" [current]="currentStep"></app-progress-bar>
-    
-    <div class="flex text-center justify-between items-center mb-3">
-     
-      <button (click)="onBack()" class="lowercase font-medium">
-        <svg width="25" height="24" viewBox="0 0 25 24" class="h-6 w-6 inline-block mr-2" fill="none"
+  <div class="text-center">
+    <app-progress-bar *ngIf="!hideStep" class="mb-7" [max]="totalSteps" [current]="currentStep"></app-progress-bar>
+
+    <!-- <div class="flex text-center justify-between items-center mb-3"> -->
+    <div class="grid grid-cols-9 justify-between items-center mb-3 mt-2">
+      <button (click)="onBack()" class="lowercase font-medium col-span-1">
+        <svg width="25" height="24" viewBox="0 0 25 24" class="h-6 w-6 inline-block" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path d="M9.45312 18.75L16.2031 12L9.45313 5.25" stroke="white" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </button>
-      <div class="flex-grow">
-        <app-logo *ngIf="showLogo"></app-logo>
+      <div class="flex-grow col-span-7">
+        <!-- <app-logo *ngIf="showLogo"></app-logo> -->
+        <div *ngIf="iconType" class="flex items-center justify-center py-3">
+          <img class="block" *ngIf="iconType === 'flight'" src="/assets/icons/flight.svg" alt="flight" class="w-10 h-10">
+          <img class="block" *ngIf="iconType === 'ticket'" src="/assets/icons/ticket.svg" alt="ticket" class="w-10 h-10">
+          <app-email-icon class="block" *ngIf="iconType === 'email'" alt="email" class="w-10 h-10"></app-email-icon>
+        </div>
+
         <h1 class="text-white text-2xl font-medium text-center">{{ title }}</h1>
       </div>
-      
+      <div class="col-span-1"></div>
     </div>
   </div>
 </div>
