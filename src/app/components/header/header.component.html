@@ -3,7 +3,7 @@
     <div class="flex items-center w-full md:hidden">
       <app-rounded-person></app-rounded-person>
       <app-logo class="mx-auto"></app-logo>
-      <app-hamburger></app-hamburger>
+      <app-hamburger (toggleMenu)="toggleMobileMenu()"></app-hamburger> 
     </div>
   
     <!-- Desktop view -->
@@ -36,4 +36,5 @@
         </li>
       </ul>
     </div>
+    <app-mobile-menu *ngIf="isMobileMenuOpen" [isLoggedIn]="isLoggedIn" (close)="closeMobileMenu()"></app-mobile-menu>
   </div>

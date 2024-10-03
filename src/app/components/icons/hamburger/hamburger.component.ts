@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-hamburger',
@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './hamburger.component.scss'
 })
 export class HamburgerComponent {
+  @Output() toggleMenu = new EventEmitter<void>();
 
+  onClick(): void {
+    this.toggleMenu.emit();
+  }
 }
