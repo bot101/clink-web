@@ -5,7 +5,10 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './logo-dark.component.html',
-  styleUrl: './logo-dark.component.scss'
+  styleUrl: './logo-dark.component.scss',
+  // host: {
+  //   class: 'block'
+  // }
 })
 export class LogoDarkComponent {
 
