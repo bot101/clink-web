@@ -1,7 +1,7 @@
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto md:max-w-sm">
     <app-onboarding-header iconType="flight" title="Selling a flight ticket"></app-onboarding-header>
 
-    <form (ngSubmit)="onContinue()" class="mt-8">
+    <form (ngSubmit)="onContinue()" class="mt-8 px-4">
         <div class="mb-6">
             <app-input-field label="Flight Destination" [(ngModel)]="flightDestination" [ngModelOptions]="{standalone: true}" name="flightDestination"
                 [required]="true"></app-input-field>

@@ -1,26 +1,16 @@
-<div class="container mx-auto px-4">
-    <app-onboarding-header class="mb-10 mt-4" [showLogo]="false" [hideStep]="true" [title]="'Ticket sale'"></app-onboarding-header>
+<div class="container mx-auto md:max-w-sm">
+    <app-onboarding-header class="mb-10" [showLogo]="false" [hideStep]="true" [title]="'Ticket sale'"></app-onboarding-header>
 
-<div class="flex flex-col space-y-4">
+<div class="flex flex-col space-y-4 px-4">
     <h2 class="block text-lg font-[700] text-gray-700">What card do you sell?</h2>
 
     <label (click)="onSelect(flight)" [ngClass]="{'selection': flight.checked}" class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-lg border border-[#072d4c]">
         <input type="radio" #flight name="selection" class="hidden">
-        <!-- <svg width="25" height="24" viewBox="0 0 25 24" class="h-6 w-6 inline-block mr-2" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M9.45312 18.75L16.2031 12L9.45313 5.25" stroke="#38383C" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
-        </svg> -->
         <app-flight-icon [outlineColor]="!flight.checked ? '#072d4c' : '#fff'" fillColor="#ffc5c5"></app-flight-icon>
         <span class="font-bold">flight ticket</span>
     </label>
     <label (click)="onSelect(event)" [ngClass]="{'selection': event.checked}" class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-lg border border-[#072d4c]">
         <input #event type="radio" name="selection" class="hidden">
-        <!-- <svg width="25" height="24" viewBox="0 0 25 24" class="h-6 w-6 inline-block mr-2" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M9.45312 18.75L16.2031 12L9.45313 5.25" stroke="#38383C" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
-        </svg> -->
         <app-ticket-icon [outlineColor]="event.checked ? '#fff' : '#072d4c'" fillColor="#ffc5c5"></app-ticket-icon>
         <span class="font-bold">event ticket</span>
     </label>

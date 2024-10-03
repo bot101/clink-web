@@ -8,9 +8,11 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
 import { OtpComponent } from './pages/otp/otp.component';
 import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
 import { AdSelectionComponent } from './pages/ad-selection/ad-selection.component';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
-    { path: '', component: TicketEventComponent },
+    { path: '', component: HomeComponent },
+    { path: 'ticket-event', component: TicketEventComponent },
     { path: 'new-ad', component: NewAdComponent },
     { path: 'ticket-event-details', component: TicketEventDetailComponent },
     { path: 'new-ad-2', component: NewAd2Component },

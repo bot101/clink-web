@@ -1,21 +1,23 @@
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto md:max-w-sm">
     <app-onboarding-header title="אימייל ליצירת קשר ועדכונים" iconType="email"></app-onboarding-header>
 
-    <p class="text-sm lowercase text-gray-700 mt-4">אנא הזינו את כתובת האימייל שלכם כדי שנוכל לשלוח עדכונים חשובים וליצור קשר
-        במקרה הצורך</p>
-    <div class="flex flex-col justify-between space-y-2 mt-4">
-        <p class="text-sm font-semibold lowercase text-gray-700 ">כתובת אימייל</p>
-        <input [ngModelOptions]="{standalone: true}" nae="email" type="email"
-            class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()" [(ngModel)]="email" (input)="onInputEmail()">
-        <p class="text-sm font-semibold lowercase text-gray-700">הקלידו את כתובת האימייל שוב</p>
-        <input [ngModelOptions]="{standalone: true}" name="confirmEmail" type="email"
-            class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()" [(ngModel)]="confirmEmail"
-            (input)="onInputEmail()">
-    </div>
+    <div class="px-4">
+        <p class="text-sm lowercase text-gray-700 mt-4">אנא הזינו את כתובת האימייל שלכם כדי שנוכל לשלוח עדכונים חשובים
+            וליצור קשר
+            במקרה הצורך</p>
+        <div class="flex flex-col justify-between space-y-2 mt-4">
+            <p class="text-sm font-semibold lowercase text-gray-700 ">כתובת אימייל</p>
+            <input [ngModelOptions]="{standalone: true}" nae="email" type="email"
+                class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()"
+                [(ngModel)]="email" (input)="onInputEmail()">
+            <p class="text-sm font-semibold lowercase text-gray-700">הקלידו את כתובת האימייל שוב</p>
+            <input [ngModelOptions]="{standalone: true}" name="confirmEmail" type="email"
+                class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()"
+                [(ngModel)]="confirmEmail" (input)="onInputEmail()">
+        </div>
 
-    <app-button type="submit" [disabled]="!matchingEmails" (click)="onContinue()"
-        class="block mt-12"
-        label="Continue"
-    ></app-button>
+        <app-button type="submit" [disabled]="!matchingEmails" (click)="onContinue()" class="block mt-12"
+            label="Continue"></app-button>
+    </div>
 
 </div>

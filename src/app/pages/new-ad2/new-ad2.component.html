@@ -1,7 +1,7 @@
-<div class="container mx-auto px-4 py-8 max-w-sm">
+<div class="container mx-auto md:max-w-sm">
   <app-onboarding-header iconType="flight" class="mb-4" [title]="'Selling a flight ticket'"></app-onboarding-header>
 
-  <form [formGroup]="flightForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-y-4">
+  <form [formGroup]="flightForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-y-4 px-4">
     <h2 for="eventName" class="block text-lg font-[700] text-gray-700">Outbound flight details</h2>
 
     <app-date-picker 
