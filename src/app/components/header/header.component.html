@@ -1,17 +1,15 @@
 <div class="flex flex-col md:flex-row justify-between items-center">
-    <!-- Mobile view -->
     <div class="flex items-center w-full md:hidden">
-      <app-rounded-person></app-rounded-person>
+      <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
       <app-logo class="mx-auto"></app-logo>
       <app-hamburger (toggleMenu)="toggleMobileMenu()"></app-hamburger> 
     </div>
   
-    <!-- Desktop view -->
     <div class="hidden md:flex items-center gap-x-8">
       <div class="px-10 py-3 bg-white rounded-full">
         <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
       </div>
-      <app-rounded-person></app-rounded-person>
+      <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
       <ul class="flex items-center gap-x-4">
         <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
         <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
@@ -20,10 +18,8 @@
     </div>
     <div class="hidden md:flex items-center gap-x-2">
         <img src="/assets/icons/logo.svg" alt="Logo">
-      <!-- <app-logo></app-logo> -->
     </div>
   
-    <!-- Mobile menu (hidden by default) -->
     <div class="hidden w-full md:hidden" id="mobile-menu">
       <ul class="flex flex-col items-center gap-y-4 mt-4">
         <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>

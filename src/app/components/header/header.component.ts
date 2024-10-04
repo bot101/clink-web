@@ -4,6 +4,7 @@ import { RoundedPersonComponent } from "../icons/rounded-person/rounded-person.c
 import { HamburgerComponent } from "../icons/hamburger/hamburger.component";
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,9 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
 
-  isLoggedIn: boolean = false; // Set this based on your authentication logic
+  constructor(private router: Router) {}
+
+  isLoggedIn: boolean = false;
   isMobileMenuOpen: boolean = false;
 
   toggleMobileMenu(): void {
@@ -26,6 +29,10 @@ export class HeaderComponent {
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
+  }
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
   }
 
 }

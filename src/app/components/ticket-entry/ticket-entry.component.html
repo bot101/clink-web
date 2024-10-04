@@ -1,0 +1,104 @@
+<div class="bg-white border border-[#D9D6D1] rounded-xl mb-4 overflow-hidden">
+    <div class="flex justify-between items-start mb-2 bg-[#EFECE6] py-6 p-4">
+        <div>
+            <h3 class="text-2xl font-medium">{{ ticket.name }}</h3>
+            <p class="text-sm font-normal text-gray-600">ID: {{ ticket.id }}</p>
+            <p class="text-base font-bold">{{ ticket.numberOfTickets }} tickets available</p>
+        </div>
+        <div class="relative" *ngIf="!ticket.sold; else soldLabel">
+            <button (click)="toggleMenu()" class="text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                </svg>
+            </button>
+            <div *ngIf="showMenu" class="absolute end-2 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                <a (click)="onEditTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                <a (click)="onDeleteTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
+            </div>
+        </div>
+        <ng-template #soldLabel>
+            <span class="bg-[#FFC5C5] rounded-xl text-[#001729] text-base font-bold px-2.5 py-0.5">Sold</span>
+        </ng-template>
+    </div>
+
+    <div class="px-4 py-2" *ngIf="ticket.sold">
+        <p *ngIf="ticket.status === 'pending'" class="text-sm text-yellow-600">Pending</p>
+        <p *ngIf="ticket.status === 'completed'" class="text-sm text-green-600">Completed</p>
+        <p *ngIf="ticket.status === 'canceled'" class="text-sm text-red-600">Canceled</p>
+    </div>
+
+    <div class="w-full my-4 px-4">
+        <button (click)="onCopyLink()" [disabled]="ticket.sold || (isEventPassed() && !ticket.sold)"
+            class="font-bold py-2 px-4 w-full border border-[#072D4C] text-[#072D4C] rounded-3xl disabled:opacity-50 disabled:cursor-not-allowed flex flex-row-reverse items-center justify-center">
+            Copy URL <img src="/assets/icons/logo-chain.svg" alt="logo-chain">
+
+        </button>
+    </div>
+
+    <div class="flex flex-col gap-2 p-4">
+        <h3 class="text-lg font-semibold">Details</h3>
+        <ng-container *ngIf="!isFlightTicket">
+            <p class="text-sm flex gap-2 items-center">
+                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                    <img src="/assets/icons/calendar.svg" alt="calendar">
+                </span>
+                {{ ticket.eventDate | date:'medium' }}
+            </p>
+            <p class="text-sm flex gap-2 items-center">
+                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                    <img src="/assets/icons/map-pin.svg" alt="location">
+                </span>
+                {{ ticket.location }}
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="isFlightTicket">
+            <p class="text-sm flex gap-2 items-center">
+                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                    <img src="/assets/icons/calendar.svg" alt="calendar">
+                </span>
+                {{ ticket.departureDate | date:'medium' }} - {{ ticket.arrivalDate | date:'medium' }}
+            </p>
+            <p class="text-sm flex gap-2 items-center">
+                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                    <img src="/assets/icons/map-pin.svg" alt="location">
+                </span>
+                {{ ticket.departureLocation }} - {{ ticket.arrivalLocation }}
+            </p>
+        </ng-container>
+
+        <p class="text-sm flex gap-2 items-center">
+            <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                <img src="/assets/icons/money.svg" alt="money">
+            </span>
+            Original Price: {{ ticket.originalPrice | currency }} - Sale Price: {{ ticket.salePrice |
+            currency }}
+        </p>
+
+        <p *ngIf="ticket.description" class="text-sm flex gap-2 items-center mt-2">
+            <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                <img src="/assets/icons/note.svg" alt="note">
+            </span>
+            {{ ticket.description }}
+        </p>
+
+        <a *ngIf="ticket.eventWebsite" [href]="ticket.eventWebsite" target="_blank"
+            class="text-base font-bold text-[#072D4C] underline mt-2 flex gap-2 items-center">
+            <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                <img src="/assets/icons/globe.svg" alt="link">
+            </span>
+            Official Event Website
+        </a>
+
+        <div class="mt-4 flex justify-between items-center">
+
+            <!-- <button *ngIf="isFlightTicket && ticket.sold && !ticket.detailsUpdated" (click)="onMarkDetailsUpdated()"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Mark as Details Updated
+            </button> -->
+        </div>
+    </div>
+
+</div>

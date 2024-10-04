@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './logo-dark.component.html',
   styleUrl: './logo-dark.component.scss',
-  // host: {
-  //   class: 'block'
-  // }
+  host: {
+    class: 'block'
+  }
 })
 export class LogoDarkComponent {
 

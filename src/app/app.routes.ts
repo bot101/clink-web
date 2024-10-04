@@ -9,7 +9,8 @@ import { OtpComponent } from './pages/otp/otp.component';
 import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
 import { AdSelectionComponent } from './pages/ad-selection/ad-selection.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MyTicketsComponent } from './pages/my-tickets/my-tickets.component';
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'ticket-event', component: TicketEventComponent },
@@ -20,5 +21,7 @@ export const routes: Routes = [
     { path: 'login', component: AuthenticationComponent },
     { path: 'otp', component: OtpComponent },
     { path: 'email-confirmation', component: EmailConfirmationComponent },
-    { path: 'ad-selection', component: AdSelectionComponent }
+    { path: 'ad-selection', component: AdSelectionComponent },
+    { path: 'profile', component: ProfileComponent },
+    { path: 'my-tickets', component: MyTicketsComponent },
 ];     

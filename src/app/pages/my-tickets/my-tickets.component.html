@@ -1,0 +1,39 @@
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="h-full md:min-h-[50vh] w-full flex flex-col bg-[#072D4C]">
+        <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
+    </div>
+    <div
+        class="flex-grow overflow-hidden w-full md:max-w-[640px] mx-auto md:-mt-[25vh] min-h-[50vh] mb-16 md:pt-0 rounded-none md:rounded-3xl shadow-none md:shadow-gray-300 md:shadow-md">
+        <div class="w-full bg-[#072D4C]">
+            <div class="p-3 flex flex-row-reverse items-center justify-center py-8 px-8">
+                <div class="w-2/12"></div>
+                <div class="w-8/12 text-center">
+                    <h2 class="text-white text-2xl font-medium">הכרטיסים שלי</h2>
+                </div>
+                <button class="w-2/12" (click)="goBack()">
+                    <img src="/assets/icons/chevron-right.svg" alt="chevron-right">
+                </button>
+            </div>
+        </div>
+
+        <div class="w-full min-h-[50vh] bg-white p-4">
+            <div *ngFor="let ticket of tickets">
+                <app-ticket-entry
+                    [ticket]="ticket"
+                    [isFlightTicket]="ticket.departureDate !== undefined"
+                    (editTicket)="onEditTicket($event)"
+                    (deleteTicket)="onDeleteTicket($event)"
+                    (copyLink)="onCopyLink($event)"
+                    (markDetailsUpdated)="onMarkDetailsUpdated($event)"
+                ></app-ticket-entry>
+            </div>
+
+            <div *ngIf="tickets.length === 0" class="mt-8">
+                <h3 class="font-bold text-base">יש לכם כרטיס מיותר?</h3>
+                <p class="text-base">תנו לו הזדמנות שנייה ותמכרו אותו בקלות ובמהירות! העלו את הכרטיס, קבלו לינק לשיתוף ותנו לנו לדאוג לביטחון ולשקט הנפשי שלכם.</p>
+                <button class="bg-[#072D4C] text-white px-4 py-4 rounded-3xl w-full mt-5 font-semibold" (click)="router.navigate(['/ad-selection'])">לחצו כאן למכירת כרטיס</button>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
