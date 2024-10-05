@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   isTrustedSeller: boolean = false;
   showTrustedSellerPopup: boolean = false;
   ticketsSold: number = 0;
+  deleteAccountConfirmed: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -55,6 +56,10 @@ export class ProfileComponent implements OnInit {
 
   onDeleteAccount() {
     this.showConfirmationDialog = true;
+  }
+  onDeleteAccountConfirm(evt: Event) {
+    console.log((evt.target as HTMLInputElement).checked)
+    this.deleteAccountConfirmed = (evt.target as HTMLInputElement).checked;
   }
 
   onCancelConfirmation() {
