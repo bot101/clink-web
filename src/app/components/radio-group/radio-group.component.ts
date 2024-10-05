@@ -23,6 +23,7 @@ export class RadioGroupComponent implements ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() value: string = '';
+  @Input() radioGroupClass: string = 'grid grid-flow-col mt-1 gap-2';
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   onChange: any = () => {};
@@ -38,5 +39,12 @@ export class RadioGroupComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  onRadioChange(value: string) {
+    this.value = value;
+    this.valueChange.emit(value);
+    this.onChange(value);
+    this.onTouched();
   }
 }

@@ -6,27 +6,31 @@
     <div
         class="flex-grow w-full md:max-w-[640px] mx-auto md:-mt-[25vh] min-h-[50vh] mb-16 p-5 md:pt-0 bg-white rounded-none md:rounded-3xl md:shadow-gray-300 md:shadow-md">
         <!-- Seller Details -->
-        <div class="my-8 bg-[#EFECE6] rounded-xl p-4">
-            <div class="flex justify-between mb-2">
+        <div class="my-8 bg-[#EFECE6] rounded-xl p-4 overflow-hidden">
+            <div class="flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold mr-2">Header</h2>
+                    <div class="relative" *ngIf="isTrustedSeller">
+                        <span
+                            class="bg-[#FFC5C5] flex gap-2 items-center text-[#001729] text-center text-base whitespace-nowrap text-ellipsis font-bold px-4 py-2 rounded-full cursor-pointer"
+                            (click)="toggleTrustedSellerPopup()">
+                            Trusted Seller
+                            <img src="/assets/icons/info-circle.svg" alt="info">
+                        </span>
+                        <div *ngIf="showTrustedSellerPopup"
+                            class="absolute z-10 p-2 left-1 bg-white border border-gray-300 rounded-xl shadow-md mt-1 w-[60vw] md:w-[30vw]">
+                            <p class="text-sm">This seller has completed 5 or more sales without any deleted ads.</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex flex-col">
-                    <h2 class="text-2xl font-bold mr-2 mb-4">Header</h2>
                     <p class="text-gray-600 flex items-center gap-1">
                         <img src="/assets/icons/shield-checked.svg" alt="shield-checked">
                         {{ ticketsSold }} tickets sold via the site
                     </p>
                     <p class="text-gray-600">text 2</p>
                 </div>
-                <div class="relative" *ngIf="isTrustedSeller">
-                    <span class="bg-[#FFC5C5] flex items-center gap-1 text-[#001729] text-base font-bold px-4 py-2 rounded-full cursor-pointer"
-                        (click)="toggleTrustedSellerPopup()">
-                        Trusted Seller
-                        <img src="/assets/icons/info-circle.svg" alt="info">
-                    </span>
-                    <div *ngIf="showTrustedSellerPopup"
-                        class="absolute z-10 p-2 left-1 bg-white border border-gray-300 rounded-xl shadow-md mt-1 w-[60vw] md:w-[30vw]">
-                        <p class="text-sm">This seller has completed 5 or more sales without any deleted ads.</p>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -58,5 +62,14 @@
             </div>
         </div>
     </div>
+    <app-confirmation-dialog [disableConfirmButton]="!confirmInput.checked" *ngIf="showConfirmationDialog" [title]="'האם ברצונכם למחוק את החשבון?'" [cancelButtonText]="'שיניתי את דעתי'"
+        [confirmButtonText]="'מחיקת חשבון'" (cancel)="onCancelConfirmation()" (confirm)="onConfirmAction()">
+        <p class="flex"><span class="font-bold">שימו</span><svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.746582 4.3566C0.746582 9.15619 6.98658 12.3802 6.98658 12.3802C6.98658 12.3802 13.2266 9.1588 13.2266 4.3566C13.2266 2.3884 11.6302 0.791995 9.66198 0.791995C8.59078 0.791995 7.64178 1.273 6.98658 2.0218C6.33398 1.273 5.38238 0.791995 4.31118 0.791995C2.34298 0.789395 0.746582 2.3858 0.746582 4.3566Z" fill="#FFC5C5"/>
+            </svg>, מחיקת החשבון תמחק את כל המידע 
+            </p>
+        <p class="mb-20">הקיים לצמיתות ולא ניתן יהיה לשחזרו. אם ישנן עסקאות פעילות, העדכונים עליהן יישלחו אליכם באימייל גם לאחר המחיקה. חשוב לדעת: ברגע שמחקתם, אין דרך חזרה</p>
+        <p class="flex gap-2 items-start"><input #confirmInput type="checkbox" name="confirm" id="confirm"> אני מאשר/ת שלאחר המחיקה לא תהיה לי גישה לחשבון הנמחק ולרכישות שבוצעו דרכו.</p>
+    </app-confirmation-dialog>
     <app-footer></app-footer>
 </div>

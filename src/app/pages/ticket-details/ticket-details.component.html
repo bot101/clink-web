@@ -1,0 +1,120 @@
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="h-[30vh] md:h-full md:min-h-[50vh] w-full flex flex-col bg-[#072D4C]">
+        <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
+        <div class="flex flex-col gap-2 items-center text-center">
+            <div class="flex flex-col gap-2 text-white">
+                <h2 class="text-2xl font-bold mr-2 mb-4">Header</h2>
+                <p class="flex items-center gap-1">
+                    <img src="/assets/icons/shield-checked.svg" alt="shield-checked">
+                    tickets sold via the site
+                </p>
+                <p class="">text 2</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div
+        class="flex-grow w-full md:max-w-[640px] mx-auto -mt-[11vh] md:-mt-[25vh] min-h-[50vh] mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 md:shadow-md">
+        <div class="my-8 bg-[#EFECE6] rounded-xl p-4">
+            <div class="flex justify-between mb-2">
+                <div class="flex flex-col">
+                    <h2 class="text-2xl font-medium mr-2 mb-4">Header</h2>
+                    <p class="text-gray-600 flex items-center gap-1">
+                        <img src="/assets/icons/shield-checked.svg" alt="shield-checked">
+                        tickets sold via the site
+                    </p>
+                    <p class="text-gray-600">text 2</p>
+                </div>
+                <div class="relative" *ngIf="isTrustedSeller">
+                    <span
+                        class="bg-[#FFC5C5] flex items-center gap-1 text-[#001729] text-base font-bold px-4 py-1 rounded-full cursor-pointer"
+                        (click)="toggleTrustedSellerPopup()">
+                        Trusted
+                        <img src="/assets/icons/info-circle.svg" alt="info">
+                    </span>
+                    <div *ngIf="showTrustedSellerPopup"
+                        class="absolute z-10 p-2 left-1 bg-white border border-gray-300 rounded-xl shadow-md mt-1 w-[60vw] md:w-[30vw]">
+                        <p class="text-sm">This seller has completed 5 or more sales without any deleted ads.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4">
+            <div class="bg-white border border-[#D9D6D1] rounded-xl mb-4 overflow-hidden">
+                <app-expandable-section title="Why Should You Purchase Through Our Platform?"
+                    [isExpanded]="isPlatformInfoExpanded" (toggleExpand)="togglePlatformInfo()">
+                    <!-- <p>{{ platformInfoText }}</p>
+                    <a routerLink="/how-it-works" class="text-[#072D4C] font-bold underline">Learn more about how it
+                        works</a> -->
+                    <!-- <div class="flex flex-col gap-2"> -->
+                    <div *ngFor="let i of [1,2,3,4,5]">
+                        <div class="flex flex-col mb-3">
+                            <p class="flex gap-2 items-center mb-2">
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-6 h-6" alt="pink-checkmark">
+                                <span class="text-lg font-medium">header</span>
+                            </p>
+                            <p>text</p>
+                            <p>text</p>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <!-- <div  class="flex flex-col">
+                        <p class="flex gap-2 items-center mb-2">
+                            <img src="/assets/icons/pink-checkmark.svg" class="w-6 h-6" alt="pink-checkmark">
+                            <span class="text-lg font-medium">header</span>
+                        </p>
+                        <p>text</p>
+                        <p>text</p>
+                    </div> -->
+
+                </app-expandable-section>
+            </div>
+
+            <div class="p-4">
+                <h2 class="text-xl font-medium mb-2">{{ eventName }}</h2>
+                <!-- <p class="text-sm text-gray-600 mb-2">ID: {{ uniqueIdentifier }}</p> -->
+                <!-- <p class="text-base mb-2">{{ numberOfTickets }} tickets available</p> -->
+                <p class="text-sm flex gap-2 items-center mb-2">
+                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                        <img src="/assets/icons/calendar.svg" alt="calendar">
+                    </span>
+                    {{ eventDateTime | date:'medium' }}
+                </p>
+                <p class="text-sm flex gap-2 items-center mb-2">
+                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                        <img src="/assets/icons/map-pin.svg" alt="location">
+                    </span>
+                    {{ location }}
+                </p>
+                <p class="text-sm flex gap-2 items-center mb-2">
+                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                        <img src="/assets/icons/money.svg" alt="money">
+                    </span>
+                    Original Price: {{ originalPrice | currency }} - Sale Price: {{ salePrice | currency }}
+                </p>
+                <p *ngIf="additionalDetails" class="text-sm flex gap-2 items-center mb-2">
+                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                        <img src="/assets/icons/note.svg" alt="note">
+                    </span>
+                    {{ additionalDetails }}
+                </p>
+                <a *ngIf="officialWebsite" [href]="officialWebsite" target="_blank"
+                    class="text-base font-bold text-[#072D4C] underline mt-2 flex gap-2 items-center">
+                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                        <img src="/assets/icons/globe.svg" alt="link">
+                    </span>
+                    Official Booking Website
+                </a>
+            </div>
+        </div>
+
+        <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
+            <h2 class="text-xl font-medium mb-4 text-center">{{ originalPrice | currency }}</h2>
+            <button (click)="purchaseTicket()"
+                class="w-full py-4 px-4 bg-[#072D4C] text-white rounded-3xl font-semibold">
+                Purchase
+            </button>
+        </div>
+    </div>

@@ -1,0 +1,43 @@
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="h-full md:min-h-[50vh] w-full flex flex-col bg-[#072D4C] pt-10">
+        <img src="/assets/icons/caution.svg" alt="caution" class="w-10 h-10 mx-auto">
+        <app-onboarding-header class="w-full" [hideStep]="true" title="דיווח על מוכר"
+            (backClick)="onBack()"></app-onboarding-header>
+    </div>
+    <div
+        class="flex-grow w-full md:max-w-[640px] mx-auto md:-mt-[25vh] min-h-[50vh] mb-16 p-5 md:pt-5 bg-white rounded-none md:rounded-3xl md:shadow-gray-300 md:shadow-md">
+        <p>נתקלתם בבעיה עם המוכר? דווחו לנו על מקרים של הונאה, מחיר לא הוגן או כל בעיה אחרת, ואנו נטפל בכך בהקדם.</p>
+        <form [formGroup]="reportForm" (ngSubmit)="onSubmit()" class="mt-6">
+            <app-input-field placeholder="שם מלא" label="שם מלא" formControlName="fullName"
+                [required]="true"></app-input-field>
+
+            <app-input-field placeholder="טלפון ליצירת קשר" label="טלפון ליצירת קשר (אופציונלי)"
+                formControlName="contactPhone" type="tel"></app-input-field>
+
+            <app-input-field placeholder="אימייל" label="כתובת אימייל" formControlName="contactEmail" type="email"
+                [required]="true"></app-input-field>
+
+            <div class="mb-4">
+                <label class="block text-sm lowercase text-gray-700">סיבת הפניה</label>
+                <app-radio-group formControlName="reportReason" [options]="reportReasons"
+                    radioGroupClass="reasons"></app-radio-group>
+            </div>
+
+            <div class="mb-14">
+                <label class="block text-sm lowercase text-gray-700">פרטו לנו מה קרה (אופציונלי)</label>
+                <div class="rounded-xl border-[#D9D9D9] border px-4 py-3">
+                    <textarea formControlName="description"
+                        class="mt-1 block w-full focus:outline-none" rows="4"
+                        maxlength="300"></textarea>
+                    <div class="text-end text-sm text-gray-500 w-full">
+                        {{ reportForm.get('description')?.value?.length || 0 }}/300
+                    </div>
+                </div>
+
+            </div>
+
+            <app-button type="submit" label="שלח דיווח"
+                [disabled]="reportForm.invalid || !reportForm.get('description')?.value"></app-button>
+        </form>
+    </div>
+</div>

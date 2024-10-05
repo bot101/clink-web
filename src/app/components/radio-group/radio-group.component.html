@@ -1,7 +1,7 @@
 <div>
-    <div class="grid grid-flow-col mt-1 gap-2">
+    <div [class]="radioGroupClass">
       <button *ngFor="let entry of options"
-              (click)="value = entry.value"
+              (click)="onRadioChange(entry.value)"
               [class.border-gray-300]="value !== entry.value"
               [class.border-[#072d4c]]="value === entry.value"
               class="w-full h-12 rounded-lg border flex items-center justify-center text-sm lowercase">

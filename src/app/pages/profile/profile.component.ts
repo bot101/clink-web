@@ -3,20 +3,23 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from "../../components/header/header.component";
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../components/footer/footer.component";
+import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FooterComponent],
+  imports: [HeaderComponent, CommonModule, FooterComponent, ConfirmationDialogComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
-  constructor(private router: Router) {}
-
+  
+  showConfirmationDialog = false;
   isTrustedSeller: boolean = false;
   showTrustedSellerPopup: boolean = false;
   ticketsSold: number = 0;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     // Fetch user data and set properties
@@ -51,6 +54,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onDeleteAccount() {
-    this.router.navigate(['/delete-account']);
+    this.showConfirmationDialog = true;
+  }
+
+  onCancelConfirmation() {
+    this.showConfirmationDialog = false;
+  }
+
+  onConfirmAction() {
+    // TODO: Implement action
+    this.showConfirmationDialog = false;
   }
 }

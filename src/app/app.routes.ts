@@ -11,6 +11,9 @@ import { AdSelectionComponent } from './pages/ad-selection/ad-selection.componen
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyTicketsComponent } from './pages/my-tickets/my-tickets.component';
+import { TicketDetailsComponent } from './pages/ticket-details/ticket-details.component';
+import { ReportComponent } from './pages/report/report.component';
+
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'ticket-event', component: TicketEventComponent },
@@ -24,4 +27,6 @@ export const routes: Routes = [
     { path: 'ad-selection', component: AdSelectionComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'my-tickets', component: MyTicketsComponent },
+    { path: 'ticket-details', component: TicketDetailsComponent },
+    { path: 'report', component: ReportComponent },
 ];     

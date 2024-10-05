@@ -32,7 +32,7 @@ export class MyTicketsComponent implements OnInit {
           originalPrice: 100,
           salePrice: 90,
           description: 'Great seats!',
-          eventWebsite: 'https://example.com'
+          eventWebsite: 'ticket-details'
         },
         {
           id: '2',
