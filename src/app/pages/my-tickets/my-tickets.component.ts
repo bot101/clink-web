@@ -4,17 +4,19 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { TicketEntryComponent } from "../../components/ticket-entry/ticket-entry.component";
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-my-tickets',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FooterComponent, TicketEntryComponent],
+  imports: [CommonModule, HeaderComponent, FooterComponent, TicketEntryComponent, ConfirmationDialogComponent],
   templateUrl: './my-tickets.component.html',
   styleUrl: './my-tickets.component.scss'
 })
 export class MyTicketsComponent implements OnInit {
   tickets: any[] = [];
-
+  showConfirmationDialog: boolean = false;
+  ticketId: string = '';
   constructor(public router: Router) { }
 
   ngOnInit() {
@@ -102,11 +104,19 @@ export class MyTicketsComponent implements OnInit {
   }
 
   onDeleteTicket(ticketId: string) {
-    // Show confirmation dialog and delete if confirmed
-    if (confirm('Are you sure you want to delete this ticket?')) {
-      // Delete ticket logic
-      console.log('Deleting ticket:', ticketId);
-    }
+    this.ticketId = ticketId;
+    this.showConfirmationDialog = true; 
+  }
+
+  onCancelConfirmation() {
+    this.showConfirmationDialog = false;
+  }
+
+  onConfirmAction() {
+    this.showConfirmationDialog = false;
+    this.tickets = this.tickets.filter(ticket => ticket.id !== this.ticketId);
+    this.ticketId = '';
+    // this.router.navigate(['/ad-selection']);
   }
 
   onCopyLink(ticketId: string) {

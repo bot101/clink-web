@@ -1,11 +1,17 @@
-<div class="container mx-auto md:max-w-sm">
-  <app-onboarding-header iconType="flight" class="mb-4" [title]="'Selling a flight ticket'"></app-onboarding-header>
-
-  <form class="space-y-6 mb-12 px-4">
-    <h2 class="block text-lg font-[700] text-gray-700">header</h2>
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+  <div class="md:h-[30vh] w-full flex flex-col bg-[#072D4C] ">
+    <div class="flex flex-col w-[80%] md:max-w-screen-lg mx-auto">
+      <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
+      <app-onboarding-header iconType="flight" [currentStep]="3" [totalSteps]="3" class="mb-4" title="מכירת כרטיס טיסה"></app-onboarding-header>
+    </div>
+  </div>
+  <div
+    class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
+  <form class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+    <h2 class="block text-lg font-[700] text-gray-700">מחיר ופרטים נוספים</h2>
 
     <div>
-      <label class="block text-sm lowercase text-gray-700">amount of tickets</label>
+      <label class="block text-sm lowercase text-gray-700">כמות כרטיסים</label>
       <app-radio-group [(ngModel)]="ticketQuantity" [ngModelOptions]="{standalone: true}" name="ticketQuantity"
         [options]="[
         { value: 1, label: '1' },
@@ -17,34 +23,36 @@
     </div>
 
     <div>
-      <label for="costPrice" class="block text-md lowercase text-gray-700">How much did you buy each ticket for?</label>
-      <p class="text-sm text-gray-700">For example, if you purchased 2 tickets for NIS 1000 each, enter NIS 1000</p>
+      <label for="costPrice" class="block text-md lowercase text-gray-700">בכמה רכשתם כל כרטיס?</label>
+      <p class="text-sm text-gray-700">לדוגמה, אם רכשתם 2 כרטיסים ב -1000 ₪ כל אחד, רשמו 1000 ₪</p>
       <input type="text" id="costPrice" [ngModelOptions]="{standalone: true}" name="costPrice" [(ngModel)]="costPrice"
         currencyMask [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }" required
         class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
     </div>
 
     <div>
-      <label for="salePrice" class="block text-md lowercase text-gray-700">How much are you selling each ticket for?</label>
-      <p class="text-sm text-gray-700">For example, if you sell 2 tickets for NIS 900 each, enter NIS 900</p>
+      <label for="salePrice" class="block text-md lowercase text-gray-700">בכמה אתם מוכרים כל כרטיס?</label>
+      <p class="text-sm text-gray-700">לדוגמה, אם אתם מוכרים 2 כרטיסים ב-900 ₪ כל אחד, רשמו 900 ₪</p>
       <input type="text" id="salePrice" name="salePrice" [ngModelOptions]="{standalone: true}" [(ngModel)]="salePrice"
         currencyMask [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }" required
         class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
     </div>
 
-    <p class="text-md">Enter a price in shekels only. Do you need to calculate a conversion? <a href="https://www.google.com/search?q=convert+currency" target="_blank" class="text-[#072d4c] underline font-bold">Link</a> . <a href="https://www.google.com/search?q=convert+currency" target="_blank" class="text-[#072d4c]">Google Calculator</a></p>
+    <p class="text-md">יש להכניס מחיר בשקלים בלבד. עליכם לחשב המרה? כדי להקל עליכם, צירפנו <a href="https://www.google.com/search?q=convert+currency" target="_blank" class="text-[#072d4c] underline font-bold">קישור</a> . <a href="https://www.google.com/search?q=convert+currency" target="_blank" class="text-[#072d4c]">למחשבון של גוגל</a></p>
 
     <div>
-      <label class="block text-sm lowercase text-gray-700">General details on the card</label>
-      <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="generalDetails"
+      <label class="block text-sm lowercase text-gray-700">פירוט כללי על הכרטיס</label>
+      <textarea placeholder="הכרטיס במחלקת תיירים פלוס, כולל שתי מזוודות, כרטיס גמיש." [ngModelOptions]="{standalone: true}" [(ngModel)]="generalDetails"
         class="mt-1 block w-full min-h-36 rounded-xl border-[#D9D9D9] border px-4 py-3"></textarea>
     </div>
 
     <div class="flex items-start">
       <input class="mt-1" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="isChecked" />
-      <label class="ml-2 text-sm lowercase text-gray-700 mr-1">I checked with the airline/tourist company and they confirmed that it is possible to change the passenger's full name on ticket</label>
+      <label class="ml-2 text-sm lowercase text-gray-700 mr-1">בדקתי עם חברת התעופה/התיירות והם אישרו שניתן לשנות את השם המלא של הנוסע בכרטיס/בהזמנה שאני מעלה למכירה.לשאלות ועזרה פנו אלינו בצ׳אט</label>
     </div>
-  </form>
-  <app-button buttonClasses="" label="Finish" (click)="onFinish()" [disabled]="!isFormValid()"></app-button>
 
+    <app-button buttonClasses="mt-6" label="סיום" (click)="onFinish()" [disabled]="!isFormValid()"></app-button>
+  </form>
+
+</div>
 </div>

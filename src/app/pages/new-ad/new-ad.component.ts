@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
 import { FormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
+import { LogoComponent } from "../../components/logo/logo.component";
 
 @Component({
   selector: 'app-new-ad',
@@ -16,8 +17,9 @@ import { OnboardingHeaderComponent } from '../../components/onboarding-header/on
     InputFieldComponent,
     ButtonComponent,
     RadioGroupComponent,
-    OnboardingHeaderComponent
-  ],
+    OnboardingHeaderComponent,
+    LogoComponent
+],
   templateUrl: './new-ad.component.html',
   styleUrl: './new-ad.component.scss'
 })

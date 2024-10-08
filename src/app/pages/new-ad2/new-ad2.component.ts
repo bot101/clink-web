@@ -5,6 +5,7 @@ import { DatePickerComponent } from '../../components/date-picker/date-picker.co
 import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
 import { TimePickerComponent } from '../../components/time-picker/time-picker.component';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
+import { LogoComponent } from "../../components/logo/logo.component";
 
 @Component({
   selector: 'app-new-ad2',
@@ -16,8 +17,9 @@ import { OnboardingHeaderComponent } from '../../components/onboarding-header/on
     DatePickerComponent,
     TimePickerComponent,
     RadioGroupComponent,
-    OnboardingHeaderComponent
-  ],
+    OnboardingHeaderComponent,
+    LogoComponent
+],
   templateUrl: './new-ad2.component.html',
   styleUrl: './new-ad2.component.scss'
 })

@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="px-4">
+        <div>
             <div class="bg-white border border-[#D9D6D1] rounded-xl mb-4 overflow-hidden">
                 <app-expandable-section title="Why Should You Purchase Through Our Platform?"
                     [isExpanded]="isPlatformInfoExpanded" (toggleExpand)="togglePlatformInfo()">
@@ -92,7 +92,7 @@
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/money.svg" alt="money">
                     </span>
-                    Original Price: {{ originalPrice | currency }} - Sale Price: {{ salePrice | currency }}
+                    Original Price: {{ originalPrice | currency: 'ILS'}} - Sale Price: {{ salePrice | currency: 'ILS'}}
                 </p>
                 <p *ngIf="additionalDetails" class="text-sm flex gap-2 items-center mb-2">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
@@ -110,10 +110,18 @@
             </div>
         </div>
 
-        <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
-            <h2 class="text-xl font-medium mb-4 text-center">{{ originalPrice | currency }}</h2>
+        <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 text-center">
+            <h2 class="text-xl font-medium mb-4 text-center">
+                <ng-container *ngIf="salePrice">
+                    <span class="line-through gap-2">{{ originalPrice | currency: 'ILS' }}</span>&amp;
+                    <span>{{ salePrice | currency: 'ILS' }} לכרטיס</span>
+                </ng-container>
+                <ng-container *ngIf="!salePrice">
+                    {{ originalPrice | currency: 'ILS' }}
+                </ng-container>
+            </h2>
             <button (click)="purchaseTicket()"
-                class="w-full py-4 px-4 bg-[#072D4C] text-white rounded-3xl font-semibold">
+                class="w-full py-4 px-4 bg-[#072D4C] text-white rounded-3xl font-semibold max-w-80">
                 Purchase
             </button>
         </div>

@@ -7,6 +7,7 @@ import { RadioGroupComponent } from '../../components/radio-group/radio-group.co
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxCurrencyDirective } from 'ngx-currency';
+import { LogoComponent } from "../../components/logo/logo.component";
 
 @Component({
   selector: 'app-new-ad3',
@@ -18,8 +19,9 @@ import { NgxCurrencyDirective } from 'ngx-currency';
     NgxCurrencyDirective,
     ButtonComponent,
     InputFieldComponent,
-    RadioGroupComponent
-  ],
+    RadioGroupComponent,
+    LogoComponent
+],
   templateUrl: './new-ad3.component.html',
   styleUrl: './new-ad3.component.scss'
 })

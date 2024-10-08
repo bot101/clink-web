@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from "../button/button.component";
+import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-ticket-entry',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent, ConfirmationDialogComponent],
   templateUrl: './ticket-entry.component.html',
   styleUrl: './ticket-entry.component.scss'
 })
@@ -17,7 +19,7 @@ export class TicketEntryComponent {
   @Output() markDetailsUpdated = new EventEmitter<string>();
 
   showMenu: boolean = false;
-
+  showConfirmationDialog: boolean = false;
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
@@ -38,7 +40,20 @@ export class TicketEntryComponent {
     this.markDetailsUpdated.emit(this.ticket.id);
   }
 
+  onToggleConfirmationDialog() {
+    this.showConfirmationDialog = !this.showConfirmationDialog;
+  }
+
   isEventPassed(): boolean {
     return new Date(this.ticket.eventDate) < new Date();
+  }
+
+  onCancelConfirmation() {
+    this.showConfirmationDialog = false;
+  }
+
+  onConfirmAction() {
+    this.onMarkDetailsUpdated();
+    this.showConfirmationDialog = false;
   }
 }

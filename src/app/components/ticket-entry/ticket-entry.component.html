@@ -29,11 +29,17 @@
         <p *ngIf="ticket.status === 'canceled'" class="text-sm text-red-600">Canceled</p>
     </div>
 
+    <div *ngIf="isFlightTicket && ticket.sold && !ticket.detailsUpdated"
+        class="flex flex-col gap-2 px-4 justify-between items-center">
+        <app-button label="Mark as Details Updated" class="w-full" (click)="onToggleConfirmationDialog()">
+        </app-button>
+        <p class="w-full">, עד שלא יבוצע שינוי פרטי הכרטיס </p>
+    </div>
+
     <div class="w-full my-4 px-4">
         <button (click)="onCopyLink()" [disabled]="ticket.sold || (isEventPassed() && !ticket.sold)"
             class="font-bold py-2 px-4 w-full border border-[#072D4C] text-[#072D4C] rounded-3xl disabled:opacity-50 disabled:cursor-not-allowed flex flex-row-reverse items-center justify-center">
             Copy URL <img src="/assets/icons/logo-chain.svg" alt="logo-chain">
-
         </button>
     </div>
 
@@ -73,8 +79,13 @@
             <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                 <img src="/assets/icons/money.svg" alt="money">
             </span>
-            Original Price: {{ ticket.originalPrice | currency }} - Sale Price: {{ ticket.salePrice |
-            currency }}
+            <ng-container *ngIf="ticket.salePrice"> 
+                <span class="line-through">{{ ticket.originalPrice | currency: 'ILS'}}</span>
+                <span>{{ ticket.salePrice | currency: 'ILS'}}</span> לכרטיס
+            </ng-container>
+            <ng-container *ngIf="!ticket.salePrice"> 
+                {{ ticket.originalPrice | currency: 'ILS'}}
+            </ng-container>
         </p>
 
         <p *ngIf="ticket.description" class="text-sm flex gap-2 items-center mt-2">
@@ -91,14 +102,11 @@
             </span>
             Official Event Website
         </a>
-
-        <div class="mt-4 flex justify-between items-center">
-
-            <!-- <button *ngIf="isFlightTicket && ticket.sold && !ticket.detailsUpdated" (click)="onMarkDetailsUpdated()"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                Mark as Details Updated
-            </button> -->
-        </div>
     </div>
-
+    <app-confirmation-dialog *ngIf="showConfirmationDialog" [title]="'האם ביצעתם שינוי שם מלא בכרטיס הטיסה?'"
+        [cancelButtonText]="'לא, עוד לא'" [confirmButtonText]="'כן, ביצעתי'" (cancel)="onCancelConfirmation()"
+        (confirm)="onConfirmAction()">
+        <p class="mb-5">האם ביצעתם את השינוי בשם ההזמנה/הכרטיס לשמו המלא ופרטיו המלאים של הקונה מול חברת התעופה/התיירות?</p>
+    </app-confirmation-dialog>
 </div>
+

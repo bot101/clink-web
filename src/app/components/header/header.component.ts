@@ -4,12 +4,12 @@ import { RoundedPersonComponent } from "../icons/rounded-person/rounded-person.c
 import { HamburgerComponent } from "../icons/hamburger/hamburger.component";
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LogoComponent, RoundedPersonComponent, HamburgerComponent, MobileMenuComponent],
+  imports: [CommonModule, RouterModule, LogoComponent, RoundedPersonComponent, HamburgerComponent, MobileMenuComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   host: {

@@ -6,11 +6,12 @@ import { LogoComponent } from '../../components/logo/logo.component';
 import { TicketEventService } from '../../services/ticket-event.service';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
 import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-ticket-event',
   standalone: true,
-  imports: [CommonModule, FormsModule, OnboardingHeaderComponent, DatePickerComponent],
+  imports: [CommonModule, FormsModule, OnboardingHeaderComponent, DatePickerComponent, LogoComponent, HeaderComponent],
   templateUrl: './ticket-event.component.html',
   styleUrls: ['./ticket-event.component.scss']
 })

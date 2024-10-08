@@ -1,70 +1,60 @@
-<div class="container mx-auto md:max-w-sm">
-  <app-onboarding-header iconType="flight" class="mb-4" [title]="'Selling a flight ticket'"></app-onboarding-header>
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+  <div class="md:h-[30vh] w-full flex flex-col bg-[#072D4C] ">
+    <div class="flex flex-col w-[80%] md:max-w-screen-lg mx-auto">
+      <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
+      <app-onboarding-header iconType="flight" [currentStep]="2" [totalSteps]="3" class="mb-4" title="מכירת כרטיס טיסה"></app-onboarding-header>
+    </div>
+  </div>
+  <div
+    class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
+    <form [formGroup]="flightForm" (ngSubmit)="onSubmit()"
+      class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+      <h2 for="eventName" class="block text-lg font-[700] text-gray-700">פרטי הטיסה הלוך</h2>
 
-  <form [formGroup]="flightForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-y-4 px-4">
-    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">Outbound flight details</h2>
+      <div class="flex flex-col space-y-5">
+        <app-date-picker label="תאריך ההמראה" formControlName="departureDate" required>
+        </app-date-picker>
 
-    <app-date-picker 
-      label="flight departure date" 
-      formControlName="departureDate" 
-      required>
-    </app-date-picker>
+        <app-time-picker label="שעת ההמראה" formControlName="departureTime" required>
+        </app-time-picker>
 
-    <app-time-picker 
-      label="flight departure time" 
-      formControlName="departureTime" 
-      required>
-    </app-time-picker>
+        <app-date-picker label="תאריך הנחיתה ביעד" formControlName="arrivalDate" required>
+        </app-date-picker>
 
-    <app-date-picker 
-      label="flight landing date" 
-      formControlName="arrivalDate" 
-      required>
-    </app-date-picker>
-
-    <app-time-picker 
-      label="flight landing time" 
-      formControlName="arrivalTime" 
-      required>
-    </app-time-picker>
-
-    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">Flight details Return</h2>
+        <app-time-picker label="שעת הנחיתה ביעד" formControlName="arrivalTime" required>
+        </app-time-picker>
+      </div>
 
 
-    <ng-container>
-      <app-date-picker 
-        label="return flight departure date" 
-        formControlName="returnDepartureDate" 
-        required>
-      </app-date-picker>
+      <h2 for="eventName" class="block text-lg font-[700] text-gray-700">פרטי הטיסה חזור</h2>
 
-      <app-time-picker 
-        label="return flight departure time" 
-        formControlName="returnDepartureTime" 
-        required>
-      </app-time-picker>
-    </ng-container>
 
-    <app-date-picker 
-      label="return flight landing date" 
-      formControlName="returnDate" 
-      required>
-    </app-date-picker>
+      <ng-container>
+        <div class="flex flex-col space-y-5">
+          <app-date-picker label="תאריך ההמראה" formControlName="returnDepartureDate" required>
+          </app-date-picker>
 
-    <app-time-picker 
-      label="return flight landing time" 
-      formControlName="returnTime" 
-      required>
-    </app-time-picker>
+          <app-time-picker label="שעת ההמראה" formControlName="returnDepartureTime" required>
+          </app-time-picker>
+        </div>
+      </ng-container>
 
-    <button type="button" type="submit" [disabled]="!flightForm.valid"
-      class="w-full px-4 py-3 border   rounded-xl shadow-sm text-sm font-medium text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
-      Continue
-    </button>
+      <div class="flex flex-col space-y-5">
+        <app-date-picker label="תאריך הנחיתה ביעד" formControlName="returnDate" required>
+        </app-date-picker>
 
-    <button type="button" (click)="cancel()"
-      class="w-full px-4 py-3 border   rounded-xl shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
-      Cancel
-    </button>
-  </form>
-</div>
+        <app-time-picker label="שעת הנחיתה ביעד" formControlName="returnTime" required>
+        </app-time-picker>
+      </div>
+
+      <button type="button" type="submit" [disabled]="!flightForm.valid"
+        class="w-full py-3 px-4 border border-transparent rounded-[20px] capitalize shadow-sm text-sm text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+        המשך
+      </button>
+
+      <button type="button" (click)="cancel()"
+        class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+        ביטול
+      </button>
+    </form>
+  </div>

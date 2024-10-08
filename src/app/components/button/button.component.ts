@@ -26,19 +26,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class ButtonComponent implements OnInit, OnChanges, ControlValueAccessor {
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes['disabled'].currentValue)
-  }
   @Input() label: string = '';
   @Input() type: string = 'button';
   @Input() disabled: boolean = false;
   @Input() variant: 'primary' | 'secondary' = 'primary';
   @Input() buttonClasses: string = '';
   classes = 'disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-sm font-medium text-white w-full px-4 py-3 border rounded-[20px] bg-[#072d4c] disabled:bg-gray-300 disabled:text-gray-700';
-
-  ngOnInit() {
-    this.classes = `${this.buttonClasses} ${this.classes}`;
-  }
 
   private _value: any = null;
   private onChange: (value: any) => void = () => { };
@@ -53,6 +46,12 @@ export class ButtonComponent implements OnInit, OnChanges, ControlValueAccessor 
     this.onChange(val);
     this.onTouched();
   }
+  
+  ngOnInit() {
+    this.classes = `${this.buttonClasses} ${this.classes}`;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {}
 
   writeValue(value: any): void {
     if (value !== undefined) {

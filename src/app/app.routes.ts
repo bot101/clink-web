@@ -21,10 +21,12 @@ export const routes: Routes = [
     { path: 'ticket-event-details', component: TicketEventDetailComponent },
     { path: 'new-ad-2', component: NewAd2Component },
     { path: 'new-ad-3', component: NewAd3Component },
+    
     { path: 'login', component: AuthenticationComponent },
     { path: 'otp', component: OtpComponent },
     { path: 'email-confirmation', component: EmailConfirmationComponent },
     { path: 'ad-selection', component: AdSelectionComponent },
+
     { path: 'profile', component: ProfileComponent },
     { path: 'my-tickets', component: MyTicketsComponent },
     { path: 'ticket-details', component: TicketDetailsComponent },
