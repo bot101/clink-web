@@ -1,27 +1,45 @@
-<div class="container mx-auto md:max-w-sm">
-  <app-main-header title="Authentication"></app-main-header>
+<!-- <div class="container mx-auto md:max-w-sm">
+  <app-main-header title="Authentication"></app-main-header> -->
 
-  <form [formGroup]="authForm" (ngSubmit)="onContinue()" class="mt-6 px-4">
-    <div>
-      <label class="block text-sm lowercase text-gray-700">Phone Number</label>
-      <input type="text" formControlName="phoneNumber" maxlength="10"
-        class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3" />
-      <div
-        *ngIf="authForm.get('phoneNumber')?.invalid && (authForm.get('phoneNumber')?.dirty || authForm.get('phoneNumber')?.touched)"
-        class="text-red-500">
-        <small *ngIf="authForm.get('phoneNumber')?.errors?.['required']">Phone number is required.</small>
-        <small *ngIf="authForm.get('phoneNumber')?.errors?.['pattern']">Phone number must be 10 digits.</small>
-      </div>
+<div class="overflow-x-hidden">
+  <div class="h-full w-full flex flex-col bg-[#072D4C]">
+    <div class="flex flex-col">
+      <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
     </div>
-
-    <div class="space-y-6 mt-16">
-      <div class="flex items-center gap-2">
-        <input type="checkbox" formControlName="termsAccepted" />
-        <label class="text-sm lowercase text-gray-700">I agree</label>
+    <div class="flex flex-col mt-8 mb-16 flex-grow justify-evenly items-center h-full w-full text-center">
+      <h1 class="text-2xl font-medium my-auto text-white">התחברות/הרשמה</h1>
+    </div>
+  </div>
+  <div
+    class="flex-grow w-full md:max-w-[640px] mx-auto pb-10 p-5 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
+    <form [formGroup]="authForm" (ngSubmit)="onContinue()" class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+      <div>
+        <label class="block text-sm lowercase text-gray-700">מספר טלפון</label>
+        <input type="text" formControlName="phoneNumber" maxlength="10"
+          class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3" />
+        <div
+          *ngIf="authForm.get('phoneNumber')?.invalid && (authForm.get('phoneNumber')?.dirty || authForm.get('phoneNumber')?.touched)"
+          class="text-red-500">
+          <small *ngIf="authForm.get('phoneNumber')?.errors?.['required']">המספר שהוזן קצר מדי. אנא הזינו מספר טלפון</small>
+          <small *ngIf="authForm.get('phoneNumber')?.errors?.['pattern']">תקין בעל 10 ספרות</small>
+        </div>
       </div>
 
-      <app-button type="submit" label="Continue" [disabled]="authForm.invalid" class="block"></app-button>
-    </div>
+      <div class="space-y-6 mt-16">
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" formControlName="termsAccepted" />
+            <label class="text-sm lowercase text-gray-700">אני מסכימ/ה ל<span class="font-bold">תנאי השימוש ומדיניות הפרטיות</span></label>
+          </div>
+          <div>
+            <small class="text-red-500 block" *ngIf="authForm.dirty && authForm.get('termsAccepted')?.errors?.['required']">חובה לאשר תנאי שימוש ומדיניות פרטיות</small>
+          </div>
+        </div>
 
-  </form>
+        <app-button type="submit" label="המשך" [disabled]="authForm.invalid" class="block"></app-button>
+      </div>
+
+    </form>
+  </div>
+
 </div>

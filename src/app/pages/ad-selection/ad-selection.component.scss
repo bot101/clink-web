@@ -19,6 +19,10 @@
         stroke: white;
         fill: white;
     }
+
+    span {
+        color: white;
+    }
 }
 
 label:not(.selection) {
@@ -28,5 +32,9 @@ label:not(.selection) {
     svg {
         stroke: #072d4c;
         fill: #072d4c;
+    }
+
+    span {
+        color: #072D4C;
     }
 }

@@ -1,23 +1,32 @@
-<div class="container mx-auto md:max-w-sm">
-    <app-onboarding-header title="אימייל ליצירת קשר ועדכונים" iconType="email"></app-onboarding-header>
-
-    <div class="px-4">
-        <p class="text-sm lowercase text-gray-700 mt-4">אנא הזינו את כתובת האימייל שלכם כדי שנוכל לשלוח עדכונים חשובים
-            וליצור קשר
-            במקרה הצורך</p>
-        <div class="flex flex-col justify-between space-y-2 mt-4">
-            <p class="text-sm font-semibold lowercase text-gray-700 ">כתובת אימייל</p>
-            <input [ngModelOptions]="{standalone: true}" nae="email" type="email"
-                class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()"
-                [(ngModel)]="email" (input)="onInputEmail()">
-            <p class="text-sm font-semibold lowercase text-gray-700">הקלידו את כתובת האימייל שוב</p>
-            <input [ngModelOptions]="{standalone: true}" name="confirmEmail" type="email"
-                class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()"
-                [(ngModel)]="confirmEmail" (input)="onInputEmail()">
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="md:h-[30vh] w-full flex flex-col bg-[#072D4C] ">
+        <div class="flex flex-col w-[80%] md:max-w-screen-lg mx-auto">
+            <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
+            <app-onboarding-header iconType="email" class="mb-4"
+                title="אימייל ליצירת קשר ועדכונים"></app-onboarding-header>
         </div>
+    </div>
+    <div
+        class="w-full md:max-w-[640px] mx-auto mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
+        <div class="space-y-5 lowercase px-4 md:pt-8 md:pb-6 w-full md:max-w-[340px] md:mx-auto">
+            <p class="text-sm lowercase text-gray-700 mt-4">אנא הזינו את כתובת האימייל שלכם כדי שנוכל לשלוח עדכונים
+                חשובים
+                וליצור קשר
+                במקרה הצורך</p>
+            <div class="flex flex-col justify-between space-y-2 mt-4">
+                <p class="text-sm font-semibold lowercase text-gray-700 ">כתובת אימייל</p>
+                <input [ngModelOptions]="{standalone: true}" nae="email" type="email"
+                    class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()"
+                    [(ngModel)]="email" (input)="onInputEmail()">
+                <p class="text-sm font-semibold lowercase text-gray-700">הקלידו את כתובת האימייל שוב</p>
+                <input [ngModelOptions]="{standalone: true}" name="confirmEmail" type="email"
+                    class="w-full h-10 border border-gray-300 rounded-lg mb-4" (ngModelChange)="isEmailMatching()"
+                    [(ngModel)]="confirmEmail" (input)="onInputEmail()">
+            </div>
 
-        <app-button type="submit" [disabled]="!matchingEmails" (click)="onContinue()" class="block mt-12"
-            label="Continue"></app-button>
+            <app-button type="submit" [disabled]="!matchingEmails" (click)="onContinue()" class="block mt-12"
+                label="Continue"></app-button>
+        </div>
     </div>
 
 </div>

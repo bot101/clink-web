@@ -1,17 +1,30 @@
-<div class="container mx-auto md:max-w-sm">
-    <app-onboarding-header class="mb-10" [showLogo]="false" [hideStep]="true" [title]="'Ticket sale'"></app-onboarding-header>
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="md:h-[15vh] md:max-h-[180px] w-full flex flex-col items-end bg-[#072D4C] ">
+        <div class="flex flex-col md:h-full md:justify-end w-[80%] md:max-w-screen-lg mx-auto">
+            <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
+            <app-onboarding-header [showLogo]="false" [hideStep]="true"
+                title="אימות מספר טלפון"></app-onboarding-header>
+        </div>
+    </div>
+    <div
+        class="w-full md:max-w-[640px] mx-auto mb-16 p-5 md:pb-12 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
+        <div class="flex flex-col space-y-6 px-4 md:max-w-[430px] mx-auto">
+            <h2 class="block text-xl font-medium text-[#001729] md:text-center">איזה כרטיס אתם מוכרים?</h2>
 
-<div class="flex flex-col space-y-4 px-4">
-    <h2 class="block text-lg font-[700] text-gray-700">What card do you sell?</h2>
-
-    <label (click)="onSelect(flight)" [ngClass]="{'selection': flight.checked}" class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-lg border border-[#072d4c]">
-        <input type="radio" #flight name="selection" class="hidden">
-        <app-flight-icon [outlineColor]="!flight.checked ? '#072d4c' : '#fff'" fillColor="#ffc5c5"></app-flight-icon>
-        <span class="font-bold">flight ticket</span>
-    </label>
-    <label (click)="onSelect(event)" [ngClass]="{'selection': event.checked}" class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-lg border border-[#072d4c]">
-        <input #event type="radio" name="selection" class="hidden">
-        <app-ticket-icon [outlineColor]="event.checked ? '#fff' : '#072d4c'" fillColor="#ffc5c5"></app-ticket-icon>
-        <span class="font-bold">event ticket</span>
-    </label>
+            <label (click)="onSelect(flight)" [ngClass]="{'selection': flight.checked}"
+                class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-[10px] border border-[#072d4c]">
+                <input type="radio" #flight name="selection" class="hidden">
+                <app-flight-icon [outlineColor]="!flight.checked ? '#072d4c' : '#fff'"
+                    fillColor="#ffc5c5"></app-flight-icon>
+                <span class="font-bold">flight ticket</span>
+            </label>
+            <label (click)="onSelect(event)" [ngClass]="{'selection': event.checked}"
+                class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-[10px] border border-[#072d4c]">
+                <input #event type="radio" name="selection" class="hidden">
+                <app-ticket-icon [outlineColor]="event.checked ? '#fff' : '#072d4c'"
+                    fillColor="#ffc5c5"></app-ticket-icon>
+                <span class="font-bold">event ticket</span>
+            </label>
+        </div>
+    </div>
 </div>

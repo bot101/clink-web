@@ -6,6 +6,7 @@ import { OnboardingHeaderComponent } from '../../components/onboarding-header/on
 import { LogoComponent } from '../../components/logo/logo.component';
 import { MainHeaderComponent } from "../../components/main-header/main-header.component";
 import { ButtonComponent } from '../../components/button/button.component';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-authentication',
@@ -17,8 +18,9 @@ import { ButtonComponent } from '../../components/button/button.component';
     OnboardingHeaderComponent,
     LogoComponent,
     ButtonComponent,
-    MainHeaderComponent
-  ],
+    MainHeaderComponent,
+    HeaderComponent
+],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
