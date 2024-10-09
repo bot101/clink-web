@@ -7,19 +7,21 @@ import { LogoComponent } from '../../components/logo/logo.component';
 import { MainHeaderComponent } from "../../components/main-header/main-header.component";
 import { ButtonComponent } from '../../components/button/button.component';
 import { HeaderComponent } from "../../components/header/header.component";
+import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
   imports: [
-    FormsModule,
+    // FormsModule,
     ReactiveFormsModule,
     CommonModule,
     OnboardingHeaderComponent,
     LogoComponent,
     ButtonComponent,
     MainHeaderComponent,
-    HeaderComponent
+    HeaderComponent,
+    CheckboxComponent,
 ],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']

@@ -4,11 +4,12 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
+import { CheckboxComponent } from "../../components/checkbox/checkbox.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FooterComponent, ConfirmationDialogComponent],
+  imports: [HeaderComponent, CommonModule, FooterComponent, ConfirmationDialogComponent, CheckboxComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

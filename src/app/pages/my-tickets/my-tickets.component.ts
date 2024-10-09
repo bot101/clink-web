@@ -5,11 +5,12 @@ import { FooterComponent } from "../../components/footer/footer.component";
 import { TicketEntryComponent } from "../../components/ticket-entry/ticket-entry.component";
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
+import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
 
 @Component({
   selector: 'app-my-tickets',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FooterComponent, TicketEntryComponent, ConfirmationDialogComponent],
+  imports: [CommonModule, HeaderComponent, FooterComponent, TicketEntryComponent, ConfirmationDialogComponent, OnboardingHeaderComponent],
   templateUrl: './my-tickets.component.html',
   styleUrl: './my-tickets.component.scss'
 })

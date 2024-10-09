@@ -1,0 +1,12 @@
+<label class="custom-checkbox-container" [ngClass]="customClass">
+    <span class="label block">{{ label }}</span>
+    <input class="opacity-1" type="checkbox" [checked]="isChecked" [disabled]="isDisabled" (change)="onCheckboxChange($event)">
+    <span class="checkmark flex-none" [ngStyle]="{
+      'border-color': borderColor,
+      'background-color': isChecked ? backgroundColor : 'transparent'
+    }">
+        <svg *ngIf="isChecked" class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg></span>
+</label>

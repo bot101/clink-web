@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { LogoComponent } from "../../components/logo/logo.component";
+import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-new-ad3',
@@ -20,7 +21,8 @@ import { LogoComponent } from "../../components/logo/logo.component";
     ButtonComponent,
     InputFieldComponent,
     RadioGroupComponent,
-    LogoComponent
+    LogoComponent,
+    CheckboxComponent
 ],
   templateUrl: './new-ad3.component.html',
   styleUrl: './new-ad3.component.scss'
