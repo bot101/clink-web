@@ -26,8 +26,8 @@ export class MyTicketsComponent implements OnInit {
       this.tickets = [
         // Sample data, replace with actual data from your service
         {
-          id: '1',
-          name: 'Concert Ticket',
+          id: 'CL00021',
+          name: 'אביב גפן בפארק הירקון',
           numberOfTickets: 2,
           sold: false,
           eventDate: new Date('2023-12-31'),

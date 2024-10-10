@@ -1,9 +1,9 @@
-<div class="bg-white border border-[#D9D6D1] rounded-xl mb-4 overflow-hidden">
+<div class="bg-white border border-[#9D9990] rounded-xl mb-4 overflow-hidden">
     <div class="flex justify-between items-start mb-2 bg-[#EFECE6] py-6 p-4">
         <div>
             <h3 class="text-2xl font-medium">{{ ticket.name }}</h3>
-            <p class="text-sm font-normal text-gray-600">ID: {{ ticket.id }}</p>
-            <p class="text-base font-bold">{{ ticket.numberOfTickets }} tickets available</p>
+            <p class="text-sm font-normal text-gray-600">מספר מזהה: {{ ticket.id }}</p>
+            <p class="text-base font-bold">מס כרטיסים: {{ ticket.numberOfTickets }}</p>
         </div>
         <div class="relative" *ngIf="!ticket.sold; else soldLabel">
             <button (click)="toggleMenu()" class="text-gray-600">
@@ -13,9 +13,9 @@
                         d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                 </svg>
             </button>
-            <div *ngIf="showMenu" class="absolute end-2 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
-                <a (click)="onEditTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
-                <a (click)="onDeleteTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
+            <div *ngIf="showMenu" class="absolute end-2 mt-2 w-30 px-2 py-4 bg-white rounded-lg shadow-lg z-10">
+                <a (click)="onEditTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">עריכה</a>
+                <a (click)="onDeleteTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">מחיקה</a>
             </div>
         </div>
         <ng-template #soldLabel>
