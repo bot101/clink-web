@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { LogoComponent } from '../../components/logo/logo.component';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LogoComponent } from '../../components/logo/logo.component';
 import { TicketEventService } from '../../services/ticket-event.service';
 import { ApiService } from '../../services/api.service';
 import { NgxCurrencyDirective } from 'ngx-currency';
@@ -15,7 +15,7 @@ import { ButtonComponent } from '../../components/button/button.component';
   standalone: true,
   imports: [
     CommonModule, 
-    FormsModule, 
+    ReactiveFormsModule, 
     LogoComponent, 
     NgxCurrencyDirective, 
     OnboardingHeaderComponent, 
@@ -27,24 +27,30 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrls: ['./ticket-event-detail.component.scss']
 })
 export class TicketEventDetailComponent implements OnInit {
-  ticketQuantity: number = 1;
-  costPrice: number = 0;
-  salePrice: number = 0;
-  ticketDetails: string = '';
-  eventLink: string = '';
+  ticketForm!: FormGroup;
   previousData: any;
-  costPriceInput: number | null = null;
-  costPriceFormatted: string = '';
   
   constructor(
     private router: Router,
     private ticketEventService: TicketEventService,
     private apiService: ApiService,
     private currencyPipe: CurrencyPipe,
+    private fb: FormBuilder
   ) {}
   
   ngOnInit() {
     this.previousData = this.ticketEventService.getFormData();
+    this.initForm();
+  }
+
+  initForm() {
+    this.ticketForm = this.fb.group({
+      ticketQuantity: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
+      costPrice: [0, [Validators.required, Validators.min(0.1)]],
+      salePrice: [0, [Validators.required, Validators.min(0.1)]],
+      ticketDetails: [''],
+      eventLink: ['', [Validators.pattern('https?://.+')]]
+    });
   }
 
   onBack(): void {
@@ -52,17 +58,11 @@ export class TicketEventDetailComponent implements OnInit {
   }
 
   onFinish(): void {
-    if (this.isFormValid()) {
+    if (this.ticketForm.valid) {
       const completeData = {
         ...this.previousData,
-        ticketQuantity: this.ticketQuantity,
-        costPrice: this.costPrice,
-        salePrice: this.salePrice,
-        ticketDetails: this.ticketDetails,
-        eventLink: this.eventLink
+        ...this.ticketForm.value
       };
-
-    
 
       this.apiService.submitTicketEvent(completeData).subscribe(
         (response: any) => {
@@ -77,21 +77,14 @@ export class TicketEventDetailComponent implements OnInit {
     }
   }
 
-  isFormValid(): boolean {
-    const costPrice = parseFloat(this.costPrice.toString().replace(/[^0-9.]/g, ''));
-    const salePrice = parseFloat(this.salePrice.toString().replace(/[^0-9.]/g, ''));
-    return this.ticketQuantity >= 1 && this.ticketQuantity <= 5 &&
-           !isNaN(costPrice) && !isNaN(salePrice) &&
-           this.costPrice.toString().trim() !== '' &&
-            this.salePrice.toString().trim() !== '';
-  }
-
   private clearForm(): void {
     this.ticketEventService.clearFormData();
-    this.ticketQuantity = 1;
-    this.costPrice = 0;
-    this.salePrice = 0;
-    this.ticketDetails = '';
-    this.eventLink = '';
+    this.ticketForm.reset({
+      ticketQuantity: 1,
+      costPrice: 0,
+      salePrice: 0,
+      ticketDetails: '',
+      eventLink: ''
+    });
   }
 }
