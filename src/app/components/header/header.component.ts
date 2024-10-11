@@ -18,6 +18,8 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
 
+  isSubmenuOpen: boolean = false;
+
   constructor(private router: Router) {}
 
   isLoggedIn: boolean = false;
@@ -29,6 +31,10 @@ export class HeaderComponent {
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
+  }
+  toggleSubmenu(): void {
+    console.log('toggleSubmenu', this.isSubmenuOpen);
+    this.isSubmenuOpen = !this.isSubmenuOpen;
   }
 
   goToProfile() {

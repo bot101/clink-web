@@ -1,38 +1,54 @@
 <div class="flex flex-col md:flex-row justify-between items-center">
-    <div class="flex items-center w-full md:hidden">
-      <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
-      <app-logo class="mx-auto"></app-logo>
-      <app-hamburger (toggleMenu)="toggleMobileMenu()"></app-hamburger> 
-    </div>
-  
-    <div class="hidden md:flex items-center gap-x-8">
-      <div class="px-10 py-3 bg-white rounded-full">
-        <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
-      </div>
-      <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
-      <ul class="flex items-center gap-x-4">
-        <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
-        <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
-        <li><a href="#" class="text-white hover:text-gray-300">עלינו</a></li>
-      </ul>
-    </div>
-    <div class="hidden md:flex items-center gap-x-2">
-      <a class="cursor-pointer" [routerLink]="['/']">
-        <img width="142" height="38" src="/assets/icons/logo.svg" alt="Logo">
-      </a>
-    </div>
-  
-    <div class="hidden w-full md:hidden" id="mobile-menu">
-      <ul class="flex flex-col items-center gap-y-4 mt-4">
-        <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
-        <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
-        <li><a href="#" class="text-white hover:text-gray-300">עלינו</a></li>
-        <li>
-          <div class="px-10 py-3 bg-white rounded-full">
-            <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <app-mobile-menu *ngIf="isMobileMenuOpen" [isLoggedIn]="isLoggedIn" (close)="closeMobileMenu()"></app-mobile-menu>
+  <div class="flex items-center w-full md:hidden">
+    <!-- Mobile header -->
+    <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
+    <app-logo class="mx-auto"></app-logo>
+    <app-hamburger (toggleMenu)="toggleMobileMenu()"></app-hamburger>
   </div>
+
+  <div class="hidden md:flex items-center gap-x-8">
+    <div class="px-10 py-3 bg-white rounded-full">
+      <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
+    </div>
+    <div class="relative">
+      <div *ngIf="isSubmenuOpen" class="absolute min-w-28 top-12 right-0 bg-white shadow-lg rounded-lg p-4 z-50">
+        <ul class="flex flex-col gap-y-2">
+          <li><a href="/profile" class="text-black hover:text-gray-700">Profile</a></li>
+          <!-- <li><a href="#" class="text-black hover:text-gray-700">Settings</a></li> -->
+          <li><a href="#" class="text-black hover:text-gray-700">Sign Out</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-row-reverse items-center gap-x-2"> 
+        <img *ngIf="isSubmenuOpen" src="/assets/icons/chevron-up.svg" alt="Chevron Up" class="cursor-pointer" (click)="toggleSubmenu()">
+        <img *ngIf="!isSubmenuOpen" src="/assets/icons/chevron-down.svg" alt="Chevron Down" class="cursor-pointer" (click)="toggleSubmenu()">
+        <app-rounded-person class="cursor-pointer" (click)="toggleSubmenu()"></app-rounded-person>
+      </div>
+    </div>
+
+    <app-rounded-person class="cursor-pointer md:hidden" (click)="goToProfile()"></app-rounded-person>
+    <ul class="flex items-center gap-x-4">
+      <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
+      <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
+      <li><a href="#" class="text-white hover:text-gray-300">עלינו</a></li>
+    </ul>
+  </div>
+  <div class="hidden md:flex items-center gap-x-2">
+    <a class="cursor-pointer" [routerLink]="['/']">
+      <img width="142" height="38" src="/assets/icons/logo.svg" alt="Logo">
+    </a>
+  </div>
+
+  <div class="hidden w-full md:hidden" id="mobile-menu">
+    <ul class="flex flex-col items-center gap-y-4 mt-4">
+      <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
+      <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
+      <li><a href="#" class="text-white hover:text-gray-300">עלינו</a></li>
+      <li>
+        <div class="px-10 py-3 bg-white rounded-full">
+          <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <app-mobile-menu *ngIf="isMobileMenuOpen" [isLoggedIn]="isLoggedIn" (close)="closeMobileMenu()"></app-mobile-menu>
+</div>
