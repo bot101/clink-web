@@ -1,37 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InputFieldComponent } from "../../components/input-field/input-field.component";
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
 import { LogoComponent } from "../../components/logo/logo.component";
+import { AdService } from '../../services/ad.service';
 
 @Component({
   selector: 'app-new-ad',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     InputFieldComponent,
     ButtonComponent,
     RadioGroupComponent,
     OnboardingHeaderComponent,
     LogoComponent
-],
+  ],
   templateUrl: './new-ad.component.html',
   styleUrl: './new-ad.component.scss'
 })
-export class NewAdComponent {
-  flightDestination: string = '';
-  airlineName: string = '';
-  flightNumber: string = '';
-  flightType: 'round-trip' | 'one-way' = 'round-trip';
+export class NewAdComponent implements OnInit {
+  adForm!: FormGroup;
   currentStep: number = 1;
   totalSteps: number = 3;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private adService: AdService
+  ) {}
+
+  ngOnInit() {
+    this.adForm = this.fb.group({
+      flightDestination: ['', Validators.required],
+      airlineName: ['', Validators.required],
+      flightNumber: ['', Validators.required],
+      flightType: ['הלוך - חזור', Validators.required]
+    });
+
+    // Load saved data if available
+    const savedData = this.adService.getFormData();
+    if (savedData.newAd) {
+      this.adForm.patchValue(savedData.newAd);
+    }
+  }
 
   onBack(): void {
     this.router.navigate(['/']);
@@ -42,17 +60,14 @@ export class NewAdComponent {
   }
 
   onContinue(): void {
-    if (this.isFormValid()) {
-      // Save form data and navigate to the next step
-      // You might want to use a service to store the data between steps
-      this.router.navigate(['/new-ad/step2']);
+    if (this.adForm.valid) {
+      this.adService.updateFormData({ newAd: this.adForm.value });
+      this.router.navigate(['/new-ad-2']);
+    } else {
+      Object.keys(this.adForm.controls).forEach(key => {
+        const control = this.adForm.get(key);
+        control?.markAsTouched();
+      });
     }
   }
-
-  isFormValid(): boolean {
-    return this.flightDestination.trim() !== '' &&
-           this.airlineName.trim() !== '' &&
-           this.flightNumber.trim() !== '';
-  }
-
 }

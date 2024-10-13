@@ -2,52 +2,99 @@
   <div class="w-full flex flex-col bg-[#072D4C] ">
     <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto">
       <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
-      <app-onboarding-header iconType="flight" [currentStep]="2" [totalSteps]="3" class="mb-4" title="מכירת כרטיס טיסה"></app-onboarding-header>
+      <app-onboarding-header iconType="flight" [currentStep]="2" [totalSteps]="3" class="mb-4"
+        title="מכירת כרטיס טיסה"></app-onboarding-header>
     </div>
   </div>
   <div
     class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
     <form [formGroup]="flightForm" (ngSubmit)="onSubmit()"
       class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
-      <h2 for="eventName" class="block text-lg font-[700] text-gray-700">פרטי הטיסה הלוך</h2>
+      <h2 class="block text-lg font-[700] text-gray-700">פרטי הטיסה הלוך</h2>
 
       <div class="flex flex-col space-y-5">
-        <app-date-picker label="תאריך ההמראה" formControlName="departureDate" required>
+        <app-date-picker label="תאריך המראה" formControlName="departureDate" required id="departureDate"
+          name="departureDate">
         </app-date-picker>
-
-        <app-time-picker label="שעת ההמראה" formControlName="departureTime" required>
-        </app-time-picker>
-
-        <app-date-picker label="תאריך הנחיתה ביעד" formControlName="arrivalDate" required>
-        </app-date-picker>
-
-        <app-time-picker label="שעת הנחיתה ביעד" formControlName="arrivalTime" required>
-        </app-time-picker>
+        <div *ngIf="flightForm.get('departureDate')?.touched && flightForm.get('departureDate')?.invalid"
+          class="text-red-500 text-sm mt-1">
+          תאריך ההמראה חייב להיות לפחות 36 שעות מעכשיו
+        </div>
       </div>
 
+      <div>
+        <app-time-picker label="שעת המראה" formControlName="departureTime" required id="departureTime"
+          name="departureTime">
+        </app-time-picker>
+        <div *ngIf="flightForm.get('departureTime')?.touched && flightForm.get('departureTime')?.invalid"
+          class="text-red-500 text-sm mt-1">
+          שימו לב! לא ניתן לפרסם טיסה פחות מ-36 שעות ממועד ההמראה
+        </div>
+      </div>
+
+      <div>
+        <app-date-picker label="תאריך הנחיתה ביעד" formControlName="arrivalDate" required id="arrivalDate"
+          name="arrivalDate">
+        </app-date-picker>
+        <div *ngIf="flightForm.get('arrivalDate')?.touched && flightForm.get('arrivalDate')?.invalid"
+          class="text-red-500 text-sm mt-1">
+          תאריך הנחיתה לא יכול להיות לפני תאריך ההמראה
+        </div>
+      </div>
+
+      <div>
+        <app-time-picker label="שעת הנחיתה ביעד" formControlName="arrivalTime" required id="arrivalTime"
+          name="arrivalTime">
+        </app-time-picker>
+        <div *ngIf="flightForm.get('arrivalTime')?.touched && flightForm.get('arrivalTime')?.invalid"
+          class="text-red-500 text-sm mt-1">
+          שעת הנחיתה לא יכולה להיות לפני שעת ההמראה
+        </div>
+      </div>
 
       <h2 for="eventName" class="block text-lg font-[700] text-gray-700">פרטי הטיסה חזור</h2>
-
-
+      <!-- *ngIf="!isOneWayFlight" -->
       <ng-container>
-        <div class="flex flex-col space-y-5">
-          <app-date-picker label="תאריך ההמראה" formControlName="returnDepartureDate" required>
+        <div>
+          <app-date-picker label="תאריך ההמראה" formControlName="returnDepartureDate" id="returnDepartureDate"
+            name="returnDepartureDate">
           </app-date-picker>
+          <div *ngIf="flightForm.get('returnDepartureDate')?.touched && flightForm.get('returnDepartureDate')?.invalid"
+            class="text-red-500 text-sm mt-1">
+            תאריך הטיסה חזור לא יכול להיות לפני התאריך
+            טיסה הלוך </div>
+        </div>
 
-          <app-time-picker label="שעת ההמראה" formControlName="returnDepartureTime" required>
+        <div>
+          <app-time-picker label="שעת ההמראה" formControlName="returnDepartureTime" id="returnDepartureTime"
+            name="returnDepartureTime">
           </app-time-picker>
+          <div *ngIf="flightForm.get('returnDepartureTime')?.touched && flightForm.get('returnDepartureTime')?.invalid"
+            class="text-red-500 text-sm mt-1">
+            שעת ההמראה חזור לא יכולה להיות לפני שעת ההמראה/נחיתה של הטיסה הלוך
+          </div>
+        </div>
+
+        <div class="flex flex-col space-y-5">
+          <app-date-picker label="תאריך הנחיתה ביעד" formControlName="returnDate" id="returnDate" name="returnDate">
+          </app-date-picker>
+          <div *ngIf="flightForm.get('returnDate')?.touched && flightForm.get('returnDate')?.invalid"
+            class="text-red-500 text-sm mt-1">
+            תאריך הנחיתה חזור לא יכול להיות לפני תאריך ההמראה חזור
+          </div>
+        </div>
+
+        <div>
+          <app-time-picker label="שעת הנחיתה ביעד" formControlName="returnTime" id="returnTime" name="returnTime">
+          </app-time-picker>
+          <div *ngIf="flightForm.get('returnTime')?.touched && flightForm.get('returnTime')?.invalid"
+            class="text-red-500 text-sm mt-1">
+            שעת הנחיתה חזור לא יכולה להיות לפני שעת ההמראה חזור
+          </div>
         </div>
       </ng-container>
 
-      <div class="flex flex-col space-y-5">
-        <app-date-picker label="תאריך הנחיתה ביעד" formControlName="returnDate" required>
-        </app-date-picker>
-
-        <app-time-picker label="שעת הנחיתה ביעד" formControlName="returnTime" required>
-        </app-time-picker>
-      </div>
-
-      <button type="button" type="submit" [disabled]="!flightForm.valid"
+      <button type="submit" [disabled]="!flightForm.valid"
         class="w-full py-3 px-4 border border-transparent rounded-[20px] capitalize shadow-sm text-sm text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
         המשך
       </button>
@@ -58,3 +105,4 @@
       </button>
     </form>
   </div>
+</div>

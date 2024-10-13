@@ -21,6 +21,8 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   @Input() today = new Date().toISOString().split('T')[0];
   @Input() label: string = '';
+  @Input() id: string = '';
+  @Input() name: string = '';
   @Input() selectedDate: string = '';
   @Output() selectedDateChange = new EventEmitter<string>();
 
