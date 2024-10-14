@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-interface TicketEventResponse {
+export interface TicketEventResponse {
   success: boolean;
   message: string;
   id?: string;
@@ -22,28 +22,36 @@ interface CompleteTicketEventData {
   eventLink: string;
 }
 
+interface CompleteTicketFlightData {
+  flightDestination: string;
+  airlineName: string;
+  flightNumber: string;
+  flightType: string;
+  isOneWayFlight: boolean;
+  departureDate: string;
+  departureTime: string;
+  arrivalDate: string;
+  arrivalTime: string;
+  returnDepartureDate: string;
+  returnDepartureTime: string;
+  returnDate: string;
+  returnTime: string;
+  ticketQuantity: number;
+  costPrice: string;
+  salePrice: string;
+  generalDetails: string;
+  // isChecked: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = environment.apiUrl; 
+  private apiUrl = environment.apiUrl;
   private http = inject(HttpClient);
-  
-  
+
+
   submitTicketEvent(completeData: CompleteTicketEventData): Observable<TicketEventResponse> {
-    // const formData = new FormData();
-    // formData.append('eventName', completeData.eventName);
-    // formData.append('eventDate', completeData.eventDate);
-    // formData.append('eventTime', completeData.eventTime);
-    // formData.append('eventLocation', completeData.eventLocation);
-    // formData.append('ticketQuantity', completeData.ticketQuantity.toString());
-    // formData.append('costPrice', completeData.costPrice);
-    // formData.append('salePrice', completeData.salePrice);
-    // formData.append('ticketDetails', completeData.ticketDetails); 
-    // formData.append('eventLink', completeData.eventLink);
-    // completeData?.uploadedFiles?.forEach((file) => {
-    //   formData.append('uploadedFiles', file, file.name);
-    // });
     const event = {
       title: completeData.eventName,
       date: completeData.eventDate,
@@ -68,6 +76,42 @@ export class ApiService {
       status: 'pending',
       user_id: '67096c6b8d507be7794ed78c',
       serialNumber: 'EV27583942',
-    }); 
+    });
   }
+
+  submitFlight(completeData: CompleteTicketFlightData): Observable<TicketEventResponse> {
+    debugger;
+    const outboundDepartureDate = new Date(completeData.departureDate);
+    const inboundDepartureDate = new Date(completeData.returnDepartureDate);
+    outboundDepartureDate.setTime(Number(completeData.departureTime));
+    inboundDepartureDate.setTime(Number(completeData.returnDepartureTime));
+    const flight = {
+      title: completeData.flightDestination,
+      date: completeData.departureDate,
+      type: completeData.flightType,
+      airline: completeData.airlineName,
+      number: completeData.flightNumber,
+      destination: completeData.flightDestination,
+      outboundDepartureDate: completeData.departureDate,
+      outboundDepartureTime: completeData.departureTime,
+      outboundArrivalDate: completeData.arrivalDate,
+      outboundArrivalTime: completeData.arrivalTime,
+      inboundDepartureDate: completeData.returnDepartureDate,
+      inboundArrivalDate: completeData.returnDate,
+    };
+    
+    return this.http.post<TicketEventResponse>(`${this.apiUrl}/ads`, {
+      type: 'flight',
+      flight,
+      buyPrice: Number(completeData.costPrice),
+      sellPrice: Number(completeData.salePrice),
+      details: completeData.generalDetails,
+      amount: completeData.ticketQuantity,
+      isSold: false,
+      status: 'pending',
+      user_id: '67096c6b8d507be7794ed78c',
+      serialNumber: 'FL27583942',
+    });
+  }
+
 }

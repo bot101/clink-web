@@ -69,6 +69,12 @@ export class NewAd2Component implements OnInit {
       this.flightForm?.get('returnTime')?.setValidators(Validators.required);
     }
     this.flightForm.updateValueAndValidity();
+
+    this.flightForm.valueChanges.subscribe(() => {
+      console.log(this.flightForm.controls);
+      // this.adService.updateFormData({ newAd2: this.flightForm.value });
+      debugger;
+    });
   }
 
   onSubmit() {

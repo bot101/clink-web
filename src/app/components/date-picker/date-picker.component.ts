@@ -29,6 +29,12 @@ export class DatePickerComponent implements ControlValueAccessor {
   onChange: any = () => {};
   onTouched: any = () => {};
 
+  hiddenPickerId = '';
+
+  ngOnInit(): void {
+    this.hiddenPickerId = `hiddenDatePicker-${this.id}`;
+  }
+
   writeValue(value: string): void {
     if (value !== undefined) {
       this.selectedDate = value;
@@ -55,8 +61,7 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
   
   openDatePicker(): void {
-    const datePicker = document.getElementById('hiddenDatePicker') as HTMLInputElement;
-    debugger;
+    const datePicker = document.getElementById(this.hiddenPickerId) as HTMLInputElement;
     if (datePicker) {
       datePicker.showPicker();
     }

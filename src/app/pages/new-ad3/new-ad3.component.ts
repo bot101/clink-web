@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
 import { ButtonComponent } from '../../components/button/button.component';
@@ -43,8 +43,8 @@ export class NewAd3Component implements OnInit {
   ngOnInit() {
     this.ticketForm = this.fb.group({
       ticketQuantity: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-      costPrice: [null, [Validators.required, Validators.min(0)]],
-      salePrice: [null, [Validators.required, Validators.min(0)]],
+      costPrice: [null, [Validators.required, Validators.min(0.01), this.salePriceValidator.bind(this)]],
+      salePrice: [null, [Validators.required, Validators.min(0.01)]],
       generalDetails: [''],
       isChecked: [false, Validators.requiredTrue]
     });
@@ -56,6 +56,11 @@ export class NewAd3Component implements OnInit {
     }
   }
 
+  salePriceValidator(control: AbstractControl) {
+    const costPrice = this.ticketForm?.get('costPrice')?.value;
+    return control.value <= costPrice ? null : { salePriceTooHigh: true };
+  }
+
   onFinish(): void {
     if (this.ticketForm.valid) {
       this.adService.updateFormData({ newAd3: this.ticketForm.value });
@@ -63,7 +68,16 @@ export class NewAd3Component implements OnInit {
       const completeFormData = this.adService.getFormData();
       console.log('Complete form data:', completeFormData);
       // Here you would typically send this data to your backend
-      
+      this.adService.submitFlightForm(completeFormData).subscribe(
+        (response: any) => {
+          alert('Ticket event submitted successfully');
+          this.clearForm();
+          this.router.navigate(['/']);
+        },
+        (error: any) => {
+          alert('Error submitting ticket event');
+        }
+      );
       this.router.navigate([this.isLoggedIn ? '/screen-9-6' : '/screen-9-7']);
     } else {
       Object.keys(this.ticketForm.controls).forEach(key => {
@@ -71,5 +85,20 @@ export class NewAd3Component implements OnInit {
         control?.markAsTouched();
       });
     }
+  }
+
+  private clearForm(): void {
+    this.adService.clearFormData();
+    this.ticketForm.reset({
+      ticketQuantity: 1,
+      costPrice: 0,
+      salePrice: 0,
+      generalDetails: '',
+      isChecked: false
+    });
+  }
+
+  onBack(): void {
+    this.router.navigate(['/']);
   }
 }
