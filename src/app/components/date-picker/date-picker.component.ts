@@ -53,7 +53,7 @@ export class DatePickerComponent implements ControlValueAccessor {
     // Implement if needed
   }
 
-  updateValue(value: string): void {
+  private updateValue(value: string): void {
     this.selectedDate = value;
     this.onChange(value);
     this.onTouched();
@@ -74,16 +74,31 @@ export class DatePickerComponent implements ControlValueAccessor {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     this.selectedDate = `${day}/${month}/${year}`;
+    this.updateValue(this.selectedDate);
   }
 
-  onDateInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/\D/g, '');
+  onDateInput(event: Event | string): void {
+    let value: string;
+    if (typeof event === 'string') {
+      value = event.replace(/\D/g, '');
+    } else {
+      const input = event.target as HTMLInputElement;
+      value = input.value?.replace(/\D/g, '') || '';
+    }
+
     if (value.length > 8) value = value.slice(0, 8);
     const day = value.slice(0, 2);
     const month = value.slice(2, 4);
     const year = value.slice(4, 8);
-    input.value = [day, month, year].filter(Boolean).join('/');
+    const formattedValue = [day, month, year].filter(Boolean).join('/');
+    
+    if (typeof event !== 'string') {
+      const input = event.target as HTMLInputElement;
+      input.value = formattedValue;
+    }
+    
+    this.updateValue(formattedValue);
+    
     if (day && month && year.length === 4) {
       const selectedDate = new Date(`${year}-${month}-${day}`);
       const today = new Date();
@@ -92,7 +107,11 @@ export class DatePickerComponent implements ControlValueAccessor {
       if (selectedDate < today) {
         // If selected date is before today, set it to today
         const formattedToday = this.formatDate(today);
-        input.value = formattedToday;
+        if (typeof event !== 'string') {
+          const input = event.target as HTMLInputElement;
+          input.value = formattedToday;
+        }
+        this.updateValue(formattedToday);
       }
     }
   }
@@ -111,5 +130,6 @@ export class DatePickerComponent implements ControlValueAccessor {
     const hours = value.slice(0, 2);
     const minutes = value.slice(2, 4);
     input.value = [hours, minutes].filter(Boolean).join(':');
+    this.updateValue(input.value);
   }
 }

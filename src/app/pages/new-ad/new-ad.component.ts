@@ -41,7 +41,7 @@ export class NewAdComponent implements OnInit {
       flightDestination: ['', Validators.required],
       airlineName: ['', Validators.required],
       flightNumber: ['', Validators.required],
-      flightType: ['הלוך - חזור', Validators.required]
+      flightType: ['round_trip', Validators.required]
     });
 
     // Load saved data if available

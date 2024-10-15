@@ -66,9 +66,23 @@ export class NewAd3Component implements OnInit {
       this.adService.updateFormData({ newAd3: this.ticketForm.value });
       // Combine all form data
       const completeFormData = this.adService.getFormData();
+      const flattenObject = (obj: any, parent: any = null, res: any = {}) => {
+        for (let key in obj) {
+          let propName = key;
+          if (typeof obj[key] == 'object') {
+            flattenObject(obj[key], propName, res);
+          } else {
+            res[propName] = obj[key];
+          }
+        }
+        return res;
+      };
+
+      const flatFormData = flattenObject(completeFormData);
+      console.log('Flat form data:', flatFormData);
       console.log('Complete form data:', completeFormData);
       // Here you would typically send this data to your backend
-      this.adService.submitFlightForm(completeFormData).subscribe(
+      this.adService.submitFlightForm(flatFormData).subscribe(
         (response: any) => {
           alert('Ticket event submitted successfully');
           this.clearForm();

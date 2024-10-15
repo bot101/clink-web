@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-export interface TicketEventResponse {
+ export interface TicketEventResponse {
   success: boolean;
   message: string;
   id?: string;

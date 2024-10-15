@@ -22,6 +22,11 @@ export class TimePickerComponent implements ControlValueAccessor {
   onChange: any = () => {};
   onTouched: any = () => {};
 
+  onTimeChange(event: any) {
+    this.selectedTime = event;
+    this.onChange(this.selectedTime);
+  }
+
   writeValue(value: string): void {
     if (value !== undefined) {
       this.selectedTime = value;
