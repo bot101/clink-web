@@ -11,11 +11,11 @@
       <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
     </div>
     <div class="relative">
-      <div *ngIf="isSubmenuOpen" class="absolute min-w-28 top-12 right-0 bg-white shadow-lg rounded-lg p-4 z-50">
+      <div *ngIf="isSubmenuOpen" class="absolute min-w-32	 top-12 right-0 bg-white shadow-lg rounded-lg p-4 z-50">
         <ul class="flex flex-col gap-y-2">
-          <li><a href="/profile" class="text-black hover:text-gray-700">Profile</a></li>
+          <li><a href="/profile" class="text-black hover:text-gray-700">הפרופיל שלי</a></li>
           <!-- <li><a href="#" class="text-black hover:text-gray-700">Settings</a></li> -->
-          <li><a href="#" class="text-black hover:text-gray-700">Sign Out</a></li>
+          <li><a href="#" class="text-black hover:text-gray-700">התנתקות</a></li>
         </ul>
       </div>
       <div class="flex flex-row-reverse items-center gap-x-2"> 
@@ -27,9 +27,9 @@
 
     <app-rounded-person class="cursor-pointer md:hidden" (click)="goToProfile()"></app-rounded-person>
     <ul class="flex items-center gap-x-4">
-      <li><a href="#" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
-      <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
-      <li><a href="#" class="text-white hover:text-gray-300">עלינו</a></li>
+      <li><a  [routerLink]="['/overview']" [routerLinkActive]="['is-active']" class="text-white hover:text-gray-300">איך זה עובד?</a></li>
+      <li><a  [routerLink]="['/terms']" [routerLinkActive]="['is-active']" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
+      <li><a  [routerLink]="['/about']" [routerLinkActive]="['is-active']" class="text-white hover:text-gray-300">עלינו</a></li>
     </ul>
   </div>
   <div class="hidden md:flex items-center gap-x-2">
