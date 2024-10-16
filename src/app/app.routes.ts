@@ -13,9 +13,23 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MyTicketsComponent } from './pages/my-tickets/my-tickets.component';
 import { TicketDetailsComponent } from './pages/ticket-details/ticket-details.component';
 import { ReportComponent } from './pages/report/report.component';
+import { OverviewComponent } from './pages/overview/overview.component';
+import { AgreementComponent } from './pages/agreement/agreement.component';
+import { AboutComponent } from './pages/about/about.component';
+import { TermsComponent } from './pages/terms/terms.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
+    
+    { path: 'overview', component: OverviewComponent },
+    
+    { path: 'agreement', component: AgreementComponent },
+    
+    { path: 'about', component: AboutComponent },
+    
+    { path: 'terms', component: TermsComponent },
+    { path: 'privacy', component: PrivacyComponent },
     { path: 'ticket-event', component: TicketEventComponent },
     { path: 'new-ad', component: NewAdComponent },
     { path: 'ticket-event-details', component: TicketEventDetailComponent },

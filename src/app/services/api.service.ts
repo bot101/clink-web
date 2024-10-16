@@ -74,7 +74,7 @@ export class ApiService {
       amount: completeData.ticketQuantity,
       isSold: false,
       status: 'pending',
-      user_id: '67096c6b8d507be7794ed78c',
+      user: '67096c6b8d507be7794ed78c',
       serialNumber: 'EV27583942',
     });
   }
@@ -109,7 +109,7 @@ export class ApiService {
       amount: completeData.ticketQuantity,
       isSold: false,
       status: 'pending',
-      user_id: '67096c6b8d507be7794ed78c',
+      user: '67096c6b8d507be7794ed78c',
       serialNumber: 'FL27583942',
     });
   }
