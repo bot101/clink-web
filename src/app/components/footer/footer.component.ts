@@ -8,7 +8,10 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [LogoComponent, LogoDarkComponent],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
+  host: {
+    class: 'block'
+  }
 })
 export class FooterComponent {
   constructor(private router: Router) {}

@@ -18,6 +18,7 @@ import { AgreementComponent } from './pages/agreement/agreement.component';
 import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { NoAdComponent } from './pages/no-ad/no-ad.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -43,4 +44,5 @@ export const routes: Routes = [
     { path: 'my-tickets', component: MyTicketsComponent },
     { path: 'ticket-details', component: TicketDetailsComponent },
     { path: 'report', component: ReportComponent },
+    { path: 'no-ad', component: NoAdComponent },
 ];     

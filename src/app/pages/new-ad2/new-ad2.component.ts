@@ -56,25 +56,17 @@ export class NewAd2Component implements OnInit {
       returnTime: ['']
     }, { validator: this.dateComparisonValidator });
 
-    // Load saved data if available
     const savedData = this.adService.getFormData();
     if (savedData.newAd2) {
       this.flightForm.patchValue(savedData.newAd2);
     }
 
-    // Set validators based on flight type
     this.flightForm?.valueChanges.subscribe((value: string) => {
-      // this.setReturnFieldValidators(!!value);
       console.log(this.flightForm.value);
     });
 
-    // const flightType = savedData.newAd?.flightType;
     this.isOneWayFlight = savedData.newAd?.flightType === 'one_way';
     this.setReturnFieldValidators(!this.isOneWayFlight);
-    // if (flightType === 'round_trip') {
-    //   // this.isOneWayFlight = false;
-      
-    // }
 
     this.flightForm.valueChanges.subscribe(() => {
       console.log(this.flightForm.value);
@@ -82,9 +74,7 @@ export class NewAd2Component implements OnInit {
         const departureDate = this.flightForm.get('departureDate')?.value;
         const [day, month, year] = departureDate.split('/');
         const correctedDate = new Date(`${year}-${month}-${day}`);
-        // correctedDate.setDate(correctedDate.getDate() + 1);
         this.departureDateValue = correctedDate.toISOString().split('T')[0];
-        // this.departureDateValue = new Date(this.formatDate(this.flightForm.get('departureDate')?.value)).toISOString().split('T')[0];
       }
 
       if (this.flightForm.get('arrivalDate')?.value) {
