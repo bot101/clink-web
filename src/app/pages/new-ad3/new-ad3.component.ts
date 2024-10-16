@@ -32,7 +32,7 @@ import { AdService } from '../../services/ad.service';
 })
 export class NewAd3Component implements OnInit {
   ticketForm!: FormGroup;
-  isLoggedIn: boolean = false; // Assume this is set based on your authentication logic
+  isLoggedIn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +49,6 @@ export class NewAd3Component implements OnInit {
       isChecked: [false, Validators.requiredTrue]
     });
 
-    // Load saved data if available
     const savedData = this.adService.getFormData();
     if (savedData.newAd3) {
       this.ticketForm.patchValue(savedData.newAd3);
@@ -64,7 +63,6 @@ export class NewAd3Component implements OnInit {
   onFinish(): void {
     if (this.ticketForm.valid) {
       this.adService.updateFormData({ newAd3: this.ticketForm.value });
-      // Combine all form data
       const completeFormData = this.adService.getFormData();
       const flattenObject = (obj: any, parent: any = null, res: any = {}) => {
         for (let key in obj) {
@@ -79,9 +77,6 @@ export class NewAd3Component implements OnInit {
       };
 
       const flatFormData = flattenObject(completeFormData);
-      console.log('Flat form data:', flatFormData);
-      console.log('Complete form data:', completeFormData);
-      // Here you would typically send this data to your backend
       this.adService.submitFlightForm(flatFormData).subscribe(
         (response: any) => {
           alert('Ticket event submitted successfully');
@@ -92,7 +87,6 @@ export class NewAd3Component implements OnInit {
           alert('Error submitting ticket event');
         }
       );
-      this.router.navigate([this.isLoggedIn ? '/screen-9-6' : '/screen-9-7']);
     } else {
       Object.keys(this.ticketForm.controls).forEach(key => {
         const control = this.ticketForm.get(key);

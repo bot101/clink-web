@@ -12,6 +12,6 @@
         <path d="M7.25 1.45312V5.45312M15.25 1.45312V5.45312M1.25 9.45312H21.25" stroke="#38383C" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round" />
       </svg>
-      <input type="date" [id]="hiddenPickerId" class="w-0 h-0" (change)="onDateSelect($event)" [min]="today">
+      <input type="date" [id]="hiddenPickerId" [min]="minDate" class="w-0 h-0" (change)="onDateSelect($event)" [min]="today">
     </div>
   </div>

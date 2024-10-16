@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -17,8 +17,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class DatePickerComponent implements ControlValueAccessor {
+export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
 
+  @Input() minDateString: string | null = null;
   @Input() today = new Date().toISOString().split('T')[0];
   @Input() label: string = '';
   @Input() id: string = '';
@@ -30,9 +31,18 @@ export class DatePickerComponent implements ControlValueAccessor {
   onTouched: any = () => {};
 
   hiddenPickerId = '';
+  minDate: string | null = null;
 
   ngOnInit(): void {
     this.hiddenPickerId = `hiddenDatePicker-${this.id}`;
+    this.minDate = this.minDateString ? new Date(this.minDateString).toISOString().split('T')[0] : null;
+    console.log('minDate', this.minDate);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['minDateString']) {
+      this.minDate = this.minDateString ? new Date(this.minDateString).toISOString().split('T')[0] : null;
+    }
   }
 
   writeValue(value: string): void {
