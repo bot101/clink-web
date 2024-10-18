@@ -5,11 +5,12 @@ import { InputFieldComponent } from "../../components/input-field/input-field.co
 import { ButtonComponent } from "../../components/button/button.component";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-purchase',
   standalone: true,
-  imports: [ReactiveFormsModule, OnboardingHeaderComponent, LogoComponent, InputFieldComponent, ButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, OnboardingHeaderComponent, LogoComponent, InputFieldComponent, ButtonComponent],
   templateUrl: './ticket-purchase.component.html',
   styleUrl: './ticket-purchase.component.scss'
 })
@@ -24,7 +25,7 @@ export class TicketPurchaseComponent implements OnInit {
       fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]]
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
     }, { validator: this.emailMatchValidator });
   }
 
