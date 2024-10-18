@@ -1,0 +1,35 @@
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="w-full flex flex-col bg-[#072D4C] ">
+      <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto">
+        <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
+        <app-onboarding-header class="mb-4" title="לפני שתמשיכו בתהליך הרכישה" iconName="clipboard-pen"></app-onboarding-header>
+      </div>
+    </div>
+
+    <p class="px-9 md:p-0 w-full my-6 md:max-w-[640px] mx-auto">אנא הזינו את פרטיכם כדי שנוכל לשלוח לכם עדכונים חשובים וליצור קשר במקרה הצורך.</p>
+    <div
+      class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] md:mt-4">
+    <form [formGroup]="ticketPurchaseForm" (ngSubmit)="onContinue()" class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+
+        <div class="md:mt-6">
+            <app-input-field label="שם מלא" formControlName="fullName" [required]="true"></app-input-field>
+        </div>
+
+        <div class="mt-6">
+            <app-input-field label="כתובת אימייל" formControlName="email" [required]="true"></app-input-field>
+        </div>
+
+        <div class="mt-6">
+            <app-input-field label="הקלידו את כתובת האימייל שוב" formControlName="confirmEmail" [required]="true"></app-input-field>
+        </div>
+
+        <div class="mt-6">
+            <app-input-field label="מספר טלפון" formControlName="phoneNumber" [required]="true"></app-input-field>
+        </div>
+
+        <div class="flex flex-col gap-4 mt-8">
+            <app-button class="font-bold" label="המשך" type="submit" [disabled]="ticketPurchaseForm.invalid"></app-button>
+        </div>
+    </form>
+</div>
+</div>
