@@ -39,7 +39,7 @@
                         Name must contain only letters.</small>
                 </div>
 
-                <app-radio-group label="מין" formControlName="gender" [required]="true" type="select"
+                <app-radio-group class="mb-4" label="מין" formControlName="gender" [required]="true" type="select"
                     [options]="genderOptions"></app-radio-group>
                 <div
                     *ngIf="passengerDetailsForm.get('gender')?.invalid && (passengerDetailsForm.get('gender')?.dirty || passengerDetailsForm.get('gender')?.touched)">
@@ -56,7 +56,7 @@
                         Number must contain only numbers.</small>
                 </div>
 
-                <app-date-picker label="תאריך לידה" formControlName="dateOfBirth" [required]="true"
+                <app-date-picker class="mb-4" label="תאריך לידה" formControlName="dateOfBirth" [required]="true"
                     type="date"></app-date-picker>
                 <div
                     *ngIf="passengerDetailsForm.get('dateOfBirth')?.invalid && (passengerDetailsForm.get('dateOfBirth')?.dirty || passengerDetailsForm.get('dateOfBirth')?.touched)">
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <app-button class="font-bold" label="המשך" type="submit"
+            <app-button class="font-bold mt-4 block" label="המשך" type="submit"
                 [disabled]="passengerDetailsForm.invalid"></app-button>
 
         </form>
