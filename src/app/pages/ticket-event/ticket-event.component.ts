@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,6 +16,9 @@ import { HeaderComponent } from "../../components/header/header.component";
   styleUrls: ['./ticket-event.component.scss']
 })
 export class TicketEventComponent implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   ticketForm: FormGroup;
   tomorrow!: string;
   uploadedFiles: File[] = [];
@@ -115,7 +118,8 @@ export class TicketEventComponent implements OnInit {
         uploadedFiles: this.uploadedFiles
       };
       this.ticketEventService.setFormData(formData);
-      this.router.navigate(['/ticket-event-details']);
+      // this.router.navigate(['/ticket-event-details']);
+      this.nextStep.emit();
     }
   }
 

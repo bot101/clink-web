@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { TicketEventComponent } from './pages/ticket-event/ticket-event.component';
-import { TicketEventDetailComponent } from './pages/ticket-event-detail/ticket-event-detail.component';
 import { NewAdComponent } from './pages/new-ad/new-ad.component';
 import { NewAd2Component } from './pages/new-ad2/new-ad2.component';
 import { NewAd3Component } from './pages/new-ad3/new-ad3.component';
@@ -34,10 +32,10 @@ export const routes: Routes = [
     
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
-    { path: 'ticket-event', component: TicketEventComponent },
-    { path: 'new-ad', component: CreateAdComponent },
+    // { path: 'ticket-event', component: TicketEventComponent },
+    { path: 'new-ad/:adType?', component: CreateAdComponent },
     { path: 'new-ad-0', component: NewAdComponent },
-    { path: 'ticket-event-details', component: TicketEventDetailComponent },
+    // { path: 'ticket-event-details', component: TicketEventDetailComponent },
     { path: 'new-ad-2', component: NewAd2Component },
     { path: 'new-ad-3', component: NewAd3Component },
     { path: 'login', component: AuthenticationComponent },
@@ -51,4 +49,5 @@ export const routes: Routes = [
     { path: 'no-ad', component: NoAdComponent },
     { path: 'ticket-purchase', component: TicketPurchaseComponent },
     { path: 'ticket-purchase-passenger-details', component: TicketPurchasePassengerDetailsComponent },
+    { path: '**', redirectTo: ''}
 ];     

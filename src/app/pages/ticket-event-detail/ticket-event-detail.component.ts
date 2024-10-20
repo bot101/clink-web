@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,6 +27,9 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrls: ['./ticket-event-detail.component.scss']
 })
 export class TicketEventDetailComponent implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   ticketForm!: FormGroup;
   previousData: any;
   

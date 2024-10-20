@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { Router } from '@angular/router';
 import { ProgressBarComponent } from "../progress-bar/progress-bar.component";
@@ -20,9 +20,11 @@ export class OnboardingHeaderComponent {
   @Input() iconName: string | null = null;
   @Input() showLogo: boolean = true;
   @Input() hideStep: boolean = false;
+  @Output() back = new EventEmitter<void>();
   
   constructor(private router: Router) {}
+
   onBack() {
-    this.router.navigate(['/']);
+    this.back.emit();
   }
 }
