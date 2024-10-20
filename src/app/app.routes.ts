@@ -21,6 +21,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NoAdComponent } from './pages/no-ad/no-ad.component';
 import { TicketPurchaseComponent } from './pages/ticket-purchase/ticket-purchase.component';
 import { TicketPurchasePassengerDetailsComponent } from './pages/ticket-purchase-passenger-details/ticket-purchase-passenger-details.component';
+import { CreateAdComponent } from './pages/create-ad/create-ad.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -34,7 +35,8 @@ export const routes: Routes = [
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
     { path: 'ticket-event', component: TicketEventComponent },
-    { path: 'new-ad', component: NewAdComponent },
+    { path: 'new-ad', component: CreateAdComponent },
+    { path: 'new-ad-0', component: NewAdComponent },
     { path: 'ticket-event-details', component: TicketEventDetailComponent },
     { path: 'new-ad-2', component: NewAd2Component },
     { path: 'new-ad-3', component: NewAd3Component },
