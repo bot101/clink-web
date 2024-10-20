@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
 import { LogoComponent } from "../../components/logo/logo.component";
-import { TicketEventComponent } from '../ticket-event/ticket-event.component';
-import { TicketEventDetailComponent } from '../ticket-event-detail/ticket-event-detail.component';
+import { TicketEventComponent } from '../../components/ticket-event/ticket-event.component';
+import { TicketEventDetailComponent } from '../../components/ticket-event-detail/ticket-event-detail.component';
 import { Router } from '@angular/router';
-import { NewAdComponent } from "../new-ad/new-ad.component";
-import { NewAd2Component } from "../new-ad2/new-ad2.component";
-import { NewAd3Component } from "../new-ad3/new-ad3.component";
+import { NewAdComponent } from "../../components/new-ad/new-ad.component";
+import { NewAd2Component } from "../../components/new-ad2/new-ad2.component";
+import { NewAd3Component } from "../../components/new-ad3/new-ad3.component";
 
 @Component({
   selector: 'app-create-ad',

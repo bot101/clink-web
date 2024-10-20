@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
-import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
-import { TimePickerComponent } from '../../components/time-picker/time-picker.component';
-import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
-import { LogoComponent } from "../../components/logo/logo.component";
 import { AdService } from '../../services/ad.service';
+import { DatePickerComponent } from '../date-picker/date-picker.component';
+import { LogoComponent } from '../logo/logo.component';
+import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+import { TimePickerComponent } from '../time-picker/time-picker.component';
 
 @Component({
   selector: 'app-new-ad2',

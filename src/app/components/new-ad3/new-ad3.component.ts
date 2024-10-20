@@ -1,15 +1,15 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { InputFieldComponent } from '../../components/input-field/input-field.component';
-import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
+import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
+import { ButtonComponent } from '../button/button.component';
+import { InputFieldComponent } from '../input-field/input-field.component';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { LogoComponent } from "../../components/logo/logo.component";
-import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
+import { LogoComponent } from "../logo/logo.component";
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { AdService } from '../../services/ad.service';
 
 @Component({

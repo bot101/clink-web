@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../components/button/button.component';
-import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
+import { ButtonComponent } from '../button/button.component';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
-import { LogoComponent } from "../../components/logo/logo.component";
+import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
+import { LogoComponent } from "../logo/logo.component";
 import { AdService } from '../../services/ad.service';
-import { InputFieldComponent } from '../../components/input-field/input-field.component';
+import { InputFieldComponent } from '../input-field/input-field.component';
 
 @Component({
   selector: 'app-new-ad',

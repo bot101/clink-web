@@ -31,4 +31,8 @@ export class AdSelectionComponent {
       this.router.navigate(['/new-ad/ticket']);  
     }
   }
+
+  back() {
+    this.router.navigate(['/']);
+  }
 }

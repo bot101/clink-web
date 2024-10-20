@@ -2,11 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogoComponent } from '../../components/logo/logo.component';
+import { LogoComponent } from '../logo/logo.component';
 import { TicketEventService } from '../../services/ticket-event.service';
-import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
-import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
-import { HeaderComponent } from "../../components/header/header.component";
+import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
+import { DatePickerComponent } from '../date-picker/date-picker.component';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-ticket-event',

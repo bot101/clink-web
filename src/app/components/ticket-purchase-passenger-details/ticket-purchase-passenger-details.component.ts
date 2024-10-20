@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../../components/logo/logo.component";
-import { ButtonComponent } from "../../components/button/button.component";
-import { InputFieldComponent } from '../../components/input-field/input-field.component';
-import { RadioGroupComponent } from "../../components/radio-group/radio-group.component";
-import { DatePickerComponent } from "../../components/date-picker/date-picker.component";
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
+import { LogoComponent } from "../logo/logo.component";
+import { ButtonComponent } from "../button/button.component";
+import { InputFieldComponent } from '../input-field/input-field.component';
+import { RadioGroupComponent } from "../radio-group/radio-group.component";
+import { DatePickerComponent } from "../date-picker/date-picker.component";
 
 @Component({
   selector: 'app-ticket-purchase-passenger-details',
@@ -26,6 +26,8 @@ import { DatePickerComponent } from "../../components/date-picker/date-picker.co
   styleUrl: './ticket-purchase-passenger-details.component.scss'
 })
 export class TicketPurchasePassengerDetailsComponent implements OnInit {
+  @Output() continue = new EventEmitter<void>();
+  @Output() back = new EventEmitter<void>();
 
   passengerDetailsForm!: FormGroup;
   genderOptions: { value: string, label: string }[] = [
@@ -51,6 +53,11 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit {
   onContinue() {
     if (this.passengerDetailsForm.valid) {
       console.log(this.passengerDetailsForm.value);
+      this.continue.emit();
     }
+  }
+
+  onBack() {
+    this.back.emit();
   }
 }

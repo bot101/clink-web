@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../../components/logo/logo.component";
-import { InputFieldComponent } from "../../components/input-field/input-field.component";
-import { ButtonComponent } from "../../components/button/button.component";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
+import { LogoComponent } from "../logo/logo.component";
+import { InputFieldComponent } from "../input-field/input-field.component";
+import { ButtonComponent } from "../button/button.component";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ticket-purchase.component.scss'
 })
 export class TicketPurchaseComponent implements OnInit {
+  @Output() continue = new EventEmitter<void>();
+  @Output() back = new EventEmitter<void>();
 
   ticketPurchaseForm!: FormGroup;
 
@@ -38,6 +40,7 @@ export class TicketPurchaseComponent implements OnInit {
   onContinue() {
     if (this.ticketPurchaseForm.valid) {
       console.log(this.ticketPurchaseForm.value);
+      this.continue.emit();
     }
   }
 }

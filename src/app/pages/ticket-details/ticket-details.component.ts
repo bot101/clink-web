@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ExpandableSectionComponent } from '../../components/expandable-section/expandable-section.component';
 
@@ -29,7 +29,7 @@ export class TicketDetailsComponent implements OnInit {
   additionalDetails: string | null = 'Great seats with an amazing view!';
   showTrustedSellerPopup: boolean = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     // Fetch ticket details from a service
@@ -53,5 +53,6 @@ export class TicketDetailsComponent implements OnInit {
 
   purchaseTicket(): void {
     // Navigate to purchase screen or initiate purchase process
+    this.router.navigate(['/ticket-purchase']);
   }
 }
