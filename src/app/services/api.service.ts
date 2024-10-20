@@ -40,7 +40,6 @@ interface CompleteTicketFlightData {
   costPrice: string;
   salePrice: string;
   generalDetails: string;
-  // isChecked: boolean;
 }
 
 @Injectable({
@@ -55,7 +54,6 @@ export class ApiService {
     const event = {
       title: completeData.eventName,
       date: completeData.eventDate,
-      // time: completeData.eventTime, //No field for time in the API
       location: completeData.eventLocation,
       url: completeData.eventLink,
       files: completeData.uploadedFiles.map(file => ({
@@ -81,24 +79,37 @@ export class ApiService {
 
   submitFlight(completeData: CompleteTicketFlightData): Observable<TicketEventResponse> {
     debugger;
-    const outboundDepartureDate = new Date(completeData.departureDate);
-    const inboundDepartureDate = new Date(completeData.returnDepartureDate);
-    outboundDepartureDate.setTime(Number(completeData.departureTime));
-    inboundDepartureDate.setTime(Number(completeData.returnDepartureTime));
+    const outboundDepartureDate = new Date(this.formatDate(completeData.departureDate));
+    const outboundArrivalDate = new Date(this.formatDate(completeData.arrivalDate));
+    const [departureHours, departureMinutes] = completeData.departureTime.split(':').map(Number);
+    const [arrivalHours, arrivalMinutes] = completeData.arrivalTime.split(':').map(Number);
+    const [returnDepartureHours, returnDepartureMinutes] = completeData.returnDepartureTime.split(':').map(Number);
+    const [returnHours, returnMinutes] = completeData.returnTime.split(':').map(Number);
+
+    outboundDepartureDate.setHours(departureHours, departureMinutes, 0, 0);
+    outboundArrivalDate.setHours(arrivalHours, arrivalMinutes, 0, 0);
+    
+
+    const inboundDepartureDate = new Date(this.formatDate(completeData.returnDepartureDate));
+    const inboundArrivalDate = new Date(this.formatDate(completeData.returnDate));
+    inboundDepartureDate.setHours(returnDepartureHours, returnDepartureMinutes, 0, 0);
+    inboundArrivalDate.setHours(returnHours, returnMinutes, 0, 0);
+
     const flight = {
-      title: completeData.flightDestination,
-      date: completeData.departureDate,
       type: completeData.flightType,
       airline: completeData.airlineName,
       number: completeData.flightNumber,
       destination: completeData.flightDestination,
-      outboundDepartureDate: completeData.departureDate,
-      outboundDepartureTime: completeData.departureTime,
-      outboundArrivalDate: completeData.arrivalDate,
-      outboundArrivalTime: completeData.arrivalTime,
-      inboundDepartureDate: completeData.returnDepartureDate,
-      inboundArrivalDate: completeData.returnDate,
+      outboundDepartureDate: outboundDepartureDate.toISOString(),
+      outboundArrivalDate: outboundArrivalDate.toISOString(),
+      inboundDepartureDate: null,
+      inboundArrivalDate: null,
     };
+
+    if(completeData.flightType === 'round_trip') {
+      flight['inboundDepartureDate'] = inboundDepartureDate.toISOString() as any;
+      flight['inboundArrivalDate'] = inboundArrivalDate.toISOString() as any;
+    }
     
     return this.http.post<TicketEventResponse>(`${this.apiUrl}/ads`, {
       type: 'flight',
@@ -114,4 +125,8 @@ export class ApiService {
     });
   }
 
+  private formatDate(date: string): string {
+    const [day, month, year] = date.split('/');
+    return `${year}-${month}-${day}`;
+  }
 }

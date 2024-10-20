@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
 import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
 import { TimePickerComponent } from '../../components/time-picker/time-picker.component';
@@ -26,14 +26,17 @@ import { AdService } from '../../services/ad.service';
   styleUrl: './new-ad2.component.scss'
 })
 export class NewAd2Component implements OnInit {
-  isOneWayFlight: boolean = true;
+  isOneWayFlight: boolean = false;
   departureDateValue: string = '';
   departureTimeValue: string = '';
   arrivalDateValue: string = '';
   arrivalTimeValue: string = '';
+  returnDepartureDateValue: string = '';
+  returnDepartureTimeValue: string = '';
   returnDateValue: string = '';
   returnTimeValue: string = '';
   flightForm!: FormGroup;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -43,40 +46,124 @@ export class NewAd2Component implements OnInit {
 
   ngOnInit() {
     this.flightForm = this.fb.group({
-      isOneWayFlight: [true],
-      departureDate: ['', Validators.required],
+      departureDate: ['', [Validators.required, this.dateValidator()]],
       departureTime: ['', Validators.required],
-      arrivalDate: ['', Validators.required],
+      arrivalDate: ['', [Validators.required, this.dateValidator()]],
       arrivalTime: ['', Validators.required],
       returnDepartureDate: [''],
       returnDepartureTime: [''],
       returnDate: [''],
       returnTime: ['']
-    });
+    }, { validator: this.dateComparisonValidator });
 
-    // Load saved data if available
     const savedData = this.adService.getFormData();
     if (savedData.newAd2) {
       this.flightForm.patchValue(savedData.newAd2);
     }
 
-    // Set validators based on flight type
-    const flightType = savedData.newAd?.flightType;
-    if (flightType === 'round-trip') {
-      this.flightForm?.get('returnDepartureDate')?.setValidators(Validators.required);
-      this.flightForm?.get('returnDepartureTime')?.setValidators(Validators.required);
-      this.flightForm?.get('returnDate')?.setValidators(Validators.required);
-      this.flightForm?.get('returnTime')?.setValidators(Validators.required);
-    }
-    this.flightForm.updateValueAndValidity();
+    this.flightForm?.valueChanges.subscribe((value: string) => {
+      console.log(this.flightForm.value);
+    });
+
+    this.isOneWayFlight = savedData.newAd?.flightType === 'one_way';
+    this.setReturnFieldValidators(!this.isOneWayFlight);
 
     this.flightForm.valueChanges.subscribe(() => {
       console.log(this.flightForm.value);
+      if (this.flightForm.get('departureDate')?.value) {
+        const departureDate = this.flightForm.get('departureDate')?.value;
+        const [day, month, year] = departureDate.split('/');
+        const correctedDate = new Date(`${year}-${month}-${day}`);
+        this.departureDateValue = correctedDate.toISOString().split('T')[0];
+      }
 
+      if (this.flightForm.get('arrivalDate')?.value) {
+        const arrivalDate = this.flightForm.get('arrivalDate')?.value;
+        const [day, month, year] = arrivalDate.split('/');
+        const correctedDate = new Date(`${year}-${month}-${day}`);
+        this.arrivalDateValue = correctedDate.toISOString().split('T')[0];
+      }
+
+      if (this.flightForm.get('returnDepartureDate')?.value) {
+        const returnDepartureDate = this.flightForm.get('returnDepartureDate')?.value;
+        const [day, month, year] = returnDepartureDate.split('/');
+        const correctedDate = new Date(`${year}-${month}-${day}`);
+        this.returnDepartureDateValue = correctedDate.toISOString().split('T')[0];
+      }
+
+      if (this.flightForm.get('returnDate')?.value) {
+        const returnDate = this.flightForm.get('returnDate')?.value;
+        const [day, month, year] = returnDate.split('/');
+        const correctedDate = new Date(`${year}-${month}-${day}`);
+        this.returnDateValue = correctedDate.toISOString().split('T')[0];
+      }
     });
   }
 
+  dateValidator() {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const valid = /^\d{2}\/\d{2}\/\d{4}$/.test(control.value);
+      return valid ? null : { invalidDate: { value: control.value } };
+    };
+  }
+
+  formatDate(date: string) {
+    const [day, month, year] = date.split('/');
+    return `${month}/${day}/${year}`;
+  };
+
+  readonly dateComparisonValidator = (group: FormGroup): { [key: string]: any } | null => {
+    const departureDate = group.get('departureDate')?.value;
+    const departureTime = group.get('departureTime')?.value;
+    const arrivalDate = group.get('arrivalDate')?.value;
+    const arrivalTime = group.get('arrivalTime')?.value;
+    const returnDepartureDate = group.get('returnDepartureDate')?.value;
+    const returnDepartureTime = group.get('returnDepartureTime')?.value;
+    const returnDate = group.get('returnDate')?.value;
+    const returnTime = group.get('returnTime')?.value;
+
+    const formatDateTime = (date: string, time: string) => {
+      const [day, month, year] = date.split('/');
+      return new Date(`${year}-${month}-${day}T${time}`);
+    };
+
+    let errors: { [key: string]: any } = {};
+
+    const now = new Date();
+    const minDepartureDate = new Date(now.getTime() + 36 * 60 * 60 * 1000); // 36 hours from now
+
+    if (departureDate && departureTime && formatDateTime(departureDate, departureTime) < minDepartureDate) {
+      errors['departureTooSoon'] = true;
+    }
+
+    if (departureDate && departureTime && arrivalDate && arrivalTime && formatDateTime(departureDate, departureTime) >= formatDateTime(arrivalDate, arrivalTime)) {
+      errors['arrivalBeforeDeparture'] = true;
+    }
+
+    if (!this.isOneWayFlight) {
+      if (arrivalDate && arrivalTime && returnDepartureDate && returnDepartureTime && formatDateTime(returnDepartureDate, returnDepartureTime) < formatDateTime(arrivalDate, arrivalTime)) {
+        errors['returnDepartureBeforeArrival'] = true;
+      }
+      if (returnDepartureDate && returnDepartureTime && returnDate && returnTime && formatDateTime(returnDate, returnTime) <= formatDateTime(returnDepartureDate, returnDepartureTime)) {
+        errors['returnBeforeReturnDeparture'] = true;
+      }
+    }
+
+    return Object.keys(errors).length ? errors : null;
+  }
+
+  setReturnFieldValidators(required: boolean) {
+    const validators = required ? [Validators.required, this.dateValidator()] : [];
+    this.flightForm.get('returnDepartureDate')?.setValidators(validators);
+    this.flightForm.get('returnDepartureTime')?.setValidators(required ? [Validators.required] : []);
+    this.flightForm.get('returnDate')?.setValidators(validators);
+    this.flightForm.get('returnTime')?.setValidators(required ? [Validators.required] : []);
+    this.flightForm.updateValueAndValidity();
+  }
+
   onSubmit() {
+    this.submitted = true;
+    console.log(this.flightForm.value);
     if (this.flightForm.valid) {
       this.adService.updateFormData({ newAd2: this.flightForm.value });
       this.router.navigate(['/new-ad-3']);
@@ -91,4 +178,7 @@ export class NewAd2Component implements OnInit {
   cancel() {
     this.router.navigate(['/new-ad']);
   }
+
+  // Getter for easy access to form fields
+  get f() { return this.flightForm.controls; }
 }

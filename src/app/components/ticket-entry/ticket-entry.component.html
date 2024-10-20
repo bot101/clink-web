@@ -61,18 +61,36 @@
         </ng-container>
 
         <ng-container *ngIf="isFlightTicket">
-            <p class="text-sm flex gap-2 items-center">
+            <div class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
-                    <img src="/assets/icons/calendar.svg" alt="calendar">
+                    <img src="/assets/icons/aeroplane-takeoff.svg" alt="aeroplane-takeoff">
                 </span>
-                {{ ticket.departureDate | date:'medium' }} - {{ ticket.arrivalDate | date:'medium' }}
-            </p>
-            <p class="text-sm flex gap-2 items-center">
+                <div class="flex flex-col">
+                    <p>{{ ticket.departureDate | date:'medium' }}</p>
+                    <p>{{ ticket.arrivalDate | date:'medium' }}</p>
+                </div>
+            </div>
+            <div *ngIf="ticket.returnDepartureDate" class="text-sm flex gap-2 items-center">
+                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                    <img src="/assets/icons/aeroplane-landing.svg" alt="aeroplane-landing">
+                </span>
+                <div class="flex flex-col">
+                    <p>{{ ticket.returnDepartureDate | date:'medium' }}</p>
+                    <p>{{ ticket.returnDate | date:'medium' }}</p>
+                </div>
+            </div>
+            <div class="text-sm flex gap-2 items-center">
+                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                    <img src="/assets/icons/number-sign.svg" alt="number-sign">
+                </span>
+                {{ ticket.ticketNumber }}
+            </div>
+            <div class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/map-pin.svg" alt="location">
                 </span>
                 {{ ticket.departureLocation }} - {{ ticket.arrivalLocation }}
-            </p>
+            </div>
         </ng-container>
 
         <p class="text-sm flex gap-2 items-center">

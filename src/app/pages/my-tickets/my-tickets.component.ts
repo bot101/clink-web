@@ -45,8 +45,11 @@ export class MyTicketsComponent implements OnInit {
           status: 'pending',
           departureDate: new Date('2023-11-15'),
           arrivalDate: new Date('2023-11-16'),
+          returnDepartureDate: new Date('2023-11-17'),
+          returnDate: new Date('2023-11-18'),
           departureLocation: 'New York',
           arrivalLocation: 'London',
+          ticketNumber: '1234567890',
           originalPrice: 500,
           salePrice: 450,
           detailsUpdated: false
@@ -74,6 +77,7 @@ export class MyTicketsComponent implements OnInit {
         arrivalDate: new Date('2023-12-02'),
         departureLocation: 'Los Angeles',
         arrivalLocation: 'Tokyo',
+        ticketNumber: '1234567890',
         originalPrice: 800,
         salePrice: 750,
         detailsUpdated: true

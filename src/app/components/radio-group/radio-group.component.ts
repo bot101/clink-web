@@ -14,7 +14,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       useExisting: RadioGroupComponent,
       multi: true
     }
-  ]
+  ],
+  host: {
+    class: 'block'
+  }
 })
 export class RadioGroupComponent implements ControlValueAccessor {
   @Input() label: string = '';
