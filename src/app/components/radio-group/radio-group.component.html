@@ -1,4 +1,5 @@
 <div>
+    <label *ngIf="label" class="text-sm">{{ label }}</label>
     <div [class]="radioGroupClass">
       <button *ngFor="let entry of options"
               (click)="onRadioChange(entry.value)"
