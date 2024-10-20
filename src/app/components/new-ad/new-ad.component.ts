@@ -6,7 +6,7 @@ import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { LogoComponent } from "../logo/logo.component";
-import { AdService } from '../../services/ad.service';
+import { AdService } from '../../services/ad/ad.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 
 @Component({

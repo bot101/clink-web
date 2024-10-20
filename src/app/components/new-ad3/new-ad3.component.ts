@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { LogoComponent } from "../logo/logo.component";
 import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { AdService } from '../../services/ad.service';
+import { AdService } from '../../services/ad/ad.service';
 
 @Component({
   selector: 'app-new-ad3',

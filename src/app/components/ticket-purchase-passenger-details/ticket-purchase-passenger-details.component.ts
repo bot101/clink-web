@@ -8,6 +8,7 @@ import { ButtonComponent } from "../button/button.component";
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { RadioGroupComponent } from "../radio-group/radio-group.component";
 import { DatePickerComponent } from "../date-picker/date-picker.component";
+import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
 
 @Component({
   selector: 'app-ticket-purchase-passenger-details',
@@ -36,7 +37,7 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit {
     { value: 'other', label: 'אחר' }
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private ticketPurchaseService: TicketPurchaseService) {}
 
   ngOnInit(): void {
     this.passengerDetailsForm = this.fb.group({
@@ -58,6 +59,7 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit {
   }
 
   onBack() {
+    // this.ticketPurchaseService.setPassengerDetailsData(this.passengerDetailsForm.value);
     this.back.emit();
   }
 }

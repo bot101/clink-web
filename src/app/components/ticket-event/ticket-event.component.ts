@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogoComponent } from '../logo/logo.component';
-import { TicketEventService } from '../../services/ticket-event.service';
+import { TicketEventService } from '../../services/ticket-event/ticket-event.service';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { HeaderComponent } from "../header/header.component";

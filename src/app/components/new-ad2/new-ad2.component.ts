@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AdService } from '../../services/ad.service';
+import { AdService } from '../../services/ad/ad.service';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { LogoComponent } from '../logo/logo.component';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';

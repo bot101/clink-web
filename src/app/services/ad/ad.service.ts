@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ApiService, TicketEventResponse } from './api.service';
+import { ApiService, TicketEventResponse } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
