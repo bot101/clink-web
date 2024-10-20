@@ -26,9 +26,9 @@ export class AdSelectionComponent {
   onSelect(element: HTMLInputElement, type: string) {
     element.checked = true;
     if(type === 'flight') {
-      this.router.navigate(['/new-ad']);  
+      this.router.navigate(['/new-ad/flight']);  
     } else {
-      this.router.navigate(['/ticket-event']);  
+      this.router.navigate(['/new-ad/ticket']);  
     }
   }
 }

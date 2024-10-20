@@ -27,32 +27,34 @@ import { NewAd3Component } from "../new-ad3/new-ad3.component";
 })
 export class CreateAdComponent {
   adType: 'ticket' | 'flight' = 'ticket';
-  stepTitles: string[] = ['מכירת כרטיס לאירוע', 'מכירת כרטיס לאירוע'];
-  stepIcons: ('email' | 'flight' | 'ticket' | null)[] = ['ticket', 'ticket'];
-  stepTitle: string = this.stepTitles[0];
-  stepIcon: 'email' | 'flight' | 'ticket' | null = this.stepIcons[0];
-
+  stepTitles: Record<string, string> = {
+    ticket: 'מכירת כרטיס לאירוע',
+    flight: 'מכירת כרטיס טיסה'
+  };
+  stepTitle: string = this.stepTitles[this.adType];
   currentStep: number = 1;
   totalSteps: number = 2;
 
   constructor(private router: Router) {
     this.adType = this.router.url.split('/')[2] as 'ticket' | 'flight';
+    this.stepTitle = this.stepTitles[this.adType];
+    if (this.adType === 'flight') {
+      this.totalSteps = 3;
+    }
     console.log(this.adType);
   }
 
   nextStep() {
     if (this.currentStep < this.totalSteps) {
       this.currentStep++;
-      this.stepTitle = this.stepTitles[this.currentStep - 1];
     }
   }
 
   previousStep() {
     if (this.currentStep > 1) {
       this.currentStep--;
-      this.stepTitle = this.stepTitles[this.currentStep - 1];
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/ad-selection']);
     }
   }
 }
