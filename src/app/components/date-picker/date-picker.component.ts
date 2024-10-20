@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -27,14 +27,16 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   @Input() selectedDate: string = '';
   @Output() selectedDateChange = new EventEmitter<string>();
 
+  @ViewChild('input', { read: ElementRef, static: true }) input!: ElementRef<HTMLInputElement>;
+
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  hiddenPickerId = '';
+  hiddenPickerId: string | null = null;
   minDate: string | null = null;
 
   ngOnInit(): void {
-    this.hiddenPickerId = `hiddenDatePicker-${this.id}`;
+    this.hiddenPickerId = this.id ? `hiddenDatePicker-${this.id}` : null;
     this.minDate = this.minDateString ? new Date(this.minDateString).toISOString().split('T')[0] : null;
     console.log('minDate', this.minDate);
   }
@@ -60,7 +62,9 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    // Implement if needed
+    if (this.input) {
+      this.input.nativeElement.disabled = isDisabled;
+    }
   }
 
   private updateValue(value: string): void {
@@ -71,9 +75,8 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   }
   
   openDatePicker(): void {
-    const datePicker = document.getElementById(this.hiddenPickerId) as HTMLInputElement;
-    if (datePicker) {
-      datePicker.showPicker();
+    if (this.input) {
+      this.input.nativeElement.showPicker();
     }
   }
 
