@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePickerComponent } from '../../components/date-picker/date-picker.component';
 import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
 import { TimePickerComponent } from '../../components/time-picker/time-picker.component';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
 import { LogoComponent } from "../../components/logo/logo.component";
-import { Router } from '@angular/router';
 import { AdService } from '../../services/ad.service';
 
 @Component({
@@ -26,6 +25,9 @@ import { AdService } from '../../services/ad.service';
   styleUrl: './new-ad2.component.scss'
 })
 export class NewAd2Component implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   isOneWayFlight: boolean = false;
   departureDateValue: string = '';
   departureTimeValue: string = '';
@@ -40,7 +42,6 @@ export class NewAd2Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private adService: AdService
   ) {}
 
@@ -166,7 +167,7 @@ export class NewAd2Component implements OnInit {
     console.log(this.flightForm.value);
     if (this.flightForm.valid) {
       this.adService.updateFormData({ newAd2: this.flightForm.value });
-      this.router.navigate(['/new-ad-3']);
+      this.nextStep.emit();
     } else {
       Object.keys(this.flightForm.controls).forEach(key => {
         const control = this.flightForm.get(key);
@@ -176,7 +177,7 @@ export class NewAd2Component implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/new-ad']);
+    this.previousStep.emit();
   }
 
   // Getter for easy access to form fields

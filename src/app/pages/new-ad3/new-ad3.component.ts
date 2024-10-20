@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
@@ -31,6 +31,9 @@ import { AdService } from '../../services/ad.service';
   styleUrl: './new-ad3.component.scss'
 })
 export class NewAd3Component implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   ticketForm!: FormGroup;
   isLoggedIn: boolean = false;
 
@@ -81,7 +84,8 @@ export class NewAd3Component implements OnInit {
         (response: any) => {
           alert('Ticket event submitted successfully');
           this.clearForm();
-          this.router.navigate(['/']);
+          // this.router.navigate(['/']);
+          this.nextStep.emit();
         },
         (error: any) => {
           alert('Error submitting ticket event');
@@ -107,6 +111,6 @@ export class NewAd3Component implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/']);
+    this.previousStep.emit();
   }
 }

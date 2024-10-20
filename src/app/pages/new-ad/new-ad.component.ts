@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { InputFieldComponent } from "../../components/input-field/input-field.component";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
@@ -9,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
 import { LogoComponent } from "../../components/logo/logo.component";
 import { AdService } from '../../services/ad.service';
+import { InputFieldComponent } from '../../components/input-field/input-field.component';
 
 @Component({
   selector: 'app-new-ad',
@@ -26,12 +25,14 @@ import { AdService } from '../../services/ad.service';
   styleUrl: './new-ad.component.scss'
 })
 export class NewAdComponent implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   adForm!: FormGroup;
   currentStep: number = 1;
   totalSteps: number = 3;
 
   constructor(
-    private router: Router,
     private fb: FormBuilder,
     private adService: AdService
   ) {}
@@ -51,18 +52,14 @@ export class NewAdComponent implements OnInit {
     }
   }
 
-  onBack(): void {
-    this.router.navigate(['/']);
-  }
-
   onCancel(): void {
-    this.router.navigate(['/']);
+    this.previousStep.emit();
   }
 
   onContinue(): void {
     if (this.adForm.valid) {
       this.adService.updateFormData({ newAd: this.adForm.value });
-      this.router.navigate(['/new-ad-2']);
+      this.nextStep.emit();
     } else {
       Object.keys(this.adForm.controls).forEach(key => {
         const control = this.adForm.get(key);
