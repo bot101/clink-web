@@ -1,117 +1,109 @@
-<!-- <div class="overflow-x-hidden flex flex-col min-h-screen">
-  <div class="w-full flex flex-col bg-[#072D4C] ">
-    <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto">
-      <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
-      <app-onboarding-header class="mb-4" title="מכירת כרטיס לאירוע" iconType="ticket"></app-onboarding-header>
+<form [formGroup]="ticketForm" (ngSubmit)="onContinue()"
+  class="space-y-5 lowercase md:pt-8 md:pb-4 md:max-w-[340px] mx-auto">
+  <h2 for="eventName" class="block text-lg font-[700] text-gray-700 text-center">פרטי האירוע</h2>
+  <div>
+    <label for="eventName" class="block text-sm text-gray-700">שם האירוע</label>
+    <input placeholder="אביב גפן בפארק הירקון" type="text" id="eventName" formControlName="eventName" required
+      class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3">
+
+    <p class="mt-3">
+      <span class="font-bold">שימו</span> <svg class="inline" width="14" height="13" viewBox="0 0 14 13" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0.821289 4.49624C0.821289 9.29584 7.06129 12.5198 7.06129 12.5198C7.06129 12.5198 13.3013 9.29844 13.3013 4.49624C13.3013 2.52804 11.7049 0.931644 9.73669 0.931644C8.66549 0.931644 7.71649 1.41264 7.06129 2.16144C6.40869 1.41264 5.45709 0.931644 4.38589 0.931644C2.41769 0.929044 0.821289 2.52544 0.821289 4.49624Z"
+          fill="#FFC5C5" />
+        <path
+          d="M7.06152 12.7807C7.01992 12.7807 6.98092 12.7703 6.94192 12.7521C6.68192 12.6169 0.561523 9.39812 0.561523 4.49712C0.561523 2.38852 2.27752 0.669922 4.38612 0.669922C5.38452 0.669922 6.34392 1.07032 7.06152 1.78012C7.77912 1.07032 8.73852 0.669922 9.73692 0.669922C11.8455 0.669922 13.5615 2.38852 13.5615 4.49712C13.5615 9.40072 7.44112 12.6169 7.18112 12.7521C7.14212 12.7703 7.10312 12.7807 7.06152 12.7807ZM4.38612 1.18992C2.56352 1.18992 1.08152 2.67452 1.08152 4.49712C1.08152 8.72212 6.20872 11.7485 7.06152 12.2243C7.91432 11.7485 13.0415 8.72212 13.0415 4.49712C13.0415 2.67452 11.5595 1.19252 9.73692 1.19252C8.79572 1.19252 7.89092 1.60852 7.25912 2.33392C7.16032 2.44572 6.96532 2.44572 6.86652 2.33392C6.23212 1.60592 5.32732 1.18992 4.38612 1.18992Z"
+          fill="#FEB4B4" />
+      </svg>, הקפידו לרשום את שם האירוע בדיוק כפי שהוא<span>מופיע בכרטיס שרכשתם.</span>
+    </p>
+  </div>
+
+  <div>
+    <app-date-picker label="תאריך האירוע" formControlName="eventDate" [required]="true"></app-date-picker>
+    <div *ngIf="ticketForm.get('eventDate')?.touched && ticketForm.get('eventDate')?.errors"
+      class="text-red-500 text-sm mt-1">
+      <div *ngIf="ticketForm.get('eventDate')?.errors?.['required']">תאריך האירוע נדרש</div>
+      <div *ngIf="ticketForm.get('eventDate')?.errors?.['dateNotGreaterThanToday']">תאריך האירוע חייב להיות גדול מהיום
+      </div>
     </div>
   </div>
-  <div
-    class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10"> -->
-    <form [formGroup]="ticketForm" (ngSubmit)="onContinue()" class="space-y-5 lowercase md:pt-8 md:pb-4 md:max-w-[340px] mx-auto">
-      <h2 for="eventName" class="block text-lg font-[700] text-gray-700 text-center">פרטי האירוע</h2>
-      <div>
-        <label for="eventName" class="block text-sm text-gray-700">שם האירוע</label>
-        <input placeholder="אביב גפן בפארק הירקון" type="text" id="eventName" formControlName="eventName" required
-          class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3">
 
-        <p class="mt-3">
-          <span class="font-bold">שימו</span> <svg class="inline" width="14" height="13" viewBox="0 0 14 13" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M0.821289 4.49624C0.821289 9.29584 7.06129 12.5198 7.06129 12.5198C7.06129 12.5198 13.3013 9.29844 13.3013 4.49624C13.3013 2.52804 11.7049 0.931644 9.73669 0.931644C8.66549 0.931644 7.71649 1.41264 7.06129 2.16144C6.40869 1.41264 5.45709 0.931644 4.38589 0.931644C2.41769 0.929044 0.821289 2.52544 0.821289 4.49624Z"
-              fill="#FFC5C5" />
-            <path
-              d="M7.06152 12.7807C7.01992 12.7807 6.98092 12.7703 6.94192 12.7521C6.68192 12.6169 0.561523 9.39812 0.561523 4.49712C0.561523 2.38852 2.27752 0.669922 4.38612 0.669922C5.38452 0.669922 6.34392 1.07032 7.06152 1.78012C7.77912 1.07032 8.73852 0.669922 9.73692 0.669922C11.8455 0.669922 13.5615 2.38852 13.5615 4.49712C13.5615 9.40072 7.44112 12.6169 7.18112 12.7521C7.14212 12.7703 7.10312 12.7807 7.06152 12.7807ZM4.38612 1.18992C2.56352 1.18992 1.08152 2.67452 1.08152 4.49712C1.08152 8.72212 6.20872 11.7485 7.06152 12.2243C7.91432 11.7485 13.0415 8.72212 13.0415 4.49712C13.0415 2.67452 11.5595 1.19252 9.73692 1.19252C8.79572 1.19252 7.89092 1.60852 7.25912 2.33392C7.16032 2.44572 6.96532 2.44572 6.86652 2.33392C6.23212 1.60592 5.32732 1.18992 4.38612 1.18992Z"
-              fill="#FEB4B4" />
-          </svg>, הקפידו לרשום את שם האירוע בדיוק כפי שהוא<span>מופיע בכרטיס שרכשתם.</span>
-        </p>
-      </div>
+  <div>
+    <label for="eventTime" class="block text-sm text-gray-700">שעת תחילת האירוע</label>
+    <input type="time" id="eventTime" formControlName="eventTime" (input)="onTimeInput($event)" required
+      class="mt-1 block rounded-xl border-[#D9D9D9] border px-4 py-3">
+  </div>
 
-      <div>
-        <app-date-picker label="תאריך האירוע" formControlName="eventDate" [required]="true"></app-date-picker>
-        <div *ngIf="ticketForm.get('eventDate')?.touched && ticketForm.get('eventDate')?.errors" class="text-red-500 text-sm mt-1">
-          <div *ngIf="ticketForm.get('eventDate')?.errors?.['required']">תאריך האירוע נדרש</div>
-          <div *ngIf="ticketForm.get('eventDate')?.errors?.['dateNotGreaterThanToday']">תאריך האירוע חייב להיות גדול מהיום</div>
-        </div>
-      </div>
+  <div>
+    <label for="eventLocation" class="block text-sm text-gray-700">מיקום האירוע</label>
+    <input type="text" id="eventLocation" formControlName="eventLocation" required
+      class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3">
+  </div>
 
-      <div>
-        <label for="eventTime" class="block text-sm text-gray-700">שעת תחילת האירוע</label>
-        <input type="time" id="eventTime" formControlName="eventTime" (input)="onTimeInput($event)" required
-          class="mt-1 block rounded-xl border-[#D9D9D9] border px-4 py-3">
-      </div>
-
-      <div>
-        <label for="eventLocation" class="block text-sm text-gray-700">מיקום האירוע</label>
-        <input type="text" id="eventLocation" formControlName="eventLocation" required
-          class="mt-1 block w-full rounded-xl border-[#D9D9D9] border px-4 py-3">
-      </div>
-
-      <div>
-        <label for="eventName" class="block text-sm text-gray-700">העלאת כרטיס/ים למכירה</label>
-        <div
-          class="flex justify-between md:flex-col gap-2 border border-dashed rounded-xl px-2 py-3 md:mb-1 border-[#D9D9D9] items-center">
-          <div class="flex justify-between gap-2 md:mb-2 md:justify-start text-start md:w-full">
-            <svg class="mr-1" width="36" height="30" viewBox="0 0 36 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 21.0186L18 15.0186L12 21.0186" stroke="#38383C" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M18 15.0186V28.5186" stroke="#38383C" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path
-                d="M30.5852 24.6038C32.0482 23.8062 33.2039 22.5441 33.87 21.0167C34.5361 19.4893 34.6745 17.7836 34.2635 16.1688C33.8525 14.554 32.9154 13.122 31.6002 12.0989C30.285 11.0758 28.6665 10.5199 27.0002 10.5188H25.1102C24.6562 8.76264 23.8099 7.13228 22.6351 5.75026C21.4603 4.36825 19.9875 3.27055 18.3273 2.53969C16.6672 1.80882 14.863 1.46381 13.0504 1.5306C11.2377 1.59738 9.46378 2.07423 7.86195 2.92527C6.26011 3.77632 4.87205 4.97943 3.80212 6.44415C2.73218 7.90887 2.00822 9.59708 1.68465 11.3819C1.36109 13.1667 1.44634 15.0016 1.934 16.7487C2.42167 18.4958 3.29905 20.1096 4.50019 21.4688"
-                stroke="#38383C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M24 21.0186L18 15.0186L12 21.0186" stroke="#38383C" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            <div>
-              <span class="block text-[13px] font-bold text-gray-700">בחרו קובץ וגררו לכאן</span>
-              <p class="text-end text-[13px]">ניתן להעלות קובץ PDF</p>
-            </div>
-
-          </div>
-
-          <input #uploadInput type="file" (change)="onFileUpload($event)" accept=".pdf"
-            [disabled]="uploadedFiles.length >= 5" class="hidden">
-          <button type="button" (click)="uploadInput.click()"
-            class="flex-grow max-w-[150px] w-fit md:w-full md:max-w-full px-4 py-1 my-auto md:mr-0mr-5 h-[fit-content] border rounded-xl text-sm font-medium text-black border-[#072d4c] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
-            העלאת קובץ
-          </button>
+  <div>
+    <label for="eventName" class="block text-sm text-gray-700">העלאת כרטיס/ים למכירה</label>
+    <div
+      class="flex justify-between md:flex-col gap-2 border border-dashed rounded-xl px-2 py-3 md:mb-1 border-[#D9D9D9] items-center">
+      <div class="flex justify-between gap-2 md:mb-2 md:justify-start text-start md:w-full">
+        <svg class="mr-1" width="36" height="30" viewBox="0 0 36 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 21.0186L18 15.0186L12 21.0186" stroke="#38383C" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M18 15.0186V28.5186" stroke="#38383C" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path
+            d="M30.5852 24.6038C32.0482 23.8062 33.2039 22.5441 33.87 21.0167C34.5361 19.4893 34.6745 17.7836 34.2635 16.1688C33.8525 14.554 32.9154 13.122 31.6002 12.0989C30.285 11.0758 28.6665 10.5199 27.0002 10.5188H25.1102C24.6562 8.76264 23.8099 7.13228 22.6351 5.75026C21.4603 4.36825 19.9875 3.27055 18.3273 2.53969C16.6672 1.80882 14.863 1.46381 13.0504 1.5306C11.2377 1.59738 9.46378 2.07423 7.86195 2.92527C6.26011 3.77632 4.87205 4.97943 3.80212 6.44415C2.73218 7.90887 2.00822 9.59708 1.68465 11.3819C1.36109 13.1667 1.44634 15.0016 1.934 16.7487C2.42167 18.4958 3.29905 20.1096 4.50019 21.4688"
+            stroke="#38383C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M24 21.0186L18 15.0186L12 21.0186" stroke="#38383C" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <div>
+          <span class="block text-[13px] font-bold text-gray-700">בחרו קובץ וגררו לכאן</span>
+          <p class="text-end text-[13px]">ניתן להעלות קובץ PDF</p>
         </div>
 
       </div>
 
-      <ul class="mt-2 space-y-2">
-        <li *ngFor="let file of uploadedFiles; let i = index"
-          class="flex items-center justify-between rounded-xl border-[#D9D9D9] border px-4 py-3 overflow-hidden">
-          <div class="flex items-center gap-2 max-w-[calc(100%-80px)]">
-            <svg width="20" height="25" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M14.4427 23.4201H5.11997C2.89841 23.4201 1.09747 21.6192 1.09747 19.3976V5.05161C1.09747 2.83005 2.8984 1.02911 5.11997 1.02911H10.983L18.4652 8.51133V19.3976C18.4652 21.6192 16.6643 23.4201 14.4427 23.4201Z"
-                stroke="#001729" stroke-width="1.609" />
-            </svg>
-
-            <span class="text-sm text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis">{{ file.name }}</span>
-          </div>
-
-          <button type="button" (click)="removeFile(i)" class="text-red-500">
-            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M20.4023 5.72461L19.7823 15.7496C19.6243 18.3106 19.5453 19.5916 18.9023 20.5126C18.5849 20.9678 18.1763 21.3519 17.7023 21.6406C16.7453 22.2246 15.4623 22.2246 12.8963 22.2246C10.3263 22.2246 9.04134 22.2246 8.08234 21.6396C7.60823 21.3503 7.19956 20.9655 6.88234 20.5096C6.24034 19.5876 6.16234 18.3046 6.00834 15.7396L5.40234 5.72461M3.90234 5.72461H21.9023M16.9583 5.72461L16.2753 4.31661C15.8223 3.38061 15.5953 2.91361 15.2043 2.62161C15.1175 2.55693 15.0255 2.4994 14.9293 2.44961C14.4963 2.22461 13.9763 2.22461 12.9373 2.22461C11.8713 2.22461 11.3383 2.22461 10.8973 2.45861C10.7999 2.51082 10.7069 2.57103 10.6193 2.63861C10.2243 2.94161 10.0033 3.42661 9.56134 4.39561L8.95534 5.72461"
-                stroke="#F36360" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-        </li>
-      </ul>
-
-      <button type="submit" [disabled]="!isFormValid()"
-        class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
-        המשך
+      <input #uploadInput type="file" (change)="onFileUpload($event)" accept=".pdf"
+        [disabled]="uploadedFiles.length >= 5" class="hidden">
+      <button type="button" (click)="uploadInput.click()"
+        class="flex-grow max-w-[150px] w-fit md:w-full md:max-w-full px-4 py-1 my-auto md:mr-0mr-5 h-[fit-content] border rounded-xl text-sm font-medium text-black border-[#072d4c] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+        העלאת קובץ
       </button>
+    </div>
 
-      <button type="button" (click)="onBack()"
-        class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
-        ביטול
+  </div>
+
+  <ul class="mt-2 space-y-2">
+    <li *ngFor="let file of uploadedFiles; let i = index"
+      class="flex items-center justify-between rounded-xl border-[#D9D9D9] border px-4 py-3 overflow-hidden">
+      <div class="flex items-center gap-2 max-w-[calc(100%-80px)]">
+        <svg width="20" height="25" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M14.4427 23.4201H5.11997C2.89841 23.4201 1.09747 21.6192 1.09747 19.3976V5.05161C1.09747 2.83005 2.8984 1.02911 5.11997 1.02911H10.983L18.4652 8.51133V19.3976C18.4652 21.6192 16.6643 23.4201 14.4427 23.4201Z"
+            stroke="#001729" stroke-width="1.609" />
+        </svg>
+
+        <span class="text-sm text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis">{{ file.name }}</span>
+      </div>
+
+      <button type="button" (click)="removeFile(i)" class="text-red-500">
+        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20.4023 5.72461L19.7823 15.7496C19.6243 18.3106 19.5453 19.5916 18.9023 20.5126C18.5849 20.9678 18.1763 21.3519 17.7023 21.6406C16.7453 22.2246 15.4623 22.2246 12.8963 22.2246C10.3263 22.2246 9.04134 22.2246 8.08234 21.6396C7.60823 21.3503 7.19956 20.9655 6.88234 20.5096C6.24034 19.5876 6.16234 18.3046 6.00834 15.7396L5.40234 5.72461M3.90234 5.72461H21.9023M16.9583 5.72461L16.2753 4.31661C15.8223 3.38061 15.5953 2.91361 15.2043 2.62161C15.1175 2.55693 15.0255 2.4994 14.9293 2.44961C14.4963 2.22461 13.9763 2.22461 12.9373 2.22461C11.8713 2.22461 11.3383 2.22461 10.8973 2.45861C10.7999 2.51082 10.7069 2.57103 10.6193 2.63861C10.2243 2.94161 10.0033 3.42661 9.56134 4.39561L8.95534 5.72461"
+            stroke="#F36360" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </button>
-    </form>
-  <!-- </div>
-</div> -->
+    </li>
+  </ul>
+
+  <button type="submit" [disabled]="!isFormValid()"
+    class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+    המשך
+  </button>
+
+  <button type="button" (click)="onBack()"
+    class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+    ביטול
+  </button>
+</form>
