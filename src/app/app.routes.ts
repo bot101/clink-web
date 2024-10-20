@@ -20,6 +20,7 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NoAdComponent } from './pages/no-ad/no-ad.component';
 import { TicketPurchaseComponent } from './pages/ticket-purchase/ticket-purchase.component';
+import { TicketPurchasePassengerDetailsComponent } from './pages/ticket-purchase-passenger-details/ticket-purchase-passenger-details.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -47,4 +48,5 @@ export const routes: Routes = [
     { path: 'report', component: ReportComponent },
     { path: 'no-ad', component: NoAdComponent },
     { path: 'ticket-purchase', component: TicketPurchaseComponent },
+    { path: 'ticket-purchase-passenger-details', component: TicketPurchasePassengerDetailsComponent },
 ];     
