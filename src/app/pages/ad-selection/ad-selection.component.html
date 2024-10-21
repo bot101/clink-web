@@ -3,7 +3,7 @@
         <div class="flex flex-col md:h-full md:justify-end md:w-[80%] md:max-w-screen-lg w-full md:mx-auto">
             <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
             <app-onboarding-header (back)="back()" [showLogo]="false" [hideStep]="true"
-                title="אימות מספר טלפון"></app-onboarding-header>
+                title="מכירת כרטיס"></app-onboarding-header>
         </div>
     </div>
     <div
@@ -16,14 +16,14 @@
                 <input type="radio" #flight name="selection" class="hidden">
                 <app-flight-icon [outlineColor]="!flight.checked ? '#072d4c' : '#fff'"
                     fillColor="#ffc5c5"></app-flight-icon>
-                <span class="font-bold">flight ticket</span>
+                <span>כרטיס טיסה</span>
             </label>
             <label (click)="onSelect(event, 'event')" [ngClass]="{'selection': event.checked}"
                 class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-[10px] border border-[#072d4c]">
                 <input #event type="radio" name="selection" class="hidden">
                 <app-ticket-icon [outlineColor]="event.checked ? '#fff' : '#072d4c'"
                     fillColor="#ffc5c5"></app-ticket-icon>
-                <span class="font-bold">event ticket</span>
+                <span>כרטיס לאירוע</span>
             </label>
         </div>
     </div>

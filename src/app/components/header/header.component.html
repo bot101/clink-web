@@ -7,9 +7,9 @@
   </div>
 
   <div class="hidden md:flex items-center gap-x-8">
-    <button class="px-10 py-3 bg-white rounded-full">
+    <a class="px-10 py-3 bg-white rounded-full" [routerLink]="['/ad-selection']">
       <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
-    </button>
+    </a>
     <div class="relative">
       <div *ngIf="isSubmenuOpen" class="absolute min-w-32	 top-12 right-0 bg-white shadow-lg rounded-lg p-4 z-50">
         <ul class="flex flex-col gap-y-2">
@@ -44,9 +44,9 @@
       <li><a href="#" class="text-white hover:text-gray-300">תנאי עסקה הוגנת</a></li>
       <li><a href="#" class="text-white hover:text-gray-300">עלינו</a></li>
       <li>
-        <button class="px-10 py-3 bg-white rounded-full">
+        <a class="px-10 py-3 bg-white rounded-full" [routerLink]="['/ad-selection']">
           <span class="text-lg font-bold">לחצו כאן למכירת כרטיס</span>
-        </button>
+        </a>
       </li>
     </ul>
   </div>

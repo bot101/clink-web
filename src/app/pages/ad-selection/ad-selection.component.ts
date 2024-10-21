@@ -24,12 +24,14 @@ export class AdSelectionComponent {
   constructor(private router: Router) {}
   
   onSelect(element: HTMLInputElement, type: string) {
+    setTimeout(() => {
+      if(type === 'flight') {
+        this.router.navigate(['/new-ad/flight']);  
+      } else {
+        this.router.navigate(['/new-ad/ticket']);  
+      }
+    }, 1000);
     element.checked = true;
-    if(type === 'flight') {
-      this.router.navigate(['/new-ad/flight']);  
-    } else {
-      this.router.navigate(['/new-ad/ticket']);  
-    }
   }
 
   back() {
