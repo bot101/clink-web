@@ -4,10 +4,10 @@
     </div>
     <div class="flex flex-row-reverse md:flex-row justify-between md:justify-end items-center gap-1 md:gap-6">
         <img (click)="goToHome()" class="flex md:hidden" src="/assets/icons/logo-dark.svg" alt="Logo">
-        <a href="" class="text-center md:text-right">
+        <a [routerLink]="['/privacy']" class="text-center md:text-right">
             מדיניות פרטיות
         </a>
-        <a href="" class="text-center md:text-right">
+        <a [routerLink]="['/agreement']" class="text-center md:text-right">
             תנאי שימוש
         </a>
     </div>

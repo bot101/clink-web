@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { LogoComponent } from "../logo/logo.component";
 import { LogoDarkComponent } from "../logo-dark/logo-dark.component";
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [LogoComponent, LogoDarkComponent],
+  imports: [LogoComponent, LogoDarkComponent, CommonModule, RouterModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
   host: {
