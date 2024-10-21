@@ -1,0 +1,42 @@
+<form [formGroup]="adForm" (ngSubmit)="onContinue()"
+  class="space-y-5 lowercase md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+  <h2 for="eventName" class="block text-lg font-[700] text-gray-700 text-center">פרטים כלליים</h2>
+
+  <div class="mt-6">
+    <app-input-field label="יעד הטיסה" formControlName="flightDestination" [required]="true"></app-input-field>
+
+    <p>
+      <span class="font-bold">שימו</span> <svg class="inline" width="14" height="13" viewBox="0 0 14 13" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0.821289 4.49624C0.821289 9.29584 7.06129 12.5198 7.06129 12.5198C7.06129 12.5198 13.3013 9.29844 13.3013 4.49624C13.3013 2.52804 11.7049 0.931644 9.73669 0.931644C8.66549 0.931644 7.71649 1.41264 7.06129 2.16144C6.40869 1.41264 5.45709 0.931644 4.38589 0.931644C2.41769 0.929044 0.821289 2.52544 0.821289 4.49624Z"
+          fill="#FFC5C5" />
+        <path
+          d="M7.06152 12.7807C7.01992 12.7807 6.98092 12.7703 6.94192 12.7521C6.68192 12.6169 0.561523 9.39812 0.561523 4.49712C0.561523 2.38852 2.27752 0.669922 4.38612 0.669922C5.38452 0.669922 6.34392 1.07032 7.06152 1.78012C7.77912 1.07032 8.73852 0.669922 9.73692 0.669922C11.8455 0.669922 13.5615 2.38852 13.5615 4.49712C13.5615 9.40072 7.44112 12.6169 7.18112 12.7521C7.14212 12.7703 7.10312 12.7807 7.06152 12.7807ZM4.38612 1.18992C2.56352 1.18992 1.08152 2.67452 1.08152 4.49712C1.08152 8.72212 6.20872 11.7485 7.06152 12.2243C7.91432 11.7485 13.0415 8.72212 13.0415 4.49712C13.0415 2.67452 11.5595 1.19252 9.73692 1.19252C8.79572 1.19252 7.89092 1.60852 7.25912 2.33392C7.16032 2.44572 6.96532 2.44572 6.86652 2.33392C6.23212 1.60592 5.32732 1.18992 4.38612 1.18992Z"
+          fill="#FEB4B4" />
+      </svg>, הקפידו לרשום את שם היעד, כולל העיר והמדינה
+    </p>
+  </div>
+
+  <div class="mb-6">
+    <app-input-field placeholder="אל על" label="חברת התעופה" formControlName="airlineName"
+      [required]="true"></app-input-field>
+  </div>
+
+  <div class="mb-6">
+    <app-input-field label="מספר טיסה" formControlName="flightNumber" [required]="true"></app-input-field>
+  </div>
+  <div class="mb-6">
+    <label for="ticketQuantity" class="block text-sm lowercase text-gray-700">סוג הכרטיס</label>
+    <app-radio-group label="Flight Type" formControlName="flightType" [options]="[
+          { value: 'round_trip', label: 'הלוך - חזור' },
+          { value: 'one_way', label: 'כיוון אחד' }
+        ]"></app-radio-group>
+  </div>
+
+  <div class="flex flex-col gap-4 mt-8">
+    <app-button class="font-bold" label="המשך" type="submit" [disabled]="adForm.invalid"></app-button>
+    <app-button buttonClasses="bg-transparent border-[#072d4c] !text-[#072d4c] font-bold" label="ביטול" type="button"
+      (click)="onCancel()" variant="secondary"></app-button>
+  </div>
+</form>

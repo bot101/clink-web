@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-import { TicketEventComponent } from './pages/ticket-event/ticket-event.component';
-import { TicketEventDetailComponent } from './pages/ticket-event-detail/ticket-event-detail.component';
-import { NewAdComponent } from './pages/new-ad/new-ad.component';
-import { NewAd2Component } from './pages/new-ad2/new-ad2.component';
-import { NewAd3Component } from './pages/new-ad3/new-ad3.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { OtpComponent } from './pages/otp/otp.component';
 import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
@@ -19,25 +14,17 @@ import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NoAdComponent } from './pages/no-ad/no-ad.component';
-import { TicketPurchaseComponent } from './pages/ticket-purchase/ticket-purchase.component';
-import { TicketPurchasePassengerDetailsComponent } from './pages/ticket-purchase-passenger-details/ticket-purchase-passenger-details.component';
+import { CreateAdComponent } from './pages/create-ad/create-ad.component';
+import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-    
     { path: 'overview', component: OverviewComponent },
-    
     { path: 'agreement', component: AgreementComponent },
-    
     { path: 'about', component: AboutComponent },
-    
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
-    { path: 'ticket-event', component: TicketEventComponent },
-    { path: 'new-ad', component: NewAdComponent },
-    { path: 'ticket-event-details', component: TicketEventDetailComponent },
-    { path: 'new-ad-2', component: NewAd2Component },
-    { path: 'new-ad-3', component: NewAd3Component },
+    { path: 'new-ad/:adType?', component: CreateAdComponent },
     { path: 'login', component: AuthenticationComponent },
     { path: 'otp', component: OtpComponent },
     { path: 'email-confirmation', component: EmailConfirmationComponent },
@@ -47,6 +34,6 @@ export const routes: Routes = [
     { path: 'ticket-details', component: TicketDetailsComponent },
     { path: 'report', component: ReportComponent },
     { path: 'no-ad', component: NoAdComponent },
-    { path: 'ticket-purchase', component: TicketPurchaseComponent },
-    { path: 'ticket-purchase-passenger-details', component: TicketPurchasePassengerDetailsComponent },
+    { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
+    { path: '**', redirectTo: ''}
 ];     

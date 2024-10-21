@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { InputFieldComponent } from '../../components/input-field/input-field.component';
-import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
+import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
+import { ButtonComponent } from '../button/button.component';
+import { InputFieldComponent } from '../input-field/input-field.component';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { LogoComponent } from "../../components/logo/logo.component";
-import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
-import { AdService } from '../../services/ad.service';
+import { LogoComponent } from "../logo/logo.component";
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { AdService } from '../../services/ad/ad.service';
 
 @Component({
   selector: 'app-new-ad3',
@@ -31,6 +31,9 @@ import { AdService } from '../../services/ad.service';
   styleUrl: './new-ad3.component.scss'
 })
 export class NewAd3Component implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   ticketForm!: FormGroup;
   isLoggedIn: boolean = false;
 
@@ -81,7 +84,8 @@ export class NewAd3Component implements OnInit {
         (response: any) => {
           alert('Ticket event submitted successfully');
           this.clearForm();
-          this.router.navigate(['/']);
+          // this.router.navigate(['/']);
+          this.nextStep.emit();
         },
         (error: any) => {
           alert('Error submitting ticket event');
@@ -107,6 +111,6 @@ export class NewAd3Component implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/']);
+    this.previousStep.emit();
   }
 }

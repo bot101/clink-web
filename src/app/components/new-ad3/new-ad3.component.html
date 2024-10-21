@@ -1,0 +1,57 @@
+<form [formGroup]="ticketForm" (ngSubmit)="onFinish()"
+  class="space-y-5 lowercase md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+  <h2 class="block text-lg font-[700] text-gray-700">מחיר ופרטים נוספים</h2>
+
+  <div>
+    <label class="block text-sm lowercase text-gray-700">כמות כרטיסים</label>
+    <app-radio-group formControlName="ticketQuantity" [options]="[
+        { value: 1, label: '1' },
+        { value: 2, label: '2' },
+        { value: 3, label: '3' },
+        { value: 4, label: '4' },
+        { value: 5, label: '5' }
+      ]"></app-radio-group>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="costPrice" class="block text-md lowercase text-gray-700">בכמה רכשתם כל כרטיס?</label>
+    <p class="text-sm text-gray-700">לדוגמה, אם רכשתם 2 כרטיסים ב -1000 ₪ כל אחד, רשמו 1000 ₪</p>
+    <input type="text" id="costPrice" formControlName="costPrice" currencyMask
+      [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }" required
+      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
+    <div *ngIf="ticketForm.get('costPrice')?.touched && ticketForm.get('costPrice')?.invalid"
+      class="text-red-500 text-sm mt-1">
+      מחיר המכירה לא יכול להיות גבוה יותר מהמחיר ששילמתם
+    </div>
+  </div>
+
+  <div>
+    <label for="salePrice" class="block text-md lowercase text-gray-700">בכמה אתם מוכרים כל כרטיס?</label>
+    <p class="text-sm text-gray-700">לדוגמה, אם אתם מוכרים 2 כרטיסים ב-900 ₪ כל אחד, רשמו 900 ₪</p>
+    <input type="text" id="salePrice" formControlName="salePrice" currencyMask
+      [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }" required
+      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
+  </div>
+
+  <p class="text-md">יש להכניס מחיר בשקלים בלבד. עליכם לחשב המרה? כדי להקל עליכם, צירפנו <a
+      href="https://www.google.com/search?q=convert+currency" target="_blank"
+      class="text-[#072d4c] underline font-bold">קישור</a> . <a href="https://www.google.com/search?q=convert+currency"
+      target="_blank" class="text-[#072d4c]">למחשבון של גוגל</a></p>
+
+  <div>
+    <label class="block text-sm lowercase text-gray-700">פירוט כללי על הכרטיס</label>
+    <textarea placeholder="הכרטיס במחלקת תיירים פלוס, כולל שתי מזוודות, כרטיס גמיש." formControlName="generalDetails"
+      class="mt-1 block w-full min-h-36 rounded-xl border-[#D9D9D9] border px-4 py-3"></textarea>
+  </div>
+
+  <div class="flex items-end">
+    <app-checkbox customClass="flex-row-reverse gap-3" formControlName="isChecked"
+      label="בדקתי עם חברת התעופה/התיירות והם אישרו שניתן לשנות את השם המלא של הנוסע בכרטיס/בהזמנה שאני מעלה למכירה.לשאלות ועזרה פנו אלינו בצ׳אט"></app-checkbox>
+    <div *ngIf="ticketForm.get('isChwecked')?.touched && !ticketForm.get('isChecked')?.value"
+      class="text-red-500 text-sm mt-1">
+      חובה לאשר סעיף זה
+    </div>
+  </div>
+
+  <app-button buttonClasses="mt-6" label="סיום" type="submit" [disabled]="!ticketForm.valid"></app-button>
+</form>

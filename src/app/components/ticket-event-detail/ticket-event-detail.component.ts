@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogoComponent } from '../../components/logo/logo.component';
-import { TicketEventService } from '../../services/ticket-event.service';
-import { ApiService } from '../../services/api.service';
+import { LogoComponent } from '../logo/logo.component';
+import { TicketEventService } from '../../services/ticket-event/ticket-event.service';
+import { ApiService } from '../../services/api/api.service';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
-import { RadioGroupComponent } from '../../components/radio-group/radio-group.component';
-import { ButtonComponent } from '../../components/button/button.component';
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-ticket-event-detail',
@@ -27,6 +27,9 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrls: ['./ticket-event-detail.component.scss']
 })
 export class TicketEventDetailComponent implements OnInit {
+  @Output() nextStep = new EventEmitter<void>();
+  @Output() previousStep = new EventEmitter<void>();
+
   ticketForm!: FormGroup;
   previousData: any;
   

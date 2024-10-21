@@ -1,0 +1,65 @@
+<p class="px-9 md:p-0 w-full my-6 md:max-w-[640px] mx-auto">אנא הזינו את פרטיכם כדי שנוכל לשלוח לכם עדכונים חשובים
+    וליצור קשר במקרה הצורך.</p>
+<div
+    class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] md:mt-4">
+    <form [formGroup]="ticketPurchaseForm" (ngSubmit)="onContinue()"
+        class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+
+        <div class="md:mt-6">
+            <app-input-field label="שם מלא" formControlName="fullName" [required]="true"></app-input-field>
+            <div
+                *ngIf="ticketPurchaseForm.get('fullName')?.invalid && (ticketPurchaseForm.get('fullName')?.dirty || ticketPurchaseForm.get('fullName')?.touched)">
+                <small *ngIf="ticketPurchaseForm.get('fullName')?.errors?.['required']" class="text-red-500">שם מלא
+                    הוא שדה חובה.</small>
+                <small *ngIf="ticketPurchaseForm.get('fullName')?.errors?.['pattern']" class="text-red-500">שם מלא
+                    יכול להכיל רק אותיות.</small>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <app-input-field label="כתובת אימייל" formControlName="email" [required]="true"></app-input-field>
+            <div
+                *ngIf="ticketPurchaseForm.get('email')?.invalid && (ticketPurchaseForm.get('email')?.dirty || ticketPurchaseForm.get('email')?.touched)">
+                <small *ngIf="ticketPurchaseForm.get('email')?.errors?.['required']" class="text-red-500">כתובת אימייל
+                    הוא שדה חובה.</small>
+                <small *ngIf="ticketPurchaseForm.get('email')?.errors?.['email']" class="text-red-500">אנא הזינו כתובת
+                    אימייל בפורמט
+                    example&#64;domain.com</small>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <app-input-field label="הקלידו את כתובת האימייל שוב" formControlName="confirmEmail"
+                [required]="true"></app-input-field>
+            <div
+                *ngIf="ticketPurchaseForm.get('confirmEmail')?.invalid && (ticketPurchaseForm.get('confirmEmail')?.dirty || ticketPurchaseForm.get('confirmEmail')?.touched)">
+                <small *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['required']" class="text-red-500">אימייל
+                    משתמש הוא שדה חובה.</small>
+                <small *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['email']" class="text-red-500">אנא הזינו
+                    כתובת אימייל בפורמט
+                    example&#64;domain.com</small>
+            </div>
+            <div *ngIf="ticketPurchaseForm.errors?.['emailMismatch']">
+                <small class="text-red-500">כתובות האימייל שהוזנו אינן תואמות</small>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <app-input-field label="מספר טלפון" formControlName="phoneNumber" [required]="true"></app-input-field>
+            <div
+                *ngIf="ticketPurchaseForm.get('phoneNumber')?.invalid && (ticketPurchaseForm.get('phoneNumber')?.dirty || ticketPurchaseForm.get('phoneNumber')?.touched)">
+                <small *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['required']" class="text-red-500">מספר
+                    טלפון
+                    הוא שדה חובה.</small>
+                <small *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['pattern']" class="text-red-500">המספר
+                    שהוזן קצר מדי. אנא הזינו מספר טלפון
+                    תקין בעל 10 ספרות</small>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4 mt-8">
+            <app-button class="font-bold" label="המשך" type="submit"
+                [disabled]="ticketPurchaseForm.invalid"></app-button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,117 @@
+<form [formGroup]="flightForm" (ngSubmit)="onSubmit()"
+  class="space-y-5 lowercase md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
+  <h2 class="block text-lg font-[700] text-gray-700">פרטי הטיסה הלוך</h2>
+
+  <div class="flex flex-col space-y-5">
+    <app-date-picker label="תאריך המראה" formControlName="departureDate" required id="departureDate"
+      name="departureDate">
+    </app-date-picker>
+    <div *ngIf="flightForm.errors?.['departureTooSoon']" class="text-red-500 text-sm mt-1">
+      תאריך ההמראה חייב להיות לפחות 36 שעות מעכשיו
+    </div>
+  </div>
+
+  <div>
+    <app-time-picker label="שעת המראה" formControlName="departureTime" required id="departureTime" name="departureTime">
+    </app-time-picker>
+    <div *ngIf="flightForm.get('departureTime')?.touched && flightForm.get('departureTime')?.invalid"
+      class="text-red-500 text-sm mt-1">
+      שימו לב! לא ניתן לפרסם טיסה פחות מ-36 שעות ממועד ההמראה
+    </div>
+  </div>
+
+  <div>
+    <app-date-picker [minDateString]="departureDateValue" label="תאריך הנחיתה ביעד" formControlName="arrivalDate"
+      required id="arrivalDate" name="arrivalDate">
+    </app-date-picker>
+    <div
+      *ngIf="flightForm.get('arrivalDate')?.touched && flightForm.get('arrivalDate')?.invalid && flightForm.errors?.['arrivalBeforeDeparture']"
+      class="text-red-500 text-sm mt-1">
+      תאריך הנחיתה לא יכול להיות לפני תאריך ההמראה
+    </div>
+  </div>
+
+  <div>
+    <app-time-picker label="שעת הנחיתה ביעד" formControlName="arrivalTime" required id="arrivalTime" name="arrivalTime">
+    </app-time-picker>
+    <div *ngIf="flightForm.get('arrivalTime')?.touched && flightForm.get('arrivalTime')?.invalid"
+      class="text-red-500 text-sm mt-1">
+      שעת הנחיתה לא יכולה להיות לפני שעת ההמראה
+    </div>
+  </div>
+
+  <ng-container *ngIf="!isOneWayFlight">
+    <h2 for="eventName" class="block text-lg font-[700] text-gray-700">פרטי הטיסה חזור</h2>
+
+    <div>
+      <app-date-picker label="תאריך ההמראה" [minDateString]="arrivalDateValue" formControlName="returnDepartureDate"
+        id="returnDepartureDate" name="returnDepartureDate">
+      </app-date-picker>
+      <div *ngIf="flightForm.get('returnDepartureDate')?.touched && flightForm.get('returnDepartureDate')?.invalid"
+        class="text-red-500 text-sm mt-1">
+        תאריך הטיסה חזור לא יכול להיות לפני התאריך
+        טיסה הלוך </div>
+    </div>
+
+    <div>
+      <app-time-picker label="שעת ההמראה" formControlName="returnDepartureTime" id="returnDepartureTime"
+        name="returnDepartureTime">
+      </app-time-picker>
+      <div *ngIf="flightForm.get('returnDepartureTime')?.touched && flightForm.get('returnDepartureTime')?.invalid"
+        class="text-red-500 text-sm mt-1">
+        שעת ההמראה חזור לא יכולה להיות לפני שעת ההמראה/נחיתה של הטיסה הלוך
+      </div>
+    </div>
+
+    <div class="flex flex-col space-y-5">
+      <app-date-picker label="תאריך הנחיתה ביעד" [minDateString]="returnDepartureDateValue" formControlName="returnDate"
+        id="returnDate" name="returnDate">
+      </app-date-picker>
+      <div
+        *ngIf="flightForm.get('returnDate')?.touched && flightForm.get('returnDate')?.invalid || flightForm.errors?.['returnBeforeReturnDeparture']"
+        class="text-red-500 text-sm mt-1">
+        תאריך הנחיתה חזור לא יכול להיות לפני תאריך ההמראה חזור
+      </div>
+    </div>
+
+    <div>
+      <app-time-picker label="שעת הנחיתה ביעד" formControlName="returnTime" id="returnTime" name="returnTime">
+      </app-time-picker>
+      <div *ngIf="flightForm.get('returnTime')?.touched && flightForm.get('returnTime')?.invalid"
+        class="text-red-500 text-sm mt-1">
+        שעת הנחיתה חזור לא יכולה להיות לפני שעת ההמראה חזור
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="flightForm.errors?.['arrivalBeforeDeparture']" class="error-message">
+    Arrival date cannot be before departure date.
+  </div>
+
+  <div *ngIf="flightForm.errors?.['missingReturnDate']" class="error-message">
+    Return date is required when return departure date is filled.
+  </div>
+
+  <div *ngIf="flightForm.errors?.['returnArrivalBeforeDeparture']" class="error-message">
+    Return arrival date cannot be before return departure date.
+  </div>
+
+  <div *ngIf="flightForm.errors?.['returnBeforeDeparture']" class="error-message">
+    Return departure cannot be before initial departure.
+  </div>
+  <div *ngIf="flightForm.errors">
+    <div *ngIf="flightForm.errors['arrivalBeforeDeparture']">Arrival date cannot be before departure date</div>
+    <div *ngIf="flightForm.errors['returnDepartureBeforeArrival']">Return departure cannot be before arrival</div>
+    <div *ngIf="flightForm.errors['returnBeforeReturnDeparture']">Return date cannot be before return departure</div>
+  </div>
+
+  <button type="submit" [disabled]="!flightForm.valid"
+    class="w-full py-3 px-4 border border-transparent rounded-[20px] capitalize shadow-sm text-sm text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+    המשך
+  </button>
+
+  <button type="button" (click)="cancel()"
+    class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+    ביטול
+  </button>
+</form>

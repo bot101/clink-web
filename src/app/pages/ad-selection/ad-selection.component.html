@@ -2,7 +2,7 @@
     <div class="w-full flex flex-col items-end bg-[#072D4C] ">
         <div class="flex flex-col md:h-full md:justify-end md:w-[80%] md:max-w-screen-lg w-full md:mx-auto">
             <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
-            <app-onboarding-header [showLogo]="false" [hideStep]="true"
+            <app-onboarding-header (back)="back()" [showLogo]="false" [hideStep]="true"
                 title="אימות מספר טלפון"></app-onboarding-header>
         </div>
     </div>
