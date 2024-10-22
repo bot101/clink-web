@@ -115,10 +115,9 @@ export class TicketEventComponent implements OnInit {
     if (this.isFormValid()) {
       const formData = {
         ...this.ticketForm.value,
-        uploadedFiles: this.uploadedFiles
+        uploadedFiles: [], // this.uploadedFiles
       };
       this.ticketEventService.setFormData(formData);
-      // this.router.navigate(['/ticket-event-details']);
       this.nextStep.emit();
     }
   }
