@@ -2,11 +2,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../button/button.component";
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
+import { ClipboardModule } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-ticket-entry',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, ConfirmationDialogComponent],
+  imports: [ClipboardModule,CommonModule, ButtonComponent, ConfirmationDialogComponent],
   templateUrl: './ticket-entry.component.html',
   styleUrl: './ticket-entry.component.scss'
 })
@@ -17,6 +18,8 @@ export class TicketEntryComponent {
   @Output() deleteTicket = new EventEmitter<string>();
   @Output() copyLink = new EventEmitter<string>();
   @Output() markDetailsUpdated = new EventEmitter<string>();
+
+  isCopied = false
 
   showMenu: boolean = false;
   showConfirmationDialog: boolean = false;
@@ -33,7 +36,8 @@ export class TicketEntryComponent {
   }
 
   onCopyLink() {
-    this.copyLink.emit(this.ticket.id);
+    //this.copyLink.emit(this.ticket.id);
+    this.isCopied = true
   }
 
   onMarkDetailsUpdated() {

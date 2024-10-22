@@ -1,9 +1,9 @@
-<div class="bg-[#EFECE6] flex flex-col-reverse md:flex-row justify-between w-full mx-auto py-10 px-4 md:px-16">
+<div class="bg-[#EFECE6] flex flex-col-reverse md:flex-row justify-between w-full mx-auto py-5 px-5 md:py-10  md:px-16">
     <div class="hidden md:flex justify-end md:justify-start">
         <app-logo-dark></app-logo-dark>
     </div>
     <div class="flex flex-row-reverse md:flex-row justify-between md:justify-end items-center gap-1 md:gap-6">
-        <img (click)="goToHome()" class="flex md:hidden" src="/assets/icons/logo-dark.svg" alt="Logo">
+        <img (click)="goToHome()" class="flex md:hidden w-20" src="/assets/icons/logo-dark.svg" alt="Logo">
         <a [routerLink]="['/privacy']" class="text-center md:text-right">
             מדיניות פרטיות
         </a>

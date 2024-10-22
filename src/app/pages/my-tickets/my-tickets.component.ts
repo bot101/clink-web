@@ -30,7 +30,7 @@ export class MyTicketsComponent implements OnInit {
           name: 'אביב גפן בפארק הירקון',
           numberOfTickets: 2,
           sold: false,
-          eventDate: new Date('2023-12-31'),
+          eventDate: new Date('2025-12-31'),
           location: 'Stadium A',
           originalPrice: 100,
           salePrice: 90,
