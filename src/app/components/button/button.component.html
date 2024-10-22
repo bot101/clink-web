@@ -4,5 +4,10 @@
   [class]="classes"
   (click)="onClick($event)"
 >
-  {{ label }}
+  <ng-container *ngIf="label; else content">
+    {{ label }}
+  </ng-container>
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
 </button>

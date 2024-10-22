@@ -1,0 +1,33 @@
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+    <div class="h-full w-full flex flex-col bg-[#072D4C]">
+        <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
+    </div>
+
+    <div
+        class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 pt-0 md:bg-white rounded-none md:rounded-3xl border-0 md:border md:border-[#9D9990] md:mt-8">
+        <div class="flex flex-col gap-2 items-center mt-8">
+            <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10 md:h-14 md:w-14">
+            <h3 class="text-2xl md:text-4xl font-bold">הכול מוכן!</h3>
+        </div>
+
+        <div class="flex flex-col gap-6 items-center mt-4 text-base md:text-lg w-full md:max-w-[420px] mx-auto">
+            <p class="w-full text-start">
+                עכשיו נשאר רק להעתיק את הלינק ולשתף בכל מקום שתרצו.
+            </p>
+            <div class="flex flex-col gap-2 w-full text-start">
+                <p>יש שינוי בפרטים? קל!</p>
+                <p>עדכנו את המודעה בכמה לחיצות ותישארו תמיד מעודכנים.</p>
+            </div>
+
+            <div class="flex flex-col gap-4 w-full md:w-4/5">
+                <app-button buttonClasses="flex items-center justify-center gap-2 bg-transparent border border-[#072D4C]">
+                    <img src="/assets/icons/logo-chain.svg" alt="copy" class="w-6 h-6">
+                    <span class="text-[#072D4C] text-base md:text-xl md:font-bold">העתקת לינק למודעה</span>
+                </app-button>
+                <app-button buttonClasses="text-base py-4 md:text-xl md:font-bold" label=" לכרטיסים שלי"></app-button>
+            </div>
+        </div>
+
+    </div>
+    <app-footer></app-footer>
+</div>

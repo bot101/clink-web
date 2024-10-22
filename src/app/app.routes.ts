@@ -16,6 +16,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NoAdComponent } from './pages/no-ad/no-ad.component';
 import { CreateAdComponent } from './pages/create-ad/create-ad.component';
 import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
+import { CreateAdSuccessComponent } from './pages/create-ad-success/create-ad-success.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
+    { path: 'new-ad/success', component: CreateAdSuccessComponent },
     { path: 'new-ad/:adType?', component: CreateAdComponent },
     { path: 'login', component: AuthenticationComponent },
     { path: 'otp', component: OtpComponent },

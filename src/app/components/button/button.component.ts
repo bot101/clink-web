@@ -9,11 +9,12 @@
 // })
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [],
+  imports: [NgIf, NgTemplateOutlet],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   providers: [
