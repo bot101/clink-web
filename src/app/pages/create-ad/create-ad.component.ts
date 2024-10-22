@@ -54,7 +54,7 @@ export class CreateAdComponent {
     if (this.currentStep > 1) {
       this.currentStep--;
     } else {
-      this.router.navigate(['/ad-selection']);
+      this.router.navigate(['..']);
     }
   }
 }
