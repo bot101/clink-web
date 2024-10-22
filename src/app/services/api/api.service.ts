@@ -51,9 +51,10 @@ export class ApiService {
 
 
   submitTicketEvent(completeData: CompleteTicketEventData): Observable<TicketEventResponse> {
+
     const event = {
       title: completeData.eventName,
-      date: completeData.eventDate,
+      date: this.formatDate(completeData.eventDate),
       location: completeData.eventLocation,
       url: completeData.eventLink,
       files: completeData.uploadedFiles.map(file => ({
@@ -78,7 +79,6 @@ export class ApiService {
   }
 
   submitFlight(completeData: CompleteTicketFlightData): Observable<TicketEventResponse> {
-    debugger;
     const outboundDepartureDate = new Date(this.formatDate(completeData.departureDate));
     const outboundArrivalDate = new Date(this.formatDate(completeData.arrivalDate));
     const [departureHours, departureMinutes] = completeData.departureTime.split(':').map(Number);

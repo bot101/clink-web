@@ -82,9 +82,8 @@ export class NewAd3Component implements OnInit {
       const flatFormData = flattenObject(completeFormData);
       this.adService.submitFlightForm(flatFormData).subscribe(
         (response: any) => {
-          alert('Ticket event submitted successfully');
           this.clearForm();
-          // this.router.navigate(['/']);
+          this.router.navigate(['/new-ad/success']);
           this.nextStep.emit();
         },
         (error: any) => {
