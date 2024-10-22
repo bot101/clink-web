@@ -84,7 +84,22 @@
             stroke="#001729" stroke-width="1.609" />
         </svg>
 
-        <span class="text-sm text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis">{{ file.name }}</span>
+        <div class="flex flex-col gap-1">
+          <span class="text-sm text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis">{{ file.name }}</span>  
+        <div class="w-full bg-gray-200 rounded-full h-1.5">
+          <div class="bg-[#ffc5c5] h-1 rounded-full animate-progress"></div>
+        </div>
+        <style>
+          @keyframes progress {
+            0% { width: 0; }
+            100% { width: 100%; }
+          }
+          .animate-progress {
+            animation: progress 4s linear forwards;
+          }
+        </style>
+        </div>
+        
       </div>
 
       <button type="button" (click)="removeFile(i)" class="text-red-500">
