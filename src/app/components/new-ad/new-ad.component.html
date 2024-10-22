@@ -3,7 +3,7 @@
   <h2 for="eventName" class="block text-lg font-[700] text-gray-700 text-center">פרטים כלליים</h2>
 
   <div class="mt-6">
-    <app-input-field label="יעד הטיסה" formControlName="flightDestination" [required]="true"></app-input-field>
+    <app-input-field placeholder="יעד טיסה" label="יעד הטיסה" formControlName="flightDestination" [required]="true"></app-input-field>
 
     <p>
       <span class="font-bold">שימו</span> <svg class="inline" width="14" height="13" viewBox="0 0 14 13" fill="none"
@@ -24,11 +24,11 @@
   </div>
 
   <div class="mb-6">
-    <app-input-field label="מספר טיסה" formControlName="flightNumber" [required]="true"></app-input-field>
+    <app-input-field placeholder="מספר טיסה" label="מספר טיסה" formControlName="flightNumber" [required]="true"></app-input-field>
   </div>
   <div class="mb-6">
     <label for="ticketQuantity" class="block text-sm lowercase text-gray-700">סוג הכרטיס</label>
-    <app-radio-group label="Flight Type" formControlName="flightType" [options]="[
+    <app-radio-group formControlName="flightType" [options]="[
           { value: 'round_trip', label: 'הלוך - חזור' },
           { value: 'one_way', label: 'כיוון אחד' }
         ]"></app-radio-group>

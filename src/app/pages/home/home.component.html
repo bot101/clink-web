@@ -1,6 +1,8 @@
 <div class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="h-full lg:min-h-[40vh] w-full flex flex-col bg-[#072D4C]">
+    <div class="w-full flex flex-col bg-[#072D4C] fixed">
         <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
+    </div>
+    <div class="h-full lg:min-h-[30vh] w-full flex flex-col bg-[#072D4C] pt-[50px] md:pt-[150px]">
         <div
             class="container flex flex-col items-center h-full max-w-lg mx-auto mt-8 lg:mt-[5vh] overflow-hidden px-4 lg:px-0">
             <div class="flex flex-col items-center justify-center text-center">
@@ -15,7 +17,7 @@
 
                 <p class="font-bold text-white text-base lg:text-lg mb-6 lg:mb-8 text-start lg:text-center w-full">מהיום - כל עסקה מתחילה בקלינק.</p>
                 <button class="px-6 lg:px-10 py-3 w-full lg:w-fit bg-white rounded-full mb-8 lg:mb-32 mt-4 lg:mt-8">
-                    <span class="text-base lg:text-lg font-bold">לחצו כאן למכירת כרטיס</span>
+                    <span class="text-base lg:text-lg font-bold"  [routerLink]="['/ad-selection']">לחצו כאן למכירת כרטיס</span>
                 </button>
             </div>
         </div>

@@ -20,7 +20,7 @@
             </div>
 
             <div class="flex flex-col gap-4 w-full md:w-4/5">
-                <app-button buttonClasses="flex items-center justify-center gap-2 bg-transparent border border-[#072D4C]">
+                <app-button ngxClipboard [cbContent]="'just some placeholder text'" buttonClasses="flex items-center justify-center gap-2 bg-transparent border border-[#072D4C]">
                     <img src="/assets/icons/logo-chain.svg" alt="copy" class="w-6 h-6">
                     <span class="text-[#072D4C] text-base md:text-xl md:font-bold">העתקת לינק למודעה</span>
                 </app-button>
