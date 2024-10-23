@@ -32,7 +32,8 @@ export class ButtonComponent implements OnInit, OnChanges, ControlValueAccessor 
   @Input() disabled: boolean = false;
   @Input() variant: 'primary' | 'secondary' = 'primary';
   @Input() buttonClasses: string = '';
-  classes = 'disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-sm font-medium text-white w-full px-4 py-3 border rounded-[25px] bg-[#072d4c] disabled:bg-gray-300 disabled:text-gray-700';
+  classes = 'disabled:opacity-50 disabled:cursor-not-allowed shadow-sm text-sm font-medium text-white w-full px-4 py-3 border rounded-[20px] bg-[#072d4c] disabled:bg-gray-300 disabled:text-gray-700';
+  setClasses: string = '';
 
   private _value: any = null;
   private onChange: (value: any) => void = () => { };
@@ -49,10 +50,14 @@ export class ButtonComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
   
   ngOnInit() {
-    this.classes = `${this.buttonClasses} ${this.classes}`;
+    this.setClasses = `${this.buttonClasses} ${this.classes}`;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['buttonClasses']) {
+      this.setClasses = `${changes['buttonClasses'].currentValue} ${this.classes}`;
+    }
+  }
 
   writeValue(value: any): void {
     if (value !== undefined) {

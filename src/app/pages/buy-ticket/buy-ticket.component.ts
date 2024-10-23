@@ -55,7 +55,7 @@ export class BuyTicketComponent {
       this.currentStep--;
       this.stepChange(this.currentStep);
     } else {
-      this.router.navigate(['/ad-selection']);
+      this.router.navigate(['..']);
     }
   }
 }

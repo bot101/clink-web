@@ -1,7 +1,7 @@
 <button
   [type]="type"
   [disabled]="disabled"
-  [class]="classes"
+  [class]="setClasses"
   (click)="onClick($event)"
 >
   <ng-container *ngIf="label; else content">
