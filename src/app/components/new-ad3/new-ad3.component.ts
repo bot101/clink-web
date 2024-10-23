@@ -11,6 +11,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { LogoComponent } from "../logo/logo.component";
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { AdService } from '../../services/ad/ad.service';
+import { salePriceValidator } from './validator';
 
 @Component({
   selector: 'app-new-ad3',
@@ -46,10 +47,12 @@ export class NewAd3Component implements OnInit {
   ngOnInit() {
     this.ticketForm = this.fb.group({
       ticketQuantity: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-      costPrice: [null, [Validators.required, Validators.min(0.01), this.salePriceValidator.bind(this)]],
+      costPrice: [null, [Validators.required, Validators.min(0.01)]],
       salePrice: [null, [Validators.required, Validators.min(0.01)]],
       generalDetails: [''],
       isChecked: [false, Validators.requiredTrue]
+    }, {
+      validators: salePriceValidator('costPrice', 'salePrice')
     });
 
     const savedData = this.adService.getFormData();
@@ -58,10 +61,10 @@ export class NewAd3Component implements OnInit {
     }
   }
 
-  salePriceValidator(control: AbstractControl) {
-    const costPrice = this.ticketForm?.get('costPrice')?.value;
-    return control.value <= costPrice ? null : { salePriceTooHigh: true };
-  }
+  // salePriceValidator(control: AbstractControl) {
+  //   const costPrice = this.ticketForm?.get('costPrice')?.value;
+  //   return control.value <= costPrice ? null : { salePriceTooHigh: true };
+  // }
 
   onFinish(): void {
     if (this.ticketForm.valid) {
