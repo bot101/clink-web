@@ -9,6 +9,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ButtonComponent } from '../button/button.component';
+import { salePriceValidator } from '../../validators/validator';
 
 @Component({
   selector: 'app-ticket-event-detail',
@@ -53,6 +54,8 @@ export class TicketEventDetailComponent implements OnInit {
       salePrice: [0, [Validators.required, Validators.min(0.1)]],
       ticketDetails: [''],
       eventLink: ['', [Validators.pattern('https?://.+')]]
+    }, {
+      validators: salePriceValidator('costPrice', 'salePrice')
     });
   }
 

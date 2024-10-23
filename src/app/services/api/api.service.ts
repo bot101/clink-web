@@ -74,7 +74,7 @@ export class ApiService {
       isSold: false,
       status: 'pending',
       user: '67096c6b8d507be7794ed78c',
-      serialNumber: 'EV27583942',
+      serialNumber: '',
     });
   }
 
@@ -121,7 +121,7 @@ export class ApiService {
       isSold: false,
       status: 'pending',
       user: '67096c6b8d507be7794ed78c',
-      serialNumber: 'FL27583942',
+      serialNumber: '',
     });
   }
 
