@@ -21,7 +21,7 @@ import { NewAd2Component } from './components/new-ad2/new-ad2.component';
 import { NewAd3Component } from './components/new-ad3/new-ad3.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { VerificationComponent } from './pages/verification/verification.component';
-import { FairDealPolicyComponent } from './pages/fair-deal-policy/fair-deal-policy.component';
+import { FairDealPolicyComponent } from './components/fair-deal-policy/fair-deal-policy.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -46,6 +46,5 @@ export const routes: Routes = [
     { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
     { path: 'payment', component: PaymentComponent },
     { path: 'verification', component: VerificationComponent },
-    { path: 'fair-deal-policy', component: FairDealPolicyComponent },
     { path: '**', redirectTo: ''}
 ];     

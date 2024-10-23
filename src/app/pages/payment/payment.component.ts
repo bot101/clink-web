@@ -5,6 +5,8 @@ import { LogoComponent } from "../../components/logo/logo.component";
 import { PaymentBankComponent } from "../../components/payment-bank/payment-bank.component";
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from "../../components/button/button.component";
+import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-deal-policy.component";
+import { PaymentService } from '../../services/payment/payment.service';
 
 @Component({
   selector: 'app-payment',
@@ -14,7 +16,8 @@ import { ButtonComponent } from "../../components/button/button.component";
     OnboardingHeaderComponent,
     LogoComponent,
     PaymentBankComponent,
-    ButtonComponent
+    ButtonComponent,
+    FairDealPolicyComponent,
 ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
@@ -29,7 +32,7 @@ export class PaymentComponent implements OnInit {
   bitClasses: string = this.baseClasses;
   bankClasses: string = this.baseClasses;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
     this.selectPaymentMethod('bit');

@@ -1,8 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ButtonComponent } from "../button/button.component";
+import { PaymentService } from '../../services/payment/payment.service';
 
 @Component({
   selector: 'app-payment-bank',
@@ -18,17 +19,23 @@ import { ButtonComponent } from "../button/button.component";
   templateUrl: './payment-bank.component.html',
   styleUrl: './payment-bank.component.scss'
 })
-export class PaymentBankComponent implements OnChanges {
+export class PaymentBankComponent implements OnInit, OnChanges {
   @Input() formDisabled: boolean = true;
+  @Output() onSubmitted: EventEmitter<any> = new EventEmitter();
+  @Output() previousStep: EventEmitter<any> = new EventEmitter();
   bankForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private paymentService: PaymentService) {
     this.bankForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       bank: ['', Validators.required],
       accountNumber: ['', [Validators.required, Validators.pattern('^[0-9]{1,9}$')]],
       branchNumber: ['', [Validators.required, Validators.pattern('^[0-9]{1,3}$')]]
     });
+  }
+
+  ngOnInit(): void {
+    this.bankForm.patchValue(this.paymentService.getFormData());
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,8 +66,10 @@ export class PaymentBankComponent implements OnChanges {
   }
 
   onSubmit() {
-    if (this.bankForm.valid) {
+    if (this.bankForm.valid || this.formDisabled) {
       console.log('Form Submitted', this.bankForm.value);
+      this.paymentService.updateFormData(this.bankForm.value);
+      this.onSubmitted.emit();
     }
   }
 }

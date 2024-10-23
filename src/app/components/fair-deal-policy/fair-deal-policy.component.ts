@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { LogoComponent } from "../../components/logo/logo.component";
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
+import { Component, ViewChild, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
+import { LogoComponent } from "../logo/logo.component";
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { Router } from '@angular/router';
-import { ButtonComponent } from "../../components/button/button.component";
-import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
+import { ButtonComponent } from "../button/button.component";
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -16,8 +16,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class FairDealPolicyComponent {
   @ViewChild('positionAnchor') positionAnchor!: ElementRef;
+  @Output() previousStep: EventEmitter<any> = new EventEmitter();
   currentStep: number = 1;
-  totalSteps: number = 2;
+  totalSteps: number = 1;
   canContinue: boolean = false;
   isChecked: boolean = false;
 
@@ -40,11 +41,12 @@ export class FairDealPolicyComponent {
     }
   }
 
-  previousStep() {
+  onPreviousStep() {
     if (this.currentStep > 1) {
       this.currentStep--;
     } else {
-      this.router.navigate([".."]);
+      // this.router.navigate([".."]);
+      this.previousStep.emit();
     }
   }
 }
