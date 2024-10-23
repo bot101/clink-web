@@ -1,7 +1,12 @@
 <div>
     <label [for]="id" class="block text-sm text-gray-700">{{ label }}</label>
-    <div class="flex mt-1 w-full rounded-xl border-[#D9D9D9] border px-4 py-3">
-      <input type="text" [ngModelOptions]="{standalone: true}" [id]="id" [name]="name" [(ngModel)]="selectedDate" (ngModelChange)="onDateInput($event)"
+    <div class="flex mt-1 w-full rounded-xl border-[#D9D9D9] border px-4 py-3"  [class.error-field]="isError">
+      <input type="text" 
+      [ngModelOptions]="{standalone: true}" 
+      [id]="id" [name]="name" 
+      [(ngModel)]="selectedDate" 
+      (ngModelChange)="onDateInput($event)"
+      
         required placeholder="DD/MM/YYYY" maxlength="10"
         class="flex-grow">
       <svg (click)="openDatePicker()" class="h-5 w-5 text-gray-400 cursor-pointer" width="23" height="23" viewBox="0 0 23 23"

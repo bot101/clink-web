@@ -17,6 +17,8 @@ import { NoAdComponent } from './pages/no-ad/no-ad.component';
 import { CreateAdComponent } from './pages/create-ad/create-ad.component';
 import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
 import { CreateAdSuccessComponent } from './pages/create-ad-success/create-ad-success.component';
+import { NewAd2Component } from './components/new-ad2/new-ad2.component';
+import { NewAd3Component } from './components/new-ad3/new-ad3.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { VerificationComponent } from './pages/verification/verification.component';
 import { FairDealPolicyComponent } from './pages/fair-deal-policy/fair-deal-policy.component';
@@ -28,6 +30,8 @@ export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
+    { path: 'new-ad2-testing', component: NewAd2Component },
+    { path: 'new-ad3-testing', component: NewAd3Component },
     { path: 'new-ad/success', component: CreateAdSuccessComponent },
     { path: 'new-ad/:adType?', component: CreateAdComponent },
     { path: 'login', component: AuthenticationComponent },

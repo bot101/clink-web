@@ -26,6 +26,7 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   @Input() name: string = '';
   @Input() selectedDate: string = '';
   @Output() selectedDateChange = new EventEmitter<string>();
+  @Input() isError: boolean = false;
 
   @ViewChild('input', { read: ElementRef, static: true }) input!: ElementRef<HTMLInputElement>;
 
