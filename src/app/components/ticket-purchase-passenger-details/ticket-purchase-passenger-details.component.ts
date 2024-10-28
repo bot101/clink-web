@@ -53,13 +53,11 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit {
 
   onContinue() {
     if (this.passengerDetailsForm.valid) {
-      console.log(this.passengerDetailsForm.value);
       this.continue.emit();
     }
   }
 
   onBack() {
-    // this.ticketPurchaseService.setPassengerDetailsData(this.passengerDetailsForm.value);
     this.back.emit();
   }
 }

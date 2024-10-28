@@ -30,7 +30,6 @@ export class FairDealPolicyComponent {
     const windowHeight = window.innerHeight;
 
     if (rect.top >= 0 && rect.bottom <= windowHeight - 100) {
-      console.log('Position anchor is in view and 100px above the viewport bottom');
       this.canContinue = true;
     }
   }

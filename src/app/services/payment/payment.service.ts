@@ -9,7 +9,6 @@ export class PaymentService {
   // constructor() { }
 
   updateFormData(formData: any) {
-    console.log(formData);
     this.formData = formData;
   }
 

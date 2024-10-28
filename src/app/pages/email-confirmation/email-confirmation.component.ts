@@ -24,13 +24,10 @@ export class EmailConfirmationComponent {
   matchingEmails: boolean = false;
 
   onInputEmail() {
-    console.log(this.email);
     this.matchingEmails = this.isEmailMatching();
   }
 
   onContinue() {
-    console.log(this.email);
-    console.log(this.confirmEmail);
   }
 
   isEmailMatching() {

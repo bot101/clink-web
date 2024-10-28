@@ -33,7 +33,6 @@ export class HeaderComponent {
     this.isMobileMenuOpen = false;
   }
   toggleSubmenu(): void {
-    console.log('toggleSubmenu', this.isSubmenuOpen);
     this.isSubmenuOpen = !this.isSubmenuOpen;
   }
 

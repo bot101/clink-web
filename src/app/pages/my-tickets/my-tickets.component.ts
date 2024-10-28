@@ -126,14 +126,12 @@ export class MyTicketsComponent implements OnInit {
 
   onCopyLink(ticketId: string) {
     // Copy link logic
-    console.log('Copying link for ticket:', ticketId);
     // Show toast message
     alert('Link copied successfully');
   }
 
   onMarkDetailsUpdated(ticketId: string) {
     // Update ticket details logic
-    console.log('Marking details updated for ticket:', ticketId);
     this.router.navigate(['/update-flight-details', ticketId]);
   }
 }

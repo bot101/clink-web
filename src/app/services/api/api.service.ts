@@ -63,7 +63,6 @@ export class ApiService {
         size: file.size
       }))
     };
-    console.log(this.apiUrl);
     return this.http.post<TicketEventResponse>(`${this.apiUrl}/ads`, {
       type: 'event',
       event,

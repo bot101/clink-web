@@ -14,8 +14,7 @@ export class ProgressBarComponent implements OnChanges {
 
   progressPercentage: number = 0;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log({changes})
+  ngOnChanges(): void {
     this.updateProgress();
   }
 
@@ -24,6 +23,5 @@ export class ProgressBarComponent implements OnChanges {
       this.current = this.max;
     }
     this.progressPercentage = (this.current / this.max) * 100;
-    console.log(this.progressPercentage)
   }
 }

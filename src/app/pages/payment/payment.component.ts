@@ -55,7 +55,6 @@ export class PaymentComponent implements OnInit {
   selectPaymentMethod(method: 'bit' | 'bank') {
     this.selectedPaymentMethod = method;
     this.setButtonClasses();
-    console.log(this.selectedPaymentMethod)
   }
 
   setButtonClasses() { 

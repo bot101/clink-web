@@ -77,14 +77,14 @@
   <ul class="mt-2 space-y-2">
     <li *ngFor="let file of uploadedFiles; let i = index"
       class="flex items-center justify-between rounded-xl border-[#D9D9D9] border px-4 py-3 overflow-hidden">
-      <div class="flex items-center gap-2 max-w-[calc(100%-80px)]">
+      <div class="flex flex-grow items-center gap-2 max-w-[calc(100%-80px)]">
         <svg width="20" height="25" viewBox="0 0 20 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M14.4427 23.4201H5.11997C2.89841 23.4201 1.09747 21.6192 1.09747 19.3976V5.05161C1.09747 2.83005 2.8984 1.02911 5.11997 1.02911H10.983L18.4652 8.51133V19.3976C18.4652 21.6192 16.6643 23.4201 14.4427 23.4201Z"
             stroke="#001729" stroke-width="1.609" />
         </svg>
 
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-grow flex-col gap-1">
           <span class="text-sm text-gray-600 overflow-hidden whitespace-nowrap text-ellipsis">{{ file.name }}</span>  
         <div class="w-full rounded-full h-1.5">
           <div class="bg-[#ffc5c5] h-1 rounded-full animate-progress"></div>

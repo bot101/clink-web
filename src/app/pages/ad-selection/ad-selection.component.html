@@ -1,13 +1,13 @@
-<div class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="w-full flex flex-col items-end bg-[#072D4C] ">
+<!-- <div class="overflow-x-hidden flex flex-col min-h-screen"> -->
+    <!-- <div class="w-full flex flex-col items-end bg-[#072D4C] ">
         <div class="flex flex-col md:h-full md:justify-end md:w-[80%] md:max-w-screen-lg w-full md:mx-auto">
             <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
             <app-onboarding-header (back)="back()" [showLogo]="false" [hideStep]="true"
                 title="מכירת כרטיס"></app-onboarding-header>
         </div>
-    </div>
-    <div
-        class="w-full md:max-w-[640px] mx-auto mb-16 p-5 md:pb-12 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10">
+    </div> -->
+    <!-- <div
+        class="w-full md:max-w-[640px] mx-auto mb-16 p-5 md:pb-12 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-10"> -->
         <div class="flex flex-col space-y-6 px-4 md:max-w-[430px] mx-auto">
             <h2 class="block text-xl font-medium text-[#001729] md:text-center">איזה כרטיס אתם מוכרים?</h2>
 
@@ -18,7 +18,7 @@
                     fillColor="#ffc5c5"></app-flight-icon>
                 <span>כרטיס טיסה</span>
             </label>
-            <label (click)="onSelect(event, 'event')" [ngClass]="{'selection': event.checked}"
+            <label (click)="onSelect(event, 'ticket')" [ngClass]="{'selection': event.checked}"
                 class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-[10px] border border-[#072d4c]">
                 <input #event type="radio" name="selection" class="hidden">
                 <app-ticket-icon [outlineColor]="event.checked ? '#fff' : '#072d4c'"
@@ -26,5 +26,5 @@
                 <span>כרטיס לאירוע</span>
             </label>
         </div>
-    </div>
-</div>
+    <!-- </div> -->
+<!-- </div> -->

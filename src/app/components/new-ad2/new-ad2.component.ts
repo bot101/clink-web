@@ -63,14 +63,12 @@ export class NewAd2Component implements OnInit {
     }
 
     this.flightForm?.valueChanges.subscribe((value: string) => {
-      console.log(this.flightForm.value);
     });
 
     this.isOneWayFlight = savedData.newAd?.flightType === 'one_way';
     this.setReturnFieldValidators(!this.isOneWayFlight);
 
     this.flightForm.valueChanges.subscribe(() => {
-      console.log(this.flightForm.value);
       if (this.flightForm.get('departureDate')?.value) {
         const departureDate = this.flightForm.get('departureDate')?.value;
         const [day, month, year] = departureDate.split('/');
@@ -164,7 +162,6 @@ export class NewAd2Component implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.flightForm.value);
     if (this.flightForm.valid) {
       this.adService.updateFormData({ newAd2: this.flightForm.value });
       this.nextStep.emit();

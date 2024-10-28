@@ -86,7 +86,7 @@ export class NewAd3Component implements OnInit {
       this.adService.submitFlightForm(flatFormData).subscribe(
         (response: any) => {
           this.clearForm();
-          this.router.navigate(['/new-ad/success']);
+          // this.router.navigate(['/new-ad/success']);
           this.nextStep.emit();
         },
         (error: any) => {

@@ -46,7 +46,6 @@ export class PaymentBankComponent implements OnInit, OnChanges {
       this.bankForm.enable();
       this.enableValidation();
     }
-    console.log(this.bankForm.valid || this.formDisabled);
   }
 
   disableValidation() {
@@ -67,7 +66,6 @@ export class PaymentBankComponent implements OnInit, OnChanges {
 
   onSubmit() {
     if (this.bankForm.valid || this.formDisabled) {
-      console.log('Form Submitted', this.bankForm.value);
       this.paymentService.updateFormData(this.bankForm.value);
       this.onSubmitted.emit();
     }

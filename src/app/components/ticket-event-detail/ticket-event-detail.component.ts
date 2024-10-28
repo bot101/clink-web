@@ -70,7 +70,8 @@ export class TicketEventDetailComponent implements OnInit {
       this.apiService.submitTicketEvent(completeData).subscribe(
         (response: any) => {
           this.clearForm();
-          this.router.navigate(['/new-ad/success']);
+          // this.router.navigate(['/new-ad/success']);
+          this.nextStep.emit();
         },
         (error: any) => {
           alert('Error submitting ticket event');
