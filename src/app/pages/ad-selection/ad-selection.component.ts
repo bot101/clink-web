@@ -31,11 +31,6 @@ export class AdSelectionComponent {
     setTimeout(() => {
       this.onAdTypeSelected.emit(type);
       return;
-      if (type === 'flight') {
-        this.router.navigate(['/new-ad/flight']);
-      } else {
-        this.router.navigate(['/new-ad/ticket']);
-      }
     }, 1000);
     element.checked = true;
   }
