@@ -1,0 +1,6 @@
+<app-authentication *ngIf="currentScreen === 'phone'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-authentication>
+<app-otp *ngIf="currentScreen === 'otp'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-otp>
+<app-email-confirmation *ngIf="currentScreen === 'email'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-email-confirmation>
+<app-verification *ngIf="currentScreen === 'verification'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-verification>
+<app-payment *ngIf="currentScreen === 'payment'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-payment>
+<app-fair-deal-policy *ngIf="currentScreen === 'fair-deal-policy'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-fair-deal-policy>

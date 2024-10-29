@@ -24,5 +24,5 @@
         <app-payment-bank  [formDisabled]="selectedPaymentMethod === 'bit'" (onSubmitted)="nextStep()" (previousStep)="previousStep()"></app-payment-bank>
     </div>
 </div>
-<app-fair-deal-policy *ngIf="currentStep === 2" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-fair-deal-policy>
+<app-fair-deal-policy *ngIf="currentStep === 2" (onBack)="previousStep()" (onContinue)="nextStep()"></app-fair-deal-policy>
 

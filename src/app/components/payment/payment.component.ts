@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit } from '@angular/core';
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
+import { ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { Router } from '@angular/router';
-import { LogoComponent } from "../../components/logo/logo.component";
-import { PaymentBankComponent } from "../../components/payment-bank/payment-bank.component";
+import { LogoComponent } from "../logo/logo.component";
+import { PaymentBankComponent } from "../payment-bank/payment-bank.component";
 import { NgIf } from '@angular/common';
-import { ButtonComponent } from "../../components/button/button.component";
-import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-deal-policy.component";
+import { ButtonComponent } from "../button/button.component";
+import { FairDealPolicyComponent } from "../fair-deal-policy/fair-deal-policy.component";
 import { PaymentService } from '../../services/payment/payment.service';
 
 @Component({
@@ -23,6 +23,8 @@ import { PaymentService } from '../../services/payment/payment.service';
   styleUrl: './payment.component.scss'
 })
 export class PaymentComponent implements OnInit {
+  @Output() onBack = new EventEmitter<void>();
+  @Output() onContinue = new EventEmitter<void>();
   currentStep: number = 1;
   totalSteps: number = 2;
   selectedPaymentMethod: 'bit' | 'bank' | null = null;
@@ -39,12 +41,16 @@ export class PaymentComponent implements OnInit {
   }
 
   nextStep() {
+    this.onContinue.emit();
+    return;
     if (this.currentStep < this.totalSteps) {
       this.currentStep++;
     }
   }
 
   previousStep() {
+    this.onBack.emit();
+    return;
     if (this.currentStep > 1) {
       this.currentStep--;
     } else {

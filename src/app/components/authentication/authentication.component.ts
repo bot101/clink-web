@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { OnboardingHeaderComponent } from '../../components/onboarding-header/onboarding-header.component';
-import { LogoComponent } from '../../components/logo/logo.component';
-import { MainHeaderComponent } from "../../components/main-header/main-header.component";
-import { ButtonComponent } from '../../components/button/button.component';
-import { HeaderComponent } from "../../components/header/header.component";
-import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
+import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
+import { LogoComponent } from '../logo/logo.component';
+import { MainHeaderComponent } from "../main-header/main-header.component";
+import { ButtonComponent } from '../button/button.component';
+import { HeaderComponent } from "../header/header.component";
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'app-authentication',
@@ -27,6 +27,8 @@ import { CheckboxComponent } from '../../components/checkbox/checkbox.component'
   styleUrls: ['./authentication.component.scss']
 })
 export class AuthenticationComponent {
+  @Output() onBack = new EventEmitter<void>();
+  @Output() onContinue = new EventEmitter<void>();
   authForm: FormGroup;
   isFromCreateTicketAd: boolean = false; // Set this based on your navigation logic
 
@@ -37,7 +39,9 @@ export class AuthenticationComponent {
     });
   }
 
-  onBack(): void {
+  onBackClicked(): void {
+    this.onBack.emit();
+    return;
     if (!this.isFromCreateTicketAd) {
       this.router.navigate(['/previous-screen']); // Adjust the route as necessary
     }
@@ -47,8 +51,10 @@ export class AuthenticationComponent {
     return this.authForm.valid;
   }
 
-  onContinue(): void {
+  onContinueClicked(): void {
     if (this.isFormValid()) {
+      this.onContinue.emit();
+      return;
       // Proceed with the authentication logic
       this.router.navigate(['/next-screen']); // Adjust the route as necessary
     }

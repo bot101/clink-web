@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { LogoComponent } from '../../components/logo/logo.component';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { LogoComponent } from '../logo/logo.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
-import { ButtonComponent } from '../../components/button/button.component';
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-otp',
@@ -19,6 +19,9 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrl: './otp.component.scss'
 })
 export class OtpComponent {
+
+  @Output() onBack = new EventEmitter<void>();
+  @Output() onContinue = new EventEmitter<void>();
 
   otp1: string = '';
   otp2: string = '';
@@ -46,13 +49,20 @@ export class OtpComponent {
     return !!this.otp1 && !!this.otp2 && !!this.otp3 && !!this.otp4 && !!this.otp5;
   }
 
-  onContinue(): void {
+  onContinueClicked(): void {
     if (this.isOtpComplete()) {
       console.log('OTP entered:', this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5);
+      this.onContinue.emit();
+      return;
     } else {
       console.log('OTP is not complete');
     }
     console.log('OTP entered:', this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5);
+  }
+
+  onBackClicked(): void {
+    this.onBack.emit();
+    return;
   }
 
   onResend() {

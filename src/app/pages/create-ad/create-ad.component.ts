@@ -9,8 +9,8 @@ import { NewAdComponent } from "../../components/new-ad/new-ad.component";
 import { NewAd2Component } from "../../components/new-ad2/new-ad2.component";
 import { NewAd3Component } from "../../components/new-ad3/new-ad3.component";
 import { AdService } from '../../services/ad/ad.service';
-import { AdSelectionComponent } from "../ad-selection/ad-selection.component";
-import { CreateAdSuccessComponent } from "../create-ad-success/create-ad-success.component";
+import { AdSelectionComponent } from "../../components/ad-selection/ad-selection.component";
+import { CreateAdSuccessComponent } from "../../components/create-ad-success/create-ad-success.component";
 
 @Component({
   selector: 'app-create-ad',

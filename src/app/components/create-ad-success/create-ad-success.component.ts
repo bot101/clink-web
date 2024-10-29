@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../components/header/header.component";
-import { ButtonComponent } from "../../components/button/button.component";
-import { FooterComponent } from "../../components/footer/footer.component";
+import { HeaderComponent } from "../header/header.component";
+import { ButtonComponent } from "../button/button.component";
+import { FooterComponent } from "../footer/footer.component";
 import { ClipboardModule } from 'ngx-clipboard';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AuthenticationComponent } from './pages/authentication/authentication.component';
-import { OtpComponent } from './pages/otp/otp.component';
-import { EmailConfirmationComponent } from './pages/email-confirmation/email-confirmation.component';
-import { AdSelectionComponent } from './pages/ad-selection/ad-selection.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { OtpComponent } from './components/otp/otp.component';
+import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
+import { AdSelectionComponent } from './components/ad-selection/ad-selection.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyTicketsComponent } from './pages/my-tickets/my-tickets.component';
@@ -16,11 +16,11 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NoAdComponent } from './pages/no-ad/no-ad.component';
 import { CreateAdComponent } from './pages/create-ad/create-ad.component';
 import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
-import { CreateAdSuccessComponent } from './pages/create-ad-success/create-ad-success.component';
+import { CreateAdSuccessComponent } from './components/create-ad-success/create-ad-success.component';
 import { NewAd2Component } from './components/new-ad2/new-ad2.component';
 import { NewAd3Component } from './components/new-ad3/new-ad3.component';
-import { PaymentComponent } from './pages/payment/payment.component';
-import { VerificationComponent } from './pages/verification/verification.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { VerificationComponent } from './components/verification/verification.component';
 import { FairDealPolicyComponent } from './components/fair-deal-policy/fair-deal-policy.component';
 
 export const routes: Routes = [
@@ -30,20 +30,18 @@ export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
-    { path: 'new-ad2-testing', component: NewAd2Component },
-    { path: 'new-ad3-testing', component: NewAd3Component },
     { path: 'new-ad', component: CreateAdComponent },
-    { path: 'login', component: AuthenticationComponent },
-    { path: 'otp', component: OtpComponent },
-    { path: 'email-confirmation', component: EmailConfirmationComponent },
-    { path: 'ad-selection', component: AdSelectionComponent },
+    { path: 'signin', component: SignInComponent },
+    // { path: 'otp', component: OtpComponent },
+    // { path: 'email-confirmation', component: EmailConfirmationComponent },
+    // { path: 'ad-selection', component: AdSelectionComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'my-tickets', component: MyTicketsComponent },
     { path: 'ticket-details', component: TicketDetailsComponent },
     { path: 'report', component: ReportComponent },
     { path: 'no-ad', component: NoAdComponent },
     { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
-    { path: 'payment', component: PaymentComponent },
-    { path: 'verification', component: VerificationComponent },
+    // { path: 'payment', component: PaymentComponent },
+    // { path: 'verification', component: VerificationComponent },
     { path: '**', redirectTo: ''}
 ];     

@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class FairDealPolicyComponent {
   @ViewChild('positionAnchor') positionAnchor!: ElementRef;
-  @Output() previousStep: EventEmitter<any> = new EventEmitter();
+  @Output() onBack: EventEmitter<any> = new EventEmitter();
+  @Output() onContinue: EventEmitter<any> = new EventEmitter();
   currentStep: number = 1;
   totalSteps: number = 1;
   canContinue: boolean = false;
@@ -35,17 +36,21 @@ export class FairDealPolicyComponent {
   }
 
   nextStep() {
+    this.onContinue.emit();
+    return;
     if (this.currentStep < this.totalSteps) {
       this.currentStep++;
     }
   }
 
   onPreviousStep() {
+    this.onBack.emit();
+    return;
     if (this.currentStep > 1) {
       this.currentStep--;
     } else {
       // this.router.navigate([".."]);
-      this.previousStep.emit();
+      this.onBack.emit();
     }
   }
 }
