@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, forwardRef, Injector, Input, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox',
@@ -29,6 +29,14 @@ export class CheckboxComponent implements ControlValueAccessor {
 
   onChange: any = () => {};
   onTouched: any = () => {};
+
+  ngControl!: NgControl;
+
+  constructor(private _injector: Injector) { }
+
+  ngOnInit() {
+    this.ngControl = this._injector.get(NgControl);
+  }
 
   writeValue(checked: boolean): void {
     this.isChecked = checked;

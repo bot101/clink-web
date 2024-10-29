@@ -9,6 +9,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ButtonComponent } from '../button/button.component';
+import { InputFieldComponent } from '../input-field/input-field.component';
 
 @Component({
   selector: 'app-ticket-event-detail',
@@ -20,7 +21,8 @@ import { ButtonComponent } from '../button/button.component';
     NgxCurrencyDirective, 
     OnboardingHeaderComponent, 
     RadioGroupComponent,
-    ButtonComponent
+    ButtonComponent,
+    InputFieldComponent 
   ],
   providers: [CurrencyPipe],
   templateUrl: './ticket-event-detail.component.html',

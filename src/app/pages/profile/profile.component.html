@@ -73,14 +73,11 @@
         </p>
         <p class="mb-20">הקיים לצמיתות ולא ניתן יהיה לשחזרו. אם ישנן עסקאות פעילות, העדכונים עליהן יישלחו אליכם באימייל
             גם לאחר המחיקה. חשוב לדעת: ברגע שמחקתם, אין דרך חזרה</p>
-        <!-- <div> -->
-        <!-- <input (change)="onDeleteAccountConfirm($event)" #confirmInput type="checkbox" name="confirm" id="confirm"> אני מאשר/ת שלאחר המחיקה לא תהיה לי גישה לחשבון הנמחק ולרכישות שבוצעו דרכו. -->
         <div class="flex gap-2 items-start">
             <app-checkbox (change)="onDeleteAccountConfirm($event)" customClass="flex-row-reverse gap-3" name="confirm"
                 id="confirm"></app-checkbox>
             <p>אני מאשר/ת שלאחר המחיקה לא תהיה לי גישה לחשבון הנמחק ולרכישות שבוצעו דרכו.</p>
         </div>
-        <!-- </div> -->
     </app-confirmation-dialog>
     <app-footer class="mt-auto"></app-footer>
 </div>

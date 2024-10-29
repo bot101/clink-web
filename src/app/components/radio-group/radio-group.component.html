@@ -5,6 +5,7 @@
               (click)="onRadioChange(entry.value)"
               [class.border-gray-300]="value !== entry.value"
               [class.border-[#072d4c]]="value === entry.value"
+              [class.error-field]="ngControl.invalid && ngControl.touched"
               type="button"
               class="w-full h-12 rounded-lg border flex items-center justify-center text-sm lowercase">
         {{ entry.label }}
