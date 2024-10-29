@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { ButtonComponent } from '../button/button.component';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-otp',
@@ -18,7 +19,7 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './otp.component.html',
   styleUrl: './otp.component.scss'
 })
-export class OtpComponent {
+export class OtpComponent implements OnInit {
 
   @Output() onBack = new EventEmitter<void>();
   @Output() onContinue = new EventEmitter<void>();
@@ -28,6 +29,13 @@ export class OtpComponent {
   otp3: string = '';
   otp4: string = '';
   otp5: string = '';
+  formData: any;
+
+  constructor(private authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.formData = this.authService.getFormData();
+  }
 
   onInput(event: any, nextInput: number): void {
     const input = event.target;
@@ -51,7 +59,10 @@ export class OtpComponent {
 
   onContinueClicked(): void {
     if (this.isOtpComplete()) {
-      console.log('OTP entered:', this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5);
+      this.authService.verifyOtp({
+        phone: this.formData.phone,
+        otp: this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5
+      });
       this.onContinue.emit();
       return;
     } else {

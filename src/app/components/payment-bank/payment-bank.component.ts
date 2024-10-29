@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ButtonComponent } from "../button/button.component";
 import { PaymentService } from '../../services/payment/payment.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-payment-bank',
@@ -25,17 +26,17 @@ export class PaymentBankComponent implements OnInit, OnChanges {
   @Output() previousStep: EventEmitter<any> = new EventEmitter();
   bankForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private paymentService: PaymentService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     this.bankForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      bank: ['', Validators.required],
-      accountNumber: ['', [Validators.required, Validators.pattern('^[0-9]{1,9}$')]],
-      branchNumber: ['', [Validators.required, Validators.pattern('^[0-9]{1,3}$')]]
+      paymentBank: ['', Validators.required],
+      paymentNumber: ['', [Validators.required, Validators.pattern('^[0-9]{1,9}$')]],
+      paymentBranch: ['', [Validators.required, Validators.pattern('^[0-9]{1,3}$')]]
     });
   }
 
   ngOnInit(): void {
-    this.bankForm.patchValue(this.paymentService.getFormData());
+    this.bankForm.patchValue(this.authService.getFormData());
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,23 +51,23 @@ export class PaymentBankComponent implements OnInit, OnChanges {
 
   disableValidation() {
     this.bankForm.get('fullName')?.clearValidators();
-    this.bankForm.get('bank')?.clearValidators();
-    this.bankForm.get('accountNumber')?.clearValidators();
-    this.bankForm.get('branchNumber')?.clearValidators();
+    this.bankForm.get('paymentBank')?.clearValidators();
+    this.bankForm.get('paymentNumber')?.clearValidators();
+    this.bankForm.get('paymentBranch')?.clearValidators();
     this.bankForm.updateValueAndValidity();
   }
 
   enableValidation() {
     this.bankForm.get('fullName')?.setValidators(Validators.required);
-    this.bankForm.get('bank')?.setValidators(Validators.required);
-    this.bankForm.get('accountNumber')?.setValidators([Validators.required, Validators.pattern('^[0-9]{1,9}$')]);
-    this.bankForm.get('branchNumber')?.setValidators([Validators.required, Validators.pattern('^[0-9]{1,3}$')]);
+    this.bankForm.get('paymentBank')?.setValidators(Validators.required);
+    this.bankForm.get('paymentNumber')?.setValidators([Validators.required, Validators.pattern('^[0-9]{1,9}$')]);
+    this.bankForm.get('paymentBranch')?.setValidators([Validators.required, Validators.pattern('^[0-9]{1,3}$')]);
     this.bankForm.updateValueAndValidity();
   }
 
   onSubmit() {
     if (this.bankForm.valid || this.formDisabled) {
-      this.paymentService.updateFormData(this.bankForm.value);
+      this.authService.updateFormData(this.bankForm.value);
       this.onSubmitted.emit();
     }
   }

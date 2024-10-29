@@ -7,6 +7,7 @@ import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-
 import { AuthenticationComponent } from "../../components/authentication/authentication.component";
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -28,7 +29,7 @@ export class SignInComponent {
   currentScreenIndex = 0;
   currentScreen = this.screenFlow[this.currentScreenIndex];
 
-  constructor(private router: Router) {}  
+  constructor(private router: Router, private authService: AuthService) {}  
 
   onBack() {
     this.currentScreenIndex--;
@@ -38,7 +39,11 @@ export class SignInComponent {
   onContinue() {
     this.currentScreenIndex++;
     if(this.currentScreenIndex >= this.screenFlow.length) {
-      this.router.navigate(["/"]);
+      this.authService.signUp().subscribe((res) => {
+        console.log(res);
+        this.authService.clearFormData();
+        this.router.navigate(["/"]);
+      });
       return;
     }
     this.currentScreen = this.screenFlow[this.currentScreenIndex];

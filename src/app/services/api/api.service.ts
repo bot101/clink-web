@@ -88,7 +88,6 @@ export class ApiService {
     outboundDepartureDate.setHours(departureHours, departureMinutes, 0, 0);
     outboundArrivalDate.setHours(arrivalHours, arrivalMinutes, 0, 0);
     
-
     const inboundDepartureDate = new Date(this.formatDate(completeData.returnDepartureDate));
     const inboundArrivalDate = new Date(this.formatDate(completeData.returnDate));
     inboundDepartureDate.setHours(returnDepartureHours, returnDepartureMinutes, 0, 0);
@@ -122,6 +121,26 @@ export class ApiService {
       user: '67096c6b8d507be7794ed78c',
       serialNumber: 'FL27583942',
     });
+  }
+
+  signIn(data: any) {
+    // return this.http.post<any>(`${this.apiUrl}/auth/signin`, data);
+  }
+
+  signUp(data: any) {
+    return this.http.post<any>(`${this.apiUrl}/users`, data);
+  }
+
+  signOut() {
+    // return this.http.post<any>(`${this.apiUrl}/auth/signout`, {});
+  }
+
+  verifyOtp(data: any) {
+    // return this.http.post<any>(`${this.apiUrl}/auth/verify-otp`, data);
+  }
+
+  verifyEmail(data: any) {
+    // return this.http.post<any>(`${this.apiUrl}/auth/verify-email`, data);
   }
 
   private formatDate(date: string): string {

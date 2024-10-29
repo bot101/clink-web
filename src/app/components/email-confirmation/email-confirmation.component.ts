@@ -6,6 +6,7 @@ import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-heade
 import { ButtonComponent } from '../button/button.component';
 import { InputFieldComponent } from "../input-field/input-field.component";
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -28,12 +29,23 @@ export class EmailConfirmationComponent {
   email: string = '';
   confirmEmail: string = '';
   matchingEmails: boolean = false;
+  formData: any;
+
+  constructor(private authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.formData = this.authService.getFormData();
+    this.email = this.formData.email;
+    this.confirmEmail = this.formData.confirmEmail;
+    this.onInputEmail();
+  }
 
   onInputEmail() {
     this.matchingEmails = this.isEmailMatching();
   }
 
   onContinueClicked() {
+    this.authService.updateFormData({ email: this.email, confirmEmail: this.confirmEmail });
     this.onContinue.emit();
     return;
   }
