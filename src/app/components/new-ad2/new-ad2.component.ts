@@ -63,14 +63,12 @@ export class NewAd2Component implements OnInit {
     }
 
     this.flightForm?.valueChanges.subscribe((value: string) => {
-      console.log(this.flightForm.value);
     });
 
     this.isOneWayFlight = savedData.newAd?.flightType === 'one_way';
     this.setReturnFieldValidators(!this.isOneWayFlight);
 
     this.flightForm.valueChanges.subscribe(() => {
-      console.log(this.flightForm.value);
       if (this.flightForm.get('departureDate')?.value) {
         const departureDate = this.flightForm.get('departureDate')?.value;
         const [day, month, year] = departureDate.split('/');
@@ -137,21 +135,37 @@ export class NewAd2Component implements OnInit {
       errors['departureTooSoon'] = true;
     }
 
-    if (departureDate && departureTime && arrivalDate && arrivalTime && formatDateTime(departureDate, departureTime) >= formatDateTime(arrivalDate, arrivalTime)) {
-      errors['arrivalBeforeDeparture'] = true;
+    if (departureDate && departureTime && arrivalDate && arrivalTime) {
+      const departureDateTime = formatDateTime(departureDate, departureTime);
+      const arrivalDateTime = formatDateTime(arrivalDate, arrivalTime);
+
+      if (departureDateTime >= arrivalDateTime) {
+        errors['arrivalBeforeDeparture'] = true;
+      }
     }
 
     if (!this.isOneWayFlight) {
-      if (arrivalDate && arrivalTime && returnDepartureDate && returnDepartureTime && formatDateTime(returnDepartureDate, returnDepartureTime) < formatDateTime(arrivalDate, arrivalTime)) {
-        errors['returnDepartureBeforeArrival'] = true;
+      if (arrivalDate && arrivalTime && returnDepartureDate && returnDepartureTime) {
+        const arrivalDateTime = formatDateTime(arrivalDate, arrivalTime);
+        const returnDepartureDateTime = formatDateTime(returnDepartureDate, returnDepartureTime);
+
+        if (returnDepartureDateTime <= arrivalDateTime) {
+          errors['returnDepartureBeforeArrival'] = true;
+        }
       }
-      if (returnDepartureDate && returnDepartureTime && returnDate && returnTime && formatDateTime(returnDate, returnTime) <= formatDateTime(returnDepartureDate, returnDepartureTime)) {
-        errors['returnBeforeReturnDeparture'] = true;
+
+      if (returnDepartureDate && returnDepartureTime && returnDate && returnTime) {
+        const returnDepartureDateTime = formatDateTime(returnDepartureDate, returnDepartureTime);
+        const returnDateTime = formatDateTime(returnDate, returnTime);
+
+        if (returnDateTime <= returnDepartureDateTime) {
+          errors['returnBeforeReturnDeparture'] = true;
+        }
       }
     }
 
     return Object.keys(errors).length ? errors : null;
-  }
+  };
 
   setReturnFieldValidators(required: boolean) {
     const validators = required ? [Validators.required, this.dateValidator()] : [];
@@ -164,7 +178,6 @@ export class NewAd2Component implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.flightForm.value);
     if (this.flightForm.valid) {
       this.adService.updateFormData({ newAd2: this.flightForm.value });
       this.nextStep.emit();

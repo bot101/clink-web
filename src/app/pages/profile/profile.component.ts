@@ -59,7 +59,6 @@ export class ProfileComponent implements OnInit {
     this.showConfirmationDialog = true;
   }
   onDeleteAccountConfirm(evt: Event) {
-    console.log((evt.target as HTMLInputElement).checked)
     this.deleteAccountConfirmed = (evt.target as HTMLInputElement).checked;
   }
 

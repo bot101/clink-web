@@ -7,11 +7,22 @@ import { TicketEventService } from '../../services/ticket-event/ticket-event.ser
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { HeaderComponent } from "../header/header.component";
+import { InputFieldComponent } from '../input-field/input-field.component';
+import { TimePickerComponent } from "../time-picker/time-picker.component";
 
 @Component({
   selector: 'app-ticket-event',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, OnboardingHeaderComponent, DatePickerComponent, LogoComponent, HeaderComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    OnboardingHeaderComponent,
+    DatePickerComponent,
+    LogoComponent,
+    HeaderComponent,
+    InputFieldComponent,
+    TimePickerComponent
+],
   templateUrl: './ticket-event.component.html',
   styleUrls: ['./ticket-event.component.scss']
 })

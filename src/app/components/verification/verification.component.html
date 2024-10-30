@@ -31,23 +31,13 @@
             ביטחון המשתמשים הוא בעדיפות עליונה שלנו - הצטרפו אלינו ותיהנו מסביבה הוגנת, בטוחה ושקט נפשי בכל קלינק.
         </p>
 
-        <!-- <div class="flex flex-col gap-4 mx-auto md:max-w-80">
-            <app-button (click)="selectPaymentMethod('bit')" 
-                        [buttonClasses]="bitClasses"
-                        label="קבלת תשלום בביט"></app-button>
-            <p class="font-bold text-center">או</p>
-            <app-button (click)="selectPaymentMethod('bank')" 
-                        [buttonClasses]="bankClasses"
-                        label="קבלת תשלום לחשבון הבנק"></app-button>
-        </div> -->
     </div>
     <div
         class="flex-grow gap-5 flex flex-col w-full md:max-w-[640px] mx-auto min-h-[10vh] md:mb-8 p-3 md:p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990]">
-        <!-- <app-payment-bank [formDisabled]="selectedPaymentMethod === 'bit'" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-payment-bank> -->
         <div
             class="w-full flex-grow flex justify-center items-center mb-auto border-2 border-dashed rounded-[20px] md:mt-8">
             <h1 class="font-medium text-2xl">Regula</h1>
         </div>
-        <app-button class="md:max-w-80 w-full mx-auto" label="המשך"></app-button>
+        <app-button (click)="nextStep()" class="md:max-w-80 w-full mx-auto" label="המשך"></app-button>
     </div>
 </div>

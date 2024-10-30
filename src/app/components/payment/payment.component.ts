@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit } from '@angular/core';
-import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
+import { ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
+import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { Router } from '@angular/router';
-import { LogoComponent } from "../../components/logo/logo.component";
-import { PaymentBankComponent } from "../../components/payment-bank/payment-bank.component";
+import { LogoComponent } from "../logo/logo.component";
+import { PaymentBankComponent } from "../payment-bank/payment-bank.component";
 import { NgIf } from '@angular/common';
-import { ButtonComponent } from "../../components/button/button.component";
+import { ButtonComponent } from "../button/button.component";
+import { FairDealPolicyComponent } from "../fair-deal-policy/fair-deal-policy.component";
+import { PaymentService } from '../../services/payment/payment.service';
 
 @Component({
   selector: 'app-payment',
@@ -14,12 +16,15 @@ import { ButtonComponent } from "../../components/button/button.component";
     OnboardingHeaderComponent,
     LogoComponent,
     PaymentBankComponent,
-    ButtonComponent
+    ButtonComponent,
+    FairDealPolicyComponent,
 ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
 })
 export class PaymentComponent implements OnInit {
+  @Output() onBack = new EventEmitter<void>();
+  @Output() onContinue = new EventEmitter<void>();
   currentStep: number = 1;
   totalSteps: number = 2;
   selectedPaymentMethod: 'bit' | 'bank' | null = null;
@@ -29,19 +34,23 @@ export class PaymentComponent implements OnInit {
   bitClasses: string = this.baseClasses;
   bankClasses: string = this.baseClasses;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
     this.selectPaymentMethod('bit');
   }
 
   nextStep() {
+    this.onContinue.emit();
+    return;
     if (this.currentStep < this.totalSteps) {
       this.currentStep++;
     }
   }
 
   previousStep() {
+    this.onBack.emit();
+    return;
     if (this.currentStep > 1) {
       this.currentStep--;
     } else {
@@ -52,7 +61,6 @@ export class PaymentComponent implements OnInit {
   selectPaymentMethod(method: 'bit' | 'bank') {
     this.selectedPaymentMethod = method;
     this.setButtonClasses();
-    console.log(this.selectedPaymentMethod)
   }
 
   setButtonClasses() { 

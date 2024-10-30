@@ -7,10 +7,10 @@ import { ApiService, TicketEventResponse } from '../api/api.service';
 })
 export class AdService {
 
-  constructor(private apiService: ApiService) {}  
-
   private formDataSubject = new BehaviorSubject<any>({});
   formData$ = this.formDataSubject.asObservable();
+  
+  constructor(private apiService: ApiService) { }
 
   updateFormData(data: any) {
     const currentData = this.formDataSubject.value;

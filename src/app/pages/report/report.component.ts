@@ -42,9 +42,7 @@ export class ReportComponent {
       reportReason: ['', Validators.required],
       description: ['', [Validators.maxLength(300)]]
     });
-    this.reportForm.valueChanges.subscribe((value) => {
-      console.log(value, this.reportForm.valid);
-    });
+    this.reportForm.valueChanges.subscribe((value) => {});
   }
 
   ngOnInit(): void { }
@@ -56,7 +54,6 @@ export class ReportComponent {
   onSubmit(): void {
     if (this.reportForm.valid && this.reportForm.get('description')?.value) {
       // TODO: Implement the API call to submit the report
-      console.log('Report submitted:', this.reportForm.value);
       this.router.navigate(['/report-confirmation']); // Navigate to the process completion screen
     }
   }

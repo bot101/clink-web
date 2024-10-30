@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-time-picker',
@@ -16,12 +16,25 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
     }
   ]
 })
-export class TimePickerComponent implements ControlValueAccessor {
+export class TimePickerComponent implements OnInit, ControlValueAccessor {
   @Input() label: string = '';
-  selectedTime: string = '';
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  @Input() id: string = '';
+  @Input() name: string = '';
+  @Input() placeholder: string = '';
+  @Input() required: boolean = false;
+  @Input() disabled: boolean = false;
 
+  selectedTime: string = '';
+  onChange: any = () => { };
+  onTouched: any = () => { };
+  ngControl!: NgControl;
+
+  constructor(private _injector: Injector) { }
+
+  ngOnInit() {
+    this.ngControl = this._injector.get(NgControl);
+  }
+  
   onTimeChange(event: any) {
     this.selectedTime = event;
     this.onChange(this.selectedTime);

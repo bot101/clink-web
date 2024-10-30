@@ -1,7 +1,7 @@
 <label class="custom-checkbox-container" [ngClass]="customClass">
     <span class="label block" [ngClass]="{'text-red-500': isChecked && isDisabled}">{{ label }}</span>
     <input class="opacity-1" type="checkbox" [checked]="isChecked" [disabled]="isDisabled" (change)="onCheckboxChange($event)">
-    <span class="checkmark flex-none" [ngStyle]="{
+    <span class="checkmark flex-none" [ngClass]="{'error-field': ngControl.invalid && ngControl.touched}" [ngStyle]="{
       'border-color': borderColor,
       'background-color': isChecked ? backgroundColor : 'transparent'
     }">

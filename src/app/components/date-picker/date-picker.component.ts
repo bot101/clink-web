@@ -39,7 +39,6 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
   ngOnInit(): void {
     this.hiddenPickerId = this.id ? `hiddenDatePicker-${this.id}` : null;
     this.minDate = this.minDateString ? new Date(this.minDateString).toISOString().split('T')[0] : null;
-    console.log('minDate', this.minDate);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

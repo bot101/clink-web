@@ -2,6 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Observable, Subject } from 'rxjs';
+import { ApiService } from '../api/api.service';
+import { BehaviorSubject } from 'rxjs';
 
 export interface User {
   _id: string;
@@ -21,12 +23,26 @@ export interface User {
 export class AuthService {
   
   userInfo = new Subject<User>();
+  private formDataSubject = new BehaviorSubject<any>({});
+  formData$ = this.formDataSubject.asObservable();
+  constructor(private http: HttpClient,private apiService: ApiService) {
+  }
 
-  constructor(private http: HttpClient) {
+  updateFormData(data: any) {
+    const currentData = this.formDataSubject.value;
+    this.formDataSubject.next({ ...currentData, ...data });
+  }
+
+  getFormData() {
+    return this.formDataSubject.value;
+  }
+  
+  clearFormData() {
+    this.formDataSubject.next({});
   }
   
     
-  login(email:string, password:string ):Observable<{access_token:string}> {
+  signIn(email:string, password:string ):Observable<{access_token:string}> {
       return this.http.post<{access_token:string}>(`${environment.apiUrl}/auth/login`, {email, password})
   }
 
@@ -49,7 +65,7 @@ export class AuthService {
   //   return JSON.parse(localStorage.getItem("user_data"));
   // }
 
-  logout() {
+  signOut() {
       localStorage.removeItem("id_token");
       localStorage.removeItem("expires_at");
   }
@@ -61,11 +77,19 @@ export class AuthService {
   isLoggedOut() {
       return !this.isLoggedIn();
   }
+  signUp() {
+    return this.apiService.signUp(this.getFormData());
+  }
+  verifyOtp(data: any) {
+    return this.apiService.verifyOtp(data);
+  }
 
+  verifyEmail(data: any) {
+    return this.apiService.verifyEmail(data);
+  }
   // getExpiration() {
   //     const expiration = localStorage.getItem("expires_at");
   //     const expiresAt = JSON.parse(expiration);
   //     return moment(expiresAt);
   // }    
 }
-       

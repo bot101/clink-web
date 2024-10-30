@@ -5,10 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class PaymentService {
 
-  constructor() { }
+  formData: any;
+  // constructor() { }
 
-  updateFormData(arg0: { paymentDetails: any; }) {
-    throw new Error('Method not implemented.');
+  updateFormData(formData: any) {
+    this.formData = formData;
+  }
+
+  getFormData() {
+    return this.formData;
   }
   
 }

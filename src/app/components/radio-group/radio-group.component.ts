@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, Injector, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-radio-group',
@@ -19,7 +19,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     class: 'block'
   }
 })
-export class RadioGroupComponent implements ControlValueAccessor {
+export class RadioGroupComponent implements OnInit, ControlValueAccessor {
   @Input() label: string = '';
   @Input() options: { value: any; label: string }[] = [];
   @Input() name: string = '';
@@ -31,6 +31,14 @@ export class RadioGroupComponent implements ControlValueAccessor {
 
   onChange: any = () => {};
   onTouched: any = () => {};
+
+  ngControl!: NgControl;
+
+  constructor(private _injector: Injector) { }
+
+  ngOnInit() {
+    this.ngControl = this._injector.get(NgControl);
+  } 
 
   writeValue(value: string): void {
     this.value = value;

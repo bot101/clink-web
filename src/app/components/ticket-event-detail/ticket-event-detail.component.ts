@@ -9,6 +9,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ButtonComponent } from '../button/button.component';
+import { InputFieldComponent } from '../input-field/input-field.component';
 import { salePriceValidator } from '../../validators/validator';
 
 @Component({
@@ -21,7 +22,8 @@ import { salePriceValidator } from '../../validators/validator';
     NgxCurrencyDirective, 
     OnboardingHeaderComponent, 
     RadioGroupComponent,
-    ButtonComponent
+    ButtonComponent,
+    InputFieldComponent 
   ],
   providers: [CurrencyPipe],
   templateUrl: './ticket-event-detail.component.html',
@@ -73,7 +75,7 @@ export class TicketEventDetailComponent implements OnInit {
       this.apiService.submitTicketEvent(completeData).subscribe(
         (response: any) => {
           this.clearForm();
-          this.router.navigate(['/new-ad/success']);
+          this.nextStep.emit();
         },
         (error: any) => {
           alert('Error submitting ticket event');

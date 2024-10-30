@@ -78,6 +78,6 @@ export class ButtonComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   onClick(event: Event): void {
-    console.log('Button clicked');
+    // console.log('Button clicked');
   }
 }
