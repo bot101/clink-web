@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -141,6 +141,26 @@ export class ApiService {
 
   verifyEmail(data: any) {
     // return this.http.post<any>(`${this.apiUrl}/auth/verify-email`, data);
+  }
+
+  get<R = any>(endpoint: string, params?: HttpParams): Observable<R> {
+    return this.http.get<R>(`${this.apiUrl}/${endpoint}`, { params });
+  }
+
+  post<P = any, R = any>(endpoint: string, payload: P, headers?: HttpHeaders): Observable<R> {
+    return this.http.post<R>(`${this.apiUrl}/${endpoint}`, payload, { headers });
+  }
+
+  put<P = any, R = any>(endpoint: string, payload: P, headers?: HttpHeaders): Observable<R> {
+    return this.http.put<R>(`${this.apiUrl}/${endpoint}`, payload, { headers });
+  }
+
+  patch<P = any, R = any>(endpoint: string, payload: P, headers?: HttpHeaders): Observable<R> {
+    return this.http.patch<R>(`${this.apiUrl}/${endpoint}`, payload, { headers });
+  }
+
+  delete<R = any>(endpoint: string, params?: HttpParams): Observable<R> {
+    return this.http.delete<R>(`${this.apiUrl}/${endpoint}`, { params });
   }
 
   private formatDate(date: string): string {

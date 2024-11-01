@@ -121,7 +121,7 @@
             Official Event Website
         </a>
     </div>
-    <app-confirmation-dialog *ngIf="showConfirmationDialog" [title]="'האם ביצעתם שינוי שם מלא בכרטיס הטיסה?'"
+    <app-confirmation-dialog [showDialog]="true" *ngIf="showConfirmationDialog" [title]="'האם ביצעתם שינוי שם מלא בכרטיס הטיסה?'"
         [cancelButtonText]="'לא, עוד לא'" [confirmButtonText]="'כן, ביצעתי'" (cancel)="onCancelConfirmation()"
         (confirm)="onConfirmAction()">
         <p class="mb-5">האם ביצעתם את השינוי בשם ההזמנה/הכרטיס לשמו המלא ופרטיו המלאים של הקונה מול חברת התעופה/התיירות?</p>

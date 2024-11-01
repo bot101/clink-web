@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
+import { ApiService } from '../api/api.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketPurchaseService {
   private ticketPurchaseData: any = {};
-  private passengerDetailsData: any = {};
+  // private passengerDetailsData: any = {};
+
+  constructor(private apiService: ApiService) {
+
+  }
 
   setTicketPurchaseData(data: any) {
     this.ticketPurchaseData = data;
@@ -19,11 +25,8 @@ export class TicketPurchaseService {
     return this.ticketPurchaseData;
   }
 
-  setPassengerDetailsData(data: any) {
-    this.passengerDetailsData = data;
-  }
-
-  getPassengerDetailsData() {
-    return this.passengerDetailsData;
+  createTransaction() {
+    const transaction = this.apiService.post('transactions', this.ticketPurchaseData);
+    return firstValueFrom(transaction);
   }
 }

@@ -16,8 +16,6 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { NoAdComponent } from './pages/no-ad/no-ad.component';
 import { CreateAdComponent } from './pages/create-ad/create-ad.component';
 import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
-import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
-import { TicketPurchaseSuccessComponent } from './components/ticket-purchase-success/ticket-purchase-success.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -33,8 +31,6 @@ export const routes: Routes = [
     { path: 'ticket-details', component: TicketDetailsComponent },
     { path: 'report', component: ReportComponent },
     { path: 'no-ad', component: NoAdComponent },
-    { path: 'payment-summary', component: PaymentSummaryComponent },
-    { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
-    { path: 'ticket-purchase-success', component: TicketPurchaseSuccessComponent },
+    { path: 'ticket/:ticketId', component: BuyTicketComponent },
     { path: '**', redirectTo: ''}
 ];     

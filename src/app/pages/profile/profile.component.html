@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <app-confirmation-dialog [disableConfirmButton]="!deleteAccountConfirmed" *ngIf="showConfirmationDialog"
+    <app-confirmation-dialog [showDialog]="true" [disableConfirmButton]="!deleteAccountConfirmed" *ngIf="showConfirmationDialog"
         [title]="'האם ברצונכם למחוק את החשבון?'" [cancelButtonText]="'שיניתי את דעתי'"
         [confirmButtonText]="'מחיקת חשבון'" (cancel)="onCancelConfirmation()" (confirm)="onConfirmAction()">
         <p class="flex"><span class="font-bold">שימו</span><svg width="14" height="13" viewBox="0 0 14 13" fill="none"
@@ -74,7 +74,7 @@
         <p class="mb-20">הקיים לצמיתות ולא ניתן יהיה לשחזרו. אם ישנן עסקאות פעילות, העדכונים עליהן יישלחו אליכם באימייל
             גם לאחר המחיקה. חשוב לדעת: ברגע שמחקתם, אין דרך חזרה</p>
         <div class="flex gap-2 items-start">
-            <app-checkbox (change)="onDeleteAccountConfirm($event)" customClass="flex-row-reverse gap-3" name="confirm"
+            <app-checkbox [(ngModel)]="deleteAccountConfirmed" customClass="flex-row-reverse gap-3" name="confirm"
                 id="confirm"></app-checkbox>
             <p>אני מאשר/ת שלאחר המחיקה לא תהיה לי גישה לחשבון הנמחק ולרכישות שבוצעו דרכו.</p>
         </div>
