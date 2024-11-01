@@ -49,10 +49,17 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit {
       passportNumber: ['', Validators.pattern(/^\d+$/)],
       passportExpirationDate: ['']
     });
+
+    // Load data from service if available
+    const savedData = this.ticketPurchaseService.getTicketPurchaseData();
+    if (savedData) {
+      this.passengerDetailsForm.patchValue(savedData);
+    }
   }
 
   onContinue() {
     if (this.passengerDetailsForm.valid) {
+      this.ticketPurchaseService.updateTicketPurchaseData(this.passengerDetailsForm.value);
       this.continue.emit();
     }
   }

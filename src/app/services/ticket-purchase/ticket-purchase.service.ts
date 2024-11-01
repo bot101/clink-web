@@ -11,6 +11,10 @@ export class TicketPurchaseService {
     this.ticketPurchaseData = data;
   }
 
+  updateTicketPurchaseData(data: any) {
+    this.ticketPurchaseData = { ...this.ticketPurchaseData, ...data };
+  }
+
   getTicketPurchaseData() {
     return this.ticketPurchaseData;
   }

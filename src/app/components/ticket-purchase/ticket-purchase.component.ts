@@ -43,7 +43,7 @@ export class TicketPurchaseComponent implements OnInit {
 
   onContinue() {
     if (this.ticketPurchaseForm.valid) {
-      this.ticketPurchaseService.setTicketPurchaseData(this.ticketPurchaseForm.value);
+      this.ticketPurchaseService.updateTicketPurchaseData(this.ticketPurchaseForm.value);
       this.continue.emit();
     }
   }

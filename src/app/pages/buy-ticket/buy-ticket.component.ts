@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TicketPurchaseComponent } from "../../components/ticket-purchase/ticket-purchase.component";
 import { TicketPurchasePassengerDetailsComponent } from "../../components/ticket-purchase-passenger-details/ticket-purchase-passenger-details.component";
 import { CommonModule } from '@angular/common';
+import { PaymentSummaryComponent } from "../../components/payment-summary/payment-summary.component";
+import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-deal-policy.component";
+import { TicketPurchaseSuccessComponent } from '../../components/ticket-purchase-success/ticket-purchase-success.component';
 
 @Component({
   selector: 'app-buy-ticket',
@@ -14,20 +17,24 @@ import { CommonModule } from '@angular/common';
     OnboardingHeaderComponent,
     LogoComponent,
     TicketPurchaseComponent,
-    TicketPurchasePassengerDetailsComponent
-  ],
+    TicketPurchasePassengerDetailsComponent,
+    PaymentSummaryComponent,
+    FairDealPolicyComponent,
+    TicketPurchaseSuccessComponent
+],
   templateUrl: './buy-ticket.component.html',
   styleUrl: './buy-ticket.component.scss'
 })
 export class BuyTicketComponent {
   ticketId: string;
   currentStep: number = 1;
-  totalSteps: number = 2;
+  totalSteps: number = 6;
   iconName: 'clipboard-pen' | 'id' = 'clipboard-pen';
 
   stepTitles: Record<string, string> = {
     1: 'לפני שתמשיכו בתהליך הרכישה',
-    2: 'פרטים לשינוי שם הכרטיס'
+    2: 'פרטים לשינוי שם הכרטיס',
+    3: 'תנאי עסקה הוגנת'
   };
 
 

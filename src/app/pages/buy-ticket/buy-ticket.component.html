@@ -1,13 +1,19 @@
-<div class="overflow-x-hidden flex flex-col min-h-screen">
+<div *ngIf="currentStep < 3" class="overflow-x-hidden flex flex-col min-h-screen">
     <div class="w-full flex flex-col bg-[#072D4C] ">
         <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto">
             <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
-            <app-onboarding-header [totalSteps]="totalSteps" [currentStep]="currentStep" (back)="previousStep()" class="mb-4" [title]="stepTitles[currentStep]"
-                [iconName]="iconName"></app-onboarding-header>
+            <app-onboarding-header [totalSteps]="totalSteps" [currentStep]="currentStep" (back)="previousStep()"
+                class="mb-4" [title]="stepTitles[currentStep]" [iconName]="iconName"></app-onboarding-header>
         </div>
     </div>
 
-    <app-ticket-purchase *ngIf="currentStep === 1" (continue)="nextStep()" (back)="previousStep()"></app-ticket-purchase>
-    <app-ticket-purchase-passenger-details *ngIf="currentStep === 2" (continue)="nextStep()" (back)="previousStep()"></app-ticket-purchase-passenger-details>
-
+    <app-ticket-purchase *ngIf="currentStep === 1" (continue)="nextStep()"
+        (back)="previousStep()"></app-ticket-purchase>
+    <app-ticket-purchase-passenger-details *ngIf="currentStep === 2" (continue)="nextStep()"
+        (back)="previousStep()"></app-ticket-purchase-passenger-details>
+    <!-- <app-payment-summary *ngIf="currentStep === 3" (continue)="nextStep()" (back)="previousStep()"></app-payment-summary> -->
 </div>
+<app-fair-deal-policy *ngIf="currentStep === 3" (onContinue)="nextStep()" (onBack)="previousStep()"></app-fair-deal-policy>
+<app-payment-summary *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-payment-summary>
+<app-ticket-purchase-success *ngIf="currentStep === 5" (onContinue)="nextStep()"
+    (onBack)="previousStep()"></app-ticket-purchase-success>
