@@ -14,10 +14,9 @@
     <div
       *ngIf="ticketForm.get('ticketQuantity')?.invalid && (ticketForm.get('ticketQuantity')?.dirty || ticketForm.get('ticketQuantity')?.touched)"
       class="text-red-500">
-      <small *ngIf="ticketForm.get('ticketQuantity')?.errors?.['required']">Ticket quantity is required.</small>
+      <small *ngIf="ticketForm.get('ticketQuantity')?.errors?.['required']">שדה חובה.</small>
       <small
-        *ngIf="ticketForm.get('ticketQuantity')?.errors?.['min'] || ticketForm.get('ticketQuantity')?.errors?.['max']">Ticket
-        quantity must be between 1 and 5.</small>
+        *ngIf="ticketForm.get('ticketQuantity')?.errors?.['min'] || ticketForm.get('ticketQuantity')?.errors?.['max']">כמות הכרטיסים חייבת להיות בין 1 ל5.</small>
     </div>
   </div>
 
@@ -25,12 +24,17 @@
     <label for="costPrice" class="block text-sm text-gray-700">מחיר עלות</label>
     <input [class.error-field]="ticketForm.get('costPrice')?.invalid && (ticketForm.get('costPrice')?.dirty || ticketForm.get('costPrice')?.touched)" type="text" id="costPrice" formControlName="costPrice" currencyMask
       [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }"
-      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
+      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36"
+      [class.error-field]="ticketForm.errors?.['numberComparison'] && ticketForm.get('costPrice')?.touched">
+      <div *ngIf="ticketForm.errors?.['numberComparison'] && ticketForm.get('costPrice')?.touched"
+        class="error-text text-sm mt-1">
+        מחיר המכירה לא יכול להיות גבוה יותר מהמחיר ששילמתם
+      </div>
     <div
       *ngIf="ticketForm.get('costPrice')?.invalid && (ticketForm.get('costPrice')?.dirty || ticketForm.get('costPrice')?.touched)"
       class="text-red-500">
-      <small *ngIf="ticketForm.get('costPrice')?.errors?.['required']">Cost price is required.</small>
-      <small *ngIf="ticketForm.get('costPrice')?.errors?.['min']">Cost price must be 0 or greater.</small>
+      <small *ngIf="ticketForm.get('costPrice')?.errors?.['required']">שדה חובה.</small>
+      <small *ngIf="ticketForm.get('costPrice')?.errors?.['min']">מחיר חייב להיות גדול מ0.</small>
     </div>
   </div>
 
@@ -38,12 +42,17 @@
     <label for="salePrice" class="block text-sm text-gray-700">מחיר מכירה</label>
     <input [class.error-field]="ticketForm.get('salePrice')?.invalid && (ticketForm.get('salePrice')?.dirty || ticketForm.get('salePrice')?.touched)" type="text" id="salePrice" formControlName="salePrice" currencyMask
       [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }"
-      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36">
+      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36"
+      [class.error-field]="ticketForm.errors?.['numberComparison'] && ticketForm.get('costPrice')?.touched">
+      <div *ngIf="ticketForm.errors?.['numberComparison'] && ticketForm.get('costPrice')?.touched"
+        class="error-text text-sm mt-1">
+        מחיר המכירה לא יכול להיות גבוה יותר מהמחיר ששילמתם
+      </div>
     <div
       *ngIf="ticketForm.get('salePrice')?.invalid && (ticketForm.get('salePrice')?.dirty || ticketForm.get('salePrice')?.touched)"
       class="text-red-500">
-      <small *ngIf="ticketForm.get('salePrice')?.errors?.['required']">Sale price is required.</small>
-      <small *ngIf="ticketForm.get('salePrice')?.errors?.['min']">Sale price must be 0 or greater.</small>
+      <small *ngIf="ticketForm.get('salePrice')?.errors?.['required']">שדה חובה.</small>
+      <small *ngIf="ticketForm.get('salePrice')?.errors?.['min']">מחיר חייב להיות גדול מ0.</small>
     </div>
   </div>
 
@@ -54,7 +63,7 @@
     <div
       *ngIf="ticketForm.get('ticketDetails')?.invalid && (ticketForm.get('ticketDetails')?.dirty || ticketForm.get('ticketDetails')?.touched)"
       class="text-red-500">
-      <small *ngIf="ticketForm.get('ticketDetails')?.errors?.['required']">Ticket details are required.</small>
+      <small *ngIf="ticketForm.get('ticketDetails')?.errors?.['required']">שדה חובה.</small>
     </div>
   </div>
 
@@ -66,8 +75,8 @@
     <div
       *ngIf="ticketForm.get('eventLink')?.invalid && (ticketForm.get('eventLink')?.dirty || ticketForm.get('eventLink')?.touched)"
       class="text-red-500">
-      <small *ngIf="ticketForm.get('eventLink')?.errors?.['required']">Event link is required.</small>
-      <small *ngIf="ticketForm.get('eventLink')?.errors?.['pattern']">Please enter a valid URL.</small>
+      <small *ngIf="ticketForm.get('eventLink')?.errors?.['required']">שדה חובה.</small>
+      <small *ngIf="ticketForm.get('eventLink')?.errors?.['pattern']">אנא הזינו קישור תקין.</small>
     </div>
   </div>
 

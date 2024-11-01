@@ -17,7 +17,7 @@
   </div>
 
   <div>
-    <app-date-picker label="תאריך האירוע" formControlName="eventDate" [required]="true"></app-date-picker>
+    <app-date-picker [isError]="ticketForm.get('eventDate')?.invalid && ticketForm.get('eventDate')?.touched || false" label="תאריך האירוע" formControlName="eventDate" [required]="true"></app-date-picker>
     <div *ngIf="ticketForm.get('eventDate')?.touched && ticketForm.get('eventDate')?.errors"
       class="text-red-500 text-sm mt-1">
       <div *ngIf="ticketForm.get('eventDate')?.errors?.['required']">תאריך האירוע נדרש</div>

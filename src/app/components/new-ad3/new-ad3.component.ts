@@ -11,7 +11,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { LogoComponent } from "../logo/logo.component";
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { AdService } from '../../services/ad/ad.service';
-import { salePriceValidator } from './validator';
+import { salePriceValidator } from '../../validators/validator';
 
 @Component({
   selector: 'app-new-ad3',
