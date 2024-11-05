@@ -9,7 +9,7 @@
 
     <app-ticket-purchase *ngIf="currentStep === 1" (continue)="nextStep()"
         (back)="previousStep()"></app-ticket-purchase>
-    <app-ticket-purchase-passenger-details *ngIf="currentStep === 2" (continue)="nextStep()"
+    <app-ticket-purchase-passenger-details [currentTicketIndex]="filledTicketCount" *ngIf="currentStep === 2" (continue)="nextStep()"
         (back)="previousStep()"></app-ticket-purchase-passenger-details>
     <!-- <app-payment-summary *ngIf="currentStep === 3" (continue)="nextStep()" (back)="previousStep()"></app-payment-summary> -->
 </div>

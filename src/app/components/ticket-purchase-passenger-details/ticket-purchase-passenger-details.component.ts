@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,9 +26,10 @@ import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-pur
   templateUrl: './ticket-purchase-passenger-details.component.html',
   styleUrl: './ticket-purchase-passenger-details.component.scss'
 })
-export class TicketPurchasePassengerDetailsComponent implements OnInit {
+export class TicketPurchasePassengerDetailsComponent implements OnInit, OnChanges {
   @Output() continue = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
+  @Input() currentTicketIndex: number = 0;
 
   passengerDetailsForm!: FormGroup;
   genderOptions: { value: string, label: string }[] = [
@@ -50,21 +51,39 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit {
       passportExpirationDate: ['']
     });
 
-    // Load data from service if available
+    this.loadPassengerDetails();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(!this.passengerDetailsForm) return;
+    if (changes['currentTicketIndex']?.currentValue >= 0) {
+      this.loadPassengerDetails();
+    }
+  }
+
+  loadPassengerDetails() {
     const savedData = this.ticketPurchaseService.getTicketPurchaseData();
-    if (savedData) {
-      this.passengerDetailsForm.patchValue(savedData);
+    if (savedData && savedData.passengers[this.currentTicketIndex]) {
+      this.passengerDetailsForm.patchValue(savedData.passengers[this.currentTicketIndex]);
+    } else {
+      this.passengerDetailsForm.reset();
     }
   }
 
   onContinue() {
     if (this.passengerDetailsForm.valid) {
-      this.ticketPurchaseService.updateTicketPurchaseData(this.passengerDetailsForm.value);
+      this.ticketPurchaseService.addPassenger(this.passengerDetailsForm.value, this.currentTicketIndex);
+      this.passengerDetailsForm.reset();
       this.continue.emit();
     }
   }
 
   onBack() {
-    this.back.emit();
+    if (this.currentTicketIndex > 0) {
+      this.currentTicketIndex--;
+      this.loadPassengerDetails();
+    } else {
+      this.back.emit();
+    }
   }
 }

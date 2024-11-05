@@ -6,7 +6,9 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class TicketPurchaseService {
-  private ticketPurchaseData: any = {};
+  private ticketPurchaseData: any = {
+    passengers: []
+  };
   // private passengerDetailsData: any = {};
 
   constructor(private apiService: ApiService) {
@@ -15,6 +17,10 @@ export class TicketPurchaseService {
 
   setTicketPurchaseData(data: any) {
     this.ticketPurchaseData = data;
+  }
+
+  addPassenger(passenger: any, index: number) {
+    this.ticketPurchaseData.passengers[index] = passenger;
   }
 
   updateTicketPurchaseData(data: any) {

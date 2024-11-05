@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { PaymentSummaryComponent } from "../../components/payment-summary/payment-summary.component";
 import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-deal-policy.component";
 import { TicketPurchaseSuccessComponent } from '../../components/ticket-purchase-success/ticket-purchase-success.component';
+import { ApiService } from '../../services/api/api.service';
 
 @Component({
   selector: 'app-buy-ticket',
@@ -27,8 +28,10 @@ import { TicketPurchaseSuccessComponent } from '../../components/ticket-purchase
 })
 export class BuyTicketComponent {
   ticketId: string;
+  ticketDetails: any;
   currentStep: number = 1;
   totalSteps: number = 6;
+  filledTicketCount: number = 0;
   iconName: 'clipboard-pen' | 'id' = 'clipboard-pen';
 
   stepTitles: Record<string, string> = {
@@ -38,12 +41,25 @@ export class BuyTicketComponent {
   };
 
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private apiService: ApiService
+  ) {
     this.ticketId = this.route.snapshot.params['ticketId'];
   }
 
   ngOnInit() {
-    console.log(this.ticketId);
+    this.getTicketDetails();
+  }
+
+  getTicketDetails() {
+    this.apiService.get(`ads/${this.ticketId}`).subscribe((ticket) => {
+      this.ticketDetails = ticket;
+    }, (error) => {
+      console.log(error);
+      this.router.navigate(['no-ad']);
+    });
   }
 
   stepChange(step: number) {
@@ -51,18 +67,65 @@ export class BuyTicketComponent {
   }
 
   nextStep() {
+    console.log('Before next step', {
+      currentStep: this.currentStep, 
+      filledTicketCount: this.filledTicketCount,
+      ticketDetails: this.ticketDetails
+    });
     if (this.currentStep < this.totalSteps) {
+      if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
+        if(this.filledTicketCount < 0) {
+          this.filledTicketCount = 0;
+        }
+        if (this.filledTicketCount < this.ticketDetails.amount - 1) {
+          this.filledTicketCount++;
+          console.log('After next step (filling tickets)', {
+            currentStep: this.currentStep, 
+            filledTicketCount: this.filledTicketCount,
+            ticketDetails: this.ticketDetails
+          });
+          return;
+        }
+      }
       this.currentStep++;
       this.stepChange(this.currentStep);
     }
+    console.log('After next step', {
+      currentStep: this.currentStep, 
+      filledTicketCount: this.filledTicketCount,
+      ticketDetails: this.ticketDetails
+    });
   }
-
+  // Short IDs
+  // gM9O2xhB - flight:amount:3
+  // gM5QOdhV - flight:amount:10
   previousStep() {
+    console.log('Before previous step', {
+      currentStep: this.currentStep, 
+      filledTicketCount: this.filledTicketCount,
+      ticketDetails: this.ticketDetails
+    });
     if (this.currentStep > 1) {
+      if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
+        if (this.filledTicketCount >= 0) {
+          this.filledTicketCount--;
+          console.log('After previous step (filling tickets)', {
+            currentStep: this.currentStep, 
+            filledTicketCount: this.filledTicketCount,
+            ticketDetails: this.ticketDetails
+          });
+          return;
+        }
+      }
       this.currentStep--;
       this.stepChange(this.currentStep);
     } else {
       this.router.navigate(['..']);
     }
+    console.log('After previous step', {
+      currentStep: this.currentStep, 
+      filledTicketCount: this.filledTicketCount,
+      ticketDetails: this.ticketDetails
+    });
   }
 }
