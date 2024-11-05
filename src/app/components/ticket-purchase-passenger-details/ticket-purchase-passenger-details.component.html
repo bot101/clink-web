@@ -14,9 +14,9 @@
                 [required]="true"></app-input-field>
             <div
                 *ngIf="passengerDetailsForm.get('firstName')?.invalid && (passengerDetailsForm.get('firstName')?.dirty || passengerDetailsForm.get('firstName')?.touched)">
-                <small *ngIf="passengerDetailsForm.get('firstName')?.errors?.['required']" class="text-red-500">First
+                <small *ngIf="passengerDetailsForm.get('firstName')?.errors?.['required']" class="error-text">First
                     Name is required.</small>
-                <small *ngIf="passengerDetailsForm.get('firstName')?.errors?.['pattern']" class="text-red-500">First
+                <small *ngIf="passengerDetailsForm.get('firstName')?.errors?.['pattern']" class="error-text">First
                     Name must contain only letters.</small>
             </div>
 
@@ -24,9 +24,9 @@
                 [required]="true"></app-input-field>
             <div
                 *ngIf="passengerDetailsForm.get('lastName')?.invalid && (passengerDetailsForm.get('lastName')?.dirty || passengerDetailsForm.get('lastName')?.touched)">
-                <small *ngIf="passengerDetailsForm.get('lastName')?.errors?.['required']" class="text-red-500">Last
+                <small *ngIf="passengerDetailsForm.get('lastName')?.errors?.['required']" class="error-text">Last
                     Name is required.</small>
-                <small *ngIf="passengerDetailsForm.get('lastName')?.errors?.['pattern']" class="text-red-500">Last
+                <small *ngIf="passengerDetailsForm.get('lastName')?.errors?.['pattern']" class="error-text">Last
                     Name must contain only letters.</small>
             </div>
 
@@ -34,16 +34,16 @@
                 [options]="genderOptions"></app-radio-group>
             <div
                 *ngIf="passengerDetailsForm.get('gender')?.invalid && (passengerDetailsForm.get('gender')?.dirty || passengerDetailsForm.get('gender')?.touched)">
-                <small *ngIf="passengerDetailsForm.get('gender')?.errors?.['required']" class="text-red-500">Gender
+                <small *ngIf="passengerDetailsForm.get('gender')?.errors?.['required']" class="error-text">Gender
                     is required.</small>
             </div>
 
             <app-input-field label="מספר תעודת זהות" formControlName="idNumber" [required]="true"></app-input-field>
             <div
                 *ngIf="passengerDetailsForm.get('idNumber')?.invalid && (passengerDetailsForm.get('idNumber')?.dirty || passengerDetailsForm.get('idNumber')?.touched)">
-                <small *ngIf="passengerDetailsForm.get('idNumber')?.errors?.['required']" class="text-red-500">ID
+                <small *ngIf="passengerDetailsForm.get('idNumber')?.errors?.['required']" class="error-text">ID
                     Number is required.</small>
-                <small *ngIf="passengerDetailsForm.get('idNumber')?.errors?.['pattern']" class="text-red-500">ID
+                <small *ngIf="passengerDetailsForm.get('idNumber')?.errors?.['pattern']" class="error-text">ID
                     Number must contain only numbers.</small>
             </div>
 
@@ -51,7 +51,7 @@
                 type="date"></app-date-picker>
             <div
                 *ngIf="passengerDetailsForm.get('dateOfBirth')?.invalid && (passengerDetailsForm.get('dateOfBirth')?.dirty || passengerDetailsForm.get('dateOfBirth')?.touched)">
-                <small *ngIf="passengerDetailsForm.get('dateOfBirth')?.errors?.['required']" class="text-red-500">Date
+                <small *ngIf="passengerDetailsForm.get('dateOfBirth')?.errors?.['required']" class="error-text">Date
                     of Birth is required.</small>
             </div>
 
@@ -59,14 +59,14 @@
             <div
                 *ngIf="passengerDetailsForm.get('passportNumber')?.invalid && (passengerDetailsForm.get('passportNumber')?.dirty || passengerDetailsForm.get('passportNumber')?.touched)">
                 <small *ngIf="passengerDetailsForm.get('passportNumber')?.errors?.['pattern']"
-                    class="text-red-500">Passport Number must contain only numbers.</small>
+                    class="error-text">Passport Number must contain only numbers.</small>
             </div>
 
             <app-date-picker label="תוקף דרכון" formControlName="passportExpirationDate" type="date"></app-date-picker>
             <div
                 *ngIf="passengerDetailsForm.get('passportExpirationDate')?.invalid && (passengerDetailsForm.get('passportExpirationDate')?.dirty || passengerDetailsForm.get('passportExpirationDate')?.touched)">
                 <small *ngIf="passengerDetailsForm.get('passportExpirationDate')?.errors?.['pattern']"
-                    class="text-red-500">Invalid date format.</small>
+                    class="error-text">Invalid date format.</small>
             </div>
         </div>
 

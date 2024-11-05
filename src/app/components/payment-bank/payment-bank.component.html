@@ -4,7 +4,7 @@
             <app-input-field placeholder="שם מלא" label="שם מלא" id="fullName" type="text"
                 formControlName="fullName"></app-input-field>
             <div *ngIf="bankForm.get('fullName')?.invalid && (bankForm.get('fullName')?.dirty || bankForm.get('fullName')?.touched)"
-                class="text-red-500">
+                class="error-text">
                 <small *ngIf="bankForm.get('fullName')?.errors?.['required']">Full Name is required.</small>
             </div>
         </div>
@@ -20,7 +20,7 @@
                 </option>
             </select>
             <div *ngIf="bankForm.get('paymentBank')?.invalid && (bankForm.get('paymentBank')?.dirty || bankForm.get('paymentBank')?.touched)"
-                class="text-red-500">
+                class="error-text">
                 <small *ngIf="bankForm.get('paymentBank')?.errors?.['required']">Bank selection is required.</small>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <app-input-field placeholder="0000000" label="מספר חשבון בנק" id="paymentNumber" type="text"
                 formControlName="paymentNumber"></app-input-field>
             <div *ngIf="bankForm.get('paymentNumber')?.invalid && (bankForm.get('paymentNumber')?.dirty || bankForm.get('paymentNumber')?.touched)"
-                class="text-red-500">
+                class="error-text">
                 <small *ngIf="bankForm.get('paymentNumber')?.errors?.['required']">Account Number is required.</small>
                 <small *ngIf="bankForm.get('paymentNumber')?.errors?.['pattern']">Account Number must be up to 9
                     digits.</small>
@@ -40,7 +40,7 @@
             <app-input-field placeholder="0" class="inline-block" label="מספר סניף בנק" id="paymentBranch" type="text"
                 formControlName="paymentBranch"></app-input-field>
             <div *ngIf="bankForm.get('paymentBranch')?.invalid && (bankForm.get('paymentBranch')?.dirty || bankForm.get('paymentBranch')?.touched)"
-                class="text-red-500">
+                class="error-text">
                 <small *ngIf="bankForm.get('paymentBranch')?.errors?.['required']">Branch Number is required.</small>
                 <small *ngIf="bankForm.get('paymentBranch')?.errors?.['pattern']">Branch Number must be up to 3 digits.</small>
             </div>

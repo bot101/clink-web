@@ -19,7 +19,7 @@
   <div>
     <app-date-picker [isError]="ticketForm.get('eventDate')?.invalid && ticketForm.get('eventDate')?.touched || false" label="תאריך האירוע" formControlName="eventDate" [required]="true"></app-date-picker>
     <div *ngIf="ticketForm.get('eventDate')?.touched && ticketForm.get('eventDate')?.errors"
-      class="text-red-500 text-sm mt-1">
+      class="error-text text-sm mt-1">
       <div *ngIf="ticketForm.get('eventDate')?.errors?.['required']">תאריך האירוע נדרש</div>
       <div *ngIf="ticketForm.get('eventDate')?.errors?.['dateNotGreaterThanToday']">תאריך האירוע חייב להיות גדול מהיום
       </div>
@@ -95,7 +95,7 @@
         
       </div>
 
-      <button type="button" (click)="removeFile(i)" class="text-red-500">
+      <button type="button" (click)="removeFile(i)" class="error-text">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M20.4023 5.72461L19.7823 15.7496C19.6243 18.3106 19.5453 19.5916 18.9023 20.5126C18.5849 20.9678 18.1763 21.3519 17.7023 21.6406C16.7453 22.2246 15.4623 22.2246 12.8963 22.2246C10.3263 22.2246 9.04134 22.2246 8.08234 21.6396C7.60823 21.3503 7.19956 20.9655 6.88234 20.5096C6.24034 19.5876 6.16234 18.3046 6.00834 15.7396L5.40234 5.72461M3.90234 5.72461H21.9023M16.9583 5.72461L16.2753 4.31661C15.8223 3.38061 15.5953 2.91361 15.2043 2.62161C15.1175 2.55693 15.0255 2.4994 14.9293 2.44961C14.4963 2.22461 13.9763 2.22461 12.9373 2.22461C11.8713 2.22461 11.3383 2.22461 10.8973 2.45861C10.7999 2.51082 10.7069 2.57103 10.6193 2.63861C10.2243 2.94161 10.0033 3.42661 9.56134 4.39561L8.95534 5.72461"

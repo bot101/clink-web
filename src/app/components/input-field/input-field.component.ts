@@ -24,6 +24,7 @@ export class InputFieldComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
+  @Input() isError: boolean = false;
 
   value: string = '';
   onChange: any = () => { };

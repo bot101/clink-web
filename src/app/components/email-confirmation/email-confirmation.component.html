@@ -16,18 +16,18 @@
         <div class="space-y-5 lowercase px-4 md:pt-8 md:pb-6 w-full md:max-w-[340px] md:mx-auto">
             <div class="flex flex-col justify-between space-y-3 mt-4">
                 <div class="flex flex-col">
-                    <app-input-field #emailInput [required]="true" type="email" label="כתובת אימייל" [(ngModel)]="email"
+                    <app-input-field email #emailInput [required]="true" type="email" label="כתובת אימייל" [(ngModel)]="email"
                         (input)="onInputEmail()"></app-input-field>
                     <div *ngIf="emailInput.ngControl?.touched && emailInput.ngControl?.invalid"
-                        class="error-text text-sm mt-1">
+                        class="error-text text-sm">
                         אנא הזינו כתובת אימייל בפורמט example&#64;domain.com
                     </div>
                 </div>
-                <div class="flex flex-col">
-                    <app-input-field #confirmEmailInput [required]="true" type="email" label="הקלידו את כתובת האימייל שוב"
+                <div class="flex flex-col  mt-1">
+                    <app-input-field [isError]="confirmEmailInput.ngControl?.touched && !matchingEmails || false" #confirmEmailInput [required]="true" type="email" label="הקלידו את כתובת האימייל שוב"
                         [(ngModel)]="confirmEmail" (input)="onInputEmail()"></app-input-field>
                     <div *ngIf="confirmEmailInput.ngControl?.touched && !matchingEmails"
-                        class="error-text text-sm mt-1">
+                        class="error-text text-sm">
                         כתובות האימייל שהוזנו אינן תואמות
                     </div>
                 </div>

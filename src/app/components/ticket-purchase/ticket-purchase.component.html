@@ -9,9 +9,9 @@
             <app-input-field label="שם מלא" formControlName="fullName" [required]="true"></app-input-field>
             <div
                 *ngIf="ticketPurchaseForm.get('fullName')?.invalid && (ticketPurchaseForm.get('fullName')?.dirty || ticketPurchaseForm.get('fullName')?.touched)">
-                <small *ngIf="ticketPurchaseForm.get('fullName')?.errors?.['required']" class="text-red-500">שם מלא
+                <small *ngIf="ticketPurchaseForm.get('fullName')?.errors?.['required']" class="error-text">שם מלא
                     הוא שדה חובה.</small>
-                <small *ngIf="ticketPurchaseForm.get('fullName')?.errors?.['pattern']" class="text-red-500">שם מלא
+                <small *ngIf="ticketPurchaseForm.get('fullName')?.errors?.['pattern']" class="error-text">שם מלא
                     יכול להכיל רק אותיות.</small>
             </div>
         </div>
@@ -20,9 +20,9 @@
             <app-input-field label="כתובת אימייל" formControlName="email" [required]="true"></app-input-field>
             <div
                 *ngIf="ticketPurchaseForm.get('email')?.invalid && (ticketPurchaseForm.get('email')?.dirty || ticketPurchaseForm.get('email')?.touched)">
-                <small *ngIf="ticketPurchaseForm.get('email')?.errors?.['required']" class="text-red-500">כתובת אימייל
+                <small *ngIf="ticketPurchaseForm.get('email')?.errors?.['required']" class="error-text">כתובת אימייל
                     הוא שדה חובה.</small>
-                <small *ngIf="ticketPurchaseForm.get('email')?.errors?.['email']" class="text-red-500">אנא הזינו כתובת
+                <small *ngIf="ticketPurchaseForm.get('email')?.errors?.['email']" class="error-text">אנא הזינו כתובת
                     אימייל בפורמט
                     example&#64;domain.com</small>
             </div>
@@ -33,14 +33,14 @@
                 [required]="true"></app-input-field>
             <div
                 *ngIf="ticketPurchaseForm.get('confirmEmail')?.invalid && (ticketPurchaseForm.get('confirmEmail')?.dirty || ticketPurchaseForm.get('confirmEmail')?.touched)">
-                <small *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['required']" class="text-red-500">אימייל
+                <small *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['required']" class="error-text">אימייל
                     משתמש הוא שדה חובה.</small>
-                <small *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['email']" class="text-red-500">אנא הזינו
+                <small *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['email']" class="error-text">אנא הזינו
                     כתובת אימייל בפורמט
                     example&#64;domain.com</small>
             </div>
             <div *ngIf="ticketPurchaseForm.errors?.['emailMismatch']">
-                <small class="text-red-500">כתובות האימייל שהוזנו אינן תואמות</small>
+                <small class="error-text">כתובות האימייל שהוזנו אינן תואמות</small>
             </div>
         </div>
 
@@ -48,10 +48,10 @@
             <app-input-field label="מספר טלפון" formControlName="phoneNumber" [required]="true"></app-input-field>
             <div
                 *ngIf="ticketPurchaseForm.get('phoneNumber')?.invalid && (ticketPurchaseForm.get('phoneNumber')?.dirty || ticketPurchaseForm.get('phoneNumber')?.touched)">
-                <small *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['required']" class="text-red-500">מספר
+                <small *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['required']" class="error-text">מספר
                     טלפון
                     הוא שדה חובה.</small>
-                <small *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['pattern']" class="text-red-500">המספר
+                <small *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['pattern']" class="error-text">המספר
                     שהוזן קצר מדי. אנא הזינו מספר טלפון
                     תקין בעל 10 ספרות</small>
             </div>

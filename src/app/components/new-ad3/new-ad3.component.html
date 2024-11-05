@@ -54,7 +54,7 @@
     <app-checkbox customClass="flex-row-reverse gap-3" formControlName="isChecked"
       label="בדקתי עם חברת התעופה/התיירות והם אישרו שניתן לשנות את השם המלא של הנוסע בכרטיס/בהזמנה שאני מעלה למכירה.לשאלות ועזרה פנו אלינו בצ׳אט"></app-checkbox>
     <div *ngIf="ticketForm.get('isChecked')?.touched && !ticketForm.get('isChecked')?.value"
-      class="text-red-500 text-sm mt-1 w-full">
+      class="error-text text-sm mt-1 w-full">
       חובה לאשר סעיף זה
     </div>
   </div>
