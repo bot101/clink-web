@@ -34,7 +34,6 @@ export const routes: Routes = [
     { path: 'my-tickets', component: MyTicketsComponent },
     { path: 'ticket-details', component: TicketDetailsComponent },
     { path: 'report', component: ReportComponent },
-    { path: 'no-ad', component: NoAdComponent },
     { path: 'ticket/:ticketId', component: BuyTicketComponent },
     { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
     { path: '**', redirectTo: ''}

@@ -9,6 +9,7 @@ import { PaymentSummaryComponent } from "../../components/payment-summary/paymen
 import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-deal-policy.component";
 import { TicketPurchaseSuccessComponent } from '../../components/ticket-purchase-success/ticket-purchase-success.component';
 import { ApiService } from '../../services/api/api.service';
+import { NoAdComponent } from "../no-ad/no-ad.component";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -21,7 +22,8 @@ import { ApiService } from '../../services/api/api.service';
     TicketPurchasePassengerDetailsComponent,
     PaymentSummaryComponent,
     FairDealPolicyComponent,
-    TicketPurchaseSuccessComponent
+    TicketPurchaseSuccessComponent,
+    NoAdComponent
 ],
   templateUrl: './buy-ticket.component.html',
   styleUrl: './buy-ticket.component.scss'
@@ -29,7 +31,7 @@ import { ApiService } from '../../services/api/api.service';
 export class BuyTicketComponent {
   ticketId: string;
   ticketDetails: any;
-  currentStep: number = 1;
+  currentStep: number | null = 1;
   totalSteps: number = 6;
   filledTicketCount: number = 0;
   iconName: 'clipboard-pen' | 'id' = 'clipboard-pen';
@@ -58,7 +60,7 @@ export class BuyTicketComponent {
       this.ticketDetails = ticket;
     }, (error) => {
       console.log(error);
-      this.router.navigate(['no-ad']);
+      this.currentStep = null;
     });
   }
 
@@ -72,7 +74,7 @@ export class BuyTicketComponent {
       filledTicketCount: this.filledTicketCount,
       ticketDetails: this.ticketDetails
     });
-    if (this.currentStep < this.totalSteps) {
+    if (this.currentStep && this.currentStep < this.totalSteps) {
       if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
         if(this.filledTicketCount < 0) {
           this.filledTicketCount = 0;
@@ -105,7 +107,7 @@ export class BuyTicketComponent {
       filledTicketCount: this.filledTicketCount,
       ticketDetails: this.ticketDetails
     });
-    if (this.currentStep > 1) {
+    if (this.currentStep && this.currentStep > 1) {
       if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
         if (this.filledTicketCount >= 0) {
           this.filledTicketCount--;
