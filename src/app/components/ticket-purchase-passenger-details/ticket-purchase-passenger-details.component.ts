@@ -31,6 +31,8 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit, OnChange
   @Output() back = new EventEmitter<void>();
   @Input() currentTicketIndex: number = 0;
 
+  today = new Date().toISOString().split('T')[0];
+  
   passengerDetailsForm!: FormGroup;
   genderOptions: { value: string, label: string }[] = [
     { value: 'male', label: 'זכר' },
@@ -45,7 +47,7 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit, OnChange
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       gender: ['', Validators.required],
-      idNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      idNumber: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       dateOfBirth: ['', Validators.required],
       passportNumber: ['', Validators.pattern(/^\d+$/)],
       passportExpirationDate: ['']
@@ -55,9 +57,9 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(!this.passengerDetailsForm) return;
-    if (changes['currentTicketIndex']?.currentValue >= 0) {
-      this.loadPassengerDetails();
+    if (!this.passengerDetailsForm) return;
+    if (changes['currentTicketIndex'] && changes['currentTicketIndex'].currentValue >= 0) {
+        this.loadPassengerDetails();
     }
   }
 

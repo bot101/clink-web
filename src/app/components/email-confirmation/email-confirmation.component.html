@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col  mt-1">
-                    <app-input-field [isError]="confirmEmailInput.ngControl?.touched && !matchingEmails || false" #confirmEmailInput [required]="true" type="email" label="הקלידו את כתובת האימייל שוב"
+                    <app-input-field [isError]="confirmEmailInput.ngControl.touched && !matchingEmails || false" #confirmEmailInput [required]="true" type="email" label="הקלידו את כתובת האימייל שוב"
                         [(ngModel)]="confirmEmail" (input)="onInputEmail()"></app-input-field>
                     <div *ngIf="confirmEmailInput.ngControl?.touched && !matchingEmails"
                         class="error-text text-sm">

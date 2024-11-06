@@ -18,7 +18,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class DatePickerComponent implements OnInit, OnChanges, ControlValueAccessor {
-
+  @Input() maxDateString: string | null = null;
   @Input() minDateString: string | null = null;
   @Input() today = new Date().toISOString().split('T')[0];
   @Input() label: string = '';
@@ -35,15 +35,20 @@ export class DatePickerComponent implements OnInit, OnChanges, ControlValueAcces
 
   hiddenPickerId: string | null = null;
   minDate: string | null = null;
-
+  maxDate: string | null = null;
+  
   ngOnInit(): void {
     this.hiddenPickerId = this.id ? `hiddenDatePicker-${this.id}` : null;
     this.minDate = this.minDateString ? new Date(this.minDateString).toISOString().split('T')[0] : null;
+    this.maxDate = this.maxDateString ? new Date(this.maxDateString).toISOString().split('T')[0] : null;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['minDateString']) {
       this.minDate = this.minDateString ? new Date(this.minDateString).toISOString().split('T')[0] : null;
+    }
+    if (changes['maxDateString']) {
+      this.maxDate = this.maxDateString ? new Date(this.maxDateString).toISOString().split('T')[0] : null;
     }
   }
 

@@ -3,7 +3,7 @@ import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-heade
 import { LogoComponent } from "../logo/logo.component";
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
-import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
+import { TicketDetails, TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
@@ -19,9 +19,12 @@ export class PaymentSummaryComponent {
   @Input() currentStep: number = 0;
   @Input() title: string = '';
   @Input() iconName: string = '';
+  @Input() ticketInformation: any;
 
   @Output() onContinue = new EventEmitter<void>();
   @Output() onBack = new EventEmitter<void>();
+
+  ticketDetails: TicketDetails | undefined;
 
   constructor(private ticketPurchaseService: TicketPurchaseService) {}
 

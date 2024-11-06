@@ -7,7 +7,7 @@
     class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] md:mt-4">
     <form [formGroup]="passengerDetailsForm" (ngSubmit)="onContinue()"
         class="space-y-5 lowercase px-4 md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
-        <h3 class="font-bold text-sm">פרטי הנוסע:</h3>
+        <h3 class="font-bold text-sm">פרטי הנוסע: {{currentTicketIndex + 1}}</h3>
 
         <div class="mb-6">
             <app-input-field label="שם פרטי באנגלית (בדיוק כפי שמופיע בדרכון)" formControlName="firstName"
@@ -47,7 +47,7 @@
                     Number must contain only numbers.</small>
             </div>
 
-            <app-date-picker class="mb-4" label="תאריך לידה" formControlName="dateOfBirth" [required]="true"
+            <app-date-picker class="mb-4" label="תאריך לידה" [maxDateString]="today" formControlName="dateOfBirth" [required]="true"
                 type="date"></app-date-picker>
             <div
                 *ngIf="passengerDetailsForm.get('dateOfBirth')?.invalid && (passengerDetailsForm.get('dateOfBirth')?.dirty || passengerDetailsForm.get('dateOfBirth')?.touched)">
@@ -62,7 +62,7 @@
                     class="error-text">Passport Number must contain only numbers.</small>
             </div>
 
-            <app-date-picker label="תוקף דרכון" formControlName="passportExpirationDate" type="date"></app-date-picker>
+            <app-date-picker label="תוקף דרכון" [minDateString]="today" formControlName="passportExpirationDate" type="date"></app-date-picker>
             <div
                 *ngIf="passengerDetailsForm.get('passportExpirationDate')?.invalid && (passengerDetailsForm.get('passportExpirationDate')?.dirty || passengerDetailsForm.get('passportExpirationDate')?.touched)">
                 <small *ngIf="passengerDetailsForm.get('passportExpirationDate')?.errors?.['pattern']"

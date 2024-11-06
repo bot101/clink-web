@@ -14,7 +14,7 @@
     <!-- <app-payment-summary *ngIf="currentStep === 3" (continue)="nextStep()" (back)="previousStep()"></app-payment-summary> -->
 </div>
 <app-fair-deal-policy *ngIf="currentStep === 3" (onContinue)="nextStep()" (onBack)="previousStep()"></app-fair-deal-policy>
-<app-payment-summary *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-payment-summary>
+<app-payment-summary [ticketInformation]="ticketDetails" *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-payment-summary>
 <app-ticket-purchase-success *ngIf="currentStep === 5" (onContinue)="nextStep()"
     (onBack)="previousStep()"></app-ticket-purchase-success>
 <app-no-ad *ngIf="currentStep === null"></app-no-ad>

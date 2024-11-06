@@ -10,6 +10,7 @@ import { FairDealPolicyComponent } from "../../components/fair-deal-policy/fair-
 import { TicketPurchaseSuccessComponent } from '../../components/ticket-purchase-success/ticket-purchase-success.component';
 import { ApiService } from '../../services/api/api.service';
 import { NoAdComponent } from "../no-ad/no-ad.component";
+import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
 
 @Component({
   selector: 'app-buy-ticket',
@@ -46,7 +47,7 @@ export class BuyTicketComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private apiService: ApiService
+    private ticketPurchaseService: TicketPurchaseService
   ) {
     this.ticketId = this.route.snapshot.params['ticketId'];
   }
@@ -56,11 +57,8 @@ export class BuyTicketComponent {
   }
 
   getTicketDetails() {
-    this.apiService.get(`ads/${this.ticketId}`).subscribe((ticket) => {
-      this.ticketDetails = ticket;
-    }, (error) => {
-      console.log(error);
-      this.currentStep = null;
+    this.ticketPurchaseService.getTicketDetails(this.ticketId).subscribe((ticketDetails) => {
+      this.ticketDetails = ticketDetails;
     });
   }
 
@@ -109,7 +107,7 @@ export class BuyTicketComponent {
     });
     if (this.currentStep && this.currentStep > 1) {
       if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
-        if (this.filledTicketCount >= 0) {
+        if (this.filledTicketCount > 0) {
           this.filledTicketCount--;
           console.log('After previous step (filling tickets)', {
             currentStep: this.currentStep, 
