@@ -18,6 +18,7 @@ import { CreateAdComponent } from './pages/create-ad/create-ad.component';
 import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { ReportSummaryComponent } from './pages/report-summary/report-summary.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -36,5 +37,6 @@ export const routes: Routes = [
     { path: 'report', component: ReportComponent },
     { path: 'ticket/:ticketId', component: BuyTicketComponent },
     { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
+    { path: 'report-summary', component: ReportSummaryComponent },
     { path: '**', redirectTo: ''}
 ];     

@@ -11,6 +11,7 @@ import { TicketPurchaseSuccessComponent } from '../../components/ticket-purchase
 import { ApiService } from '../../services/api/api.service';
 import { NoAdComponent } from "../no-ad/no-ad.component";
 import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
+import { TicketDetailsComponent } from "../ticket-details/ticket-details.component";
 
 @Component({
   selector: 'app-buy-ticket',
@@ -24,7 +25,8 @@ import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-pur
     PaymentSummaryComponent,
     FairDealPolicyComponent,
     TicketPurchaseSuccessComponent,
-    NoAdComponent
+    NoAdComponent,
+    TicketDetailsComponent
 ],
   templateUrl: './buy-ticket.component.html',
   styleUrl: './buy-ticket.component.scss'
