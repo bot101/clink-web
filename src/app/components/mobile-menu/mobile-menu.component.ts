@@ -42,6 +42,11 @@ export class MobileMenuComponent implements OnInit {
     setTimeout(() => this.close.emit(), 300);
   }
 
+  onProfile(): void {
+    this.router.navigate(['/profile']);
+    this.onBack();
+  }
+
   onCreateNewListing(): void {
     this.router.navigate(['/ad-selection']);
     this.onBack();
