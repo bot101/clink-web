@@ -6,6 +6,8 @@ import { RadioGroupComponent } from "../../components/radio-group/radio-group.co
 import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
 import { ButtonComponent } from "../../components/button/button.component";
 import { Router } from '@angular/router';
+import { LogoComponent } from "../../components/logo/logo.component";
+import { ReportSummaryComponent } from "../report-summary/report-summary.component";
 
 @Component({
   selector: 'app-report',
@@ -16,13 +18,16 @@ import { Router } from '@angular/router';
     InputFieldComponent,
     RadioGroupComponent,
     OnboardingHeaderComponent,
-    ButtonComponent
-  ],
+    ButtonComponent,
+    LogoComponent,
+    ReportSummaryComponent
+],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class ReportComponent {
+  isSubmitted = false;
   reportForm: FormGroup;
   reportReasons = [
     { value: 'מחיר לא הוגן', label: 'מחיר לא הוגן' },
@@ -48,13 +53,21 @@ export class ReportComponent {
   ngOnInit(): void { }
 
   onBack(): void {
-    this.router.navigate(['/previous-screen']); // Adjust this route as needed
+    if(this.isSubmitted) {
+      this.isSubmitted = false;
+    } else {
+      this.router.navigate(['../']);
+    }
   }
 
   onSubmit(): void {
     if (this.reportForm.valid && this.reportForm.get('description')?.value) {
-      // TODO: Implement the API call to submit the report
-      this.router.navigate(['/report-confirmation']); // Navigate to the process completion screen
+      this.isSubmitted = true;
+    } else {
+      Object.keys(this.reportForm.controls).forEach(key => {
+        const control = this.reportForm.get(key);
+        control?.markAsTouched();
+      });
     }
   }
 }
