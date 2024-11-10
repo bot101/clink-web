@@ -32,7 +32,7 @@
         </ng-template>
 
         <ng-container *ngIf="title; else projectedContent">
-          <h1 class="text-white text-2xl font-medium text-center">{{ title }}</h1>
+          <h1 class="text-white text-2xl md:text-4xl font-medium text-center">{{ title }}</h1>
         </ng-container>
         <ng-template #projectedContent>
           <ng-content></ng-content>
