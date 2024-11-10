@@ -1,249 +1,257 @@
-<div class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="w-full flex flex-col bg-[#072D4C] fixed">
-        <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
-    </div>
-    <div class="h-full lg:min-h-[30vh] w-full flex flex-col bg-[#072D4C] pt-[50px] md:pt-[150px]">
-        <div
-            class="container flex flex-col items-center h-full max-w-lg mx-auto mt-8 lg:mt-[5vh] overflow-hidden px-4 lg:px-0">
-            <div class="flex flex-col items-center justify-center text-center">
-                <h1 class="text-white text-3xl lg:text-4xl font-medium mb-8 lg:mb-16">
-                    קלינק – <span class="text-[#FFC5C5]">הדרך הבטוחה</span><br>
-                    לעסקאות כרטיסים יד שנייה
-                </h1>
-                <p class="text-white text-start lg:text-center text-base lg:text-lg mb-6 lg:mb-8 max-w-[400px]">קלינק משנה את הדרך שבה
-                    מוכרים וקונים כרטי
-                    יד שנייה, ועוזרת לכם לוודא שאתם עושים זאת
-                    בצורה בטוחה, שקופה, הוגנת ופשוטה.עם קלינק, אתם נהנים מהגנה מלאה על הכסף והפרטיות שלכם. </p>
+<app-header></app-header>
 
-                <p class="font-bold text-white text-base lg:text-lg mb-6 lg:mb-8 text-start lg:text-center w-full">מהיום - כל עסקה מתחילה בקלינק.</p>
-                <button class="px-6 lg:px-10 py-3 w-full lg:w-fit bg-white rounded-full mb-8 lg:mb-32 mt-4 lg:mt-8">
-                    <span class="text-base lg:text-lg font-bold"  [routerLink]="['/ad-selection']">לחצו כאן למכירת כרטיס</span>
-                </button>
+<div class="h-full lg:min-h-[30vh] w-full flex flex-col bg-[#072D4C] pt-[50px]">
+    <div class="container flex flex-col items-center h-full max-w-lg mx-auto overflow-hidden px-4 lg:px-0">
+        <div class="flex flex-col items-center justify-center text-center">
+            <h1 class="text-white text-3xl lg:text-4xl font-medium mb-8 lg:mb-16">
+                קלינק – <span class="text-[#FFC5C5]">הדרך הבטוחה</span><br>
+                לעסקאות כרטיסים יד שנייה
+            </h1>
+            <div class="mb-6 lg:mb-8">
+                <p class="text-white text-start lg:text-center text-base lg:text-lg">קלינק משנה את הדרך שבה מוכרים
+                    וקונים כרטיסי</p>
+                <p class="text-white text-start lg:text-center text-base lg:text-lg">יד שנייה, ועוזרת לכם לוודא שאתם
+                    עושים זאת</p>
+                <p class="text-white text-start lg:text-center text-base lg:text-lg">בצורה בטוחה, שקופה, הוגנת ופשוטה.
+                </p>
+                <p class="text-white text-start lg:text-center text-base lg:text-lg">עם קלינק, אתם נהנים מהגנה מלאה על
+                    הכסף והפרטיות שלכם. </p>
+            </div>
+
+
+            <p class="font-bold text-white text-base lg:text-lg mb-6 lg:mb-8 text-start lg:text-center w-full">מהיום -
+                כל עסקה מתחילה בקלינק.</p>
+            <button class="lg:px-10 py-3 w-full lg:w-fit bg-white rounded-full mb-8 lg:mb-32 mt-4 lg:mt-8">
+                <span class="px-12 inline-block text-base lg:text-lg font-bold" [routerLink]="['/new-ad']">לחצו כאן
+                    למכירת כרטיס</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="h-20 w-full flex bg-[#EFECE6]">
+    <div class="container flex gap-2 lg:gap-x-4 items-center justify-center h-full mx-0 md:mx-auto w-full md:w-fit">
+        <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full">
+        <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full">
+        <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full">
+        <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full hidden lg:block">
+        <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full hidden lg:block">
+        <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full hidden lg:block">
+    </div>
+</div>
+<div class="w-full flex flex-col bg-white px-4 lg:px-14 py-8 lg:py-10">
+    <h2 class="text-center font-medium text-3xl lg:text-4xl mb-12 lg:mb-20">למה לבחור בקלינק?</h2>
+
+    <div class="container grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-x-20 max-w-6xl mx-auto pb-12 lg:pb-20">
+        <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
+                    <h3 class="text-lg font-bold">מוכרים מאומתים</h3>
+                </div>
+                <p>כל עסקה מתבצעת בביטחון מלא – בלי חשש להונאות או בעיות.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
+                    <h3 class="text-lg font-bold">הגנה על הכסף</h3>
+                </div>
+                <p>הכסף שלכם מוגן עד שהעסקה ההוגנת הושלמה.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
+                    <h3 class="text-lg font-bold">הדרך הבטוחה לעסקה הוגנת</h3>
+                </div>
+                <p>אנחנו נותנים לכם את הכלים לבצע עסקה בטוחה והוגנת,
+                    אם תתעורר בעיה – יש לכם פתרון מהיר ויעיל.</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
+                    <h3 class="text-lg font-bold">תהליך פשוט ומהיר</h3>
+                </div>
+                <p>מוכרים וקונים בקלות, עם מינימום תקשורת ובלי בלגן מיותר.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
+                    <h3 class="text-lg font-bold">פרטיות מלאה</h3>
+                </div>
+                <p>בלי לחשוף מספרי טלפון או פרטי חשבון בנק – הכל נשאר מוגן ובטוח.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
+                    <h3 class="text-lg font-bold">תמיד כאן בשבילכם</h3>
+                </div>
+                <p>לכל שאלה, בעיה או עצה – אנחנו כאן ללוות אתכם לאורך כל הדרך.</p>
             </div>
         </div>
     </div>
-    <div class="h-20 w-full flex bg-[#EFECE6]">
-        <div class="container flex gap-2 lg:gap-x-4 items-center justify-center h-full mx-0 md:mx-auto w-full md:w-fit">
-            <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full">
-            <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full">
-            <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full">
-            <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full hidden lg:block">
-            <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full hidden lg:block">
-            <img src="/assets/icons/ssl-img.svg" alt="SSL" class="h-full hidden lg:block">
-        </div>
-    </div>
-    <div class="w-full flex flex-col bg-white px-4 lg:px-14 py-8 lg:py-10">
-        <h2 class="text-center font-medium text-3xl lg:text-4xl mb-12 lg:mb-20">למה לבחור בקלינק?</h2>
-
-        <div class="container grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-x-20 max-w-6xl mx-auto pb-12 lg:pb-20">
-            <div class="flex flex-col gap-8">
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
-                        <h3 class="text-lg font-bold">מוכרים מאומתים</h3>
-                    </div>
-                    <p>כל עסקה מתבצעת בביטחון מלא – בלי חשש להונאות או בעיות.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
-                        <h3 class="text-lg font-bold">הגנה על הכסף</h3>
-                    </div>
-                    <p>הכסף שלכם מוגן עד שהעסקה ההוגנת הושלמה.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
-                        <h3 class="text-lg font-bold">הדרך הבטוחה לעסקה הוגנת</h3>
-                    </div>
-                    <p>אנחנו נותנים לכם את הכלים לבצע עסקה בטוחה והוגנת,
-                        אם תתעורר בעיה – יש לכם פתרון מהיר ויעיל.</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-8">
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
-                        <h3 class="text-lg font-bold">תהליך פשוט ומהיר</h3>
-                    </div>
-                    <p>מוכרים וקונים בקלות, עם מינימום תקשורת ובלי בלגן מיותר.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
-                        <h3 class="text-lg font-bold">פרטיות מלאה</h3>
-                    </div>
-                    <p>בלי לחשוף מספרי טלפון או פרטי חשבון בנק – הכל נשאר מוגן ובטוח.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <img src="/assets/icons/pink-checkmark.svg" alt="SSL" class="h-10 w-10">
-                        <h3 class="text-lg font-bold">תמיד כאן בשבילכם</h3>
-                    </div>
-                    <p>לכל שאלה, בעיה או עצה – אנחנו כאן ללוות אתכם לאורך כל הדרך.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-full flex flex-col bg-[#072D4C] px-4 md:px-14 py-16">
-        <h2 class="text-center text-white font-medium text-4xl mb-10">קלינק אחד והכרטיס שלכם מוכן!</h2>
-
-        <button class="px-14 lg:px-20 py-3 bg-white rounded-full w-full md:w-fit mx-auto">
-            <p class="text-lg font-bold text-center">התחילו למכור עכשיו</p>
-        </button>
-    </div>
-
-    <div class="bg-white py-8 lg:py-16 container mx-auto px-4 lg:px-0">
-        <div class="w-full">
-            <h2 class="text-3xl lg:text-4xl font-medium text-center mb-8 lg:mb-10">איך זה עובד?</h2>
-
-            <div class="flex flex-col gap-8 lg:gap-x-20 max-w-6xl mx-auto pb-12 lg:pb-20">
-                <!-- Sell -->
-                <div class="flex flex-col gap-2">
-                    <img src="/assets/icons/sell-faq.svg" alt="How it works" class="h-28 w-fit">
-                    <p class="max-w-xs font-medium text-2xl">כרטיס למכירה?
-                        בואו נעשה את זה פשוט!</p>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">1</span>
-                        <h3 class="text-lg font-bold">העלו את הכרטיס בקלות</h3>
-                    </div>
-                    <p class="text-lg">העלו את פרטי הכרטיס, קבעו את המחיר שלכם(👀 רק לא יותר ממה ששילמתם!), והכרטיס מוכן למכירה בתוך
-                        דקות.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">2</span>
-                        <h3 class="text-lg font-bold">שתפו את הלינק</h3>
-                    </div>
-                    <p class="text-lg">לאחר העלאת הכרטיס, תקבלו לינק ייחודי אותו תוכלו לשתף ברשתות החברתיות, בהודעות אישיות
-                        או בכל פלטפורמה שתרצו.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">3</span>
-                        <h3 class="text-lg font-bold">מכירה ללא התעסקות</h3>
-                    </div>
-                    <p class="text-lg">לא צריך לדאוג לפרטים! ברגע שהקונה יבצע את הרכישה, תקבלו מאיתנו את כל המידע הדרוש
-                        להשלמת העסקה ההוגנת בצורה מהירה ונוחה.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">4</span>
-                        <h3 class="text-lg font-bold">קבלו תשלום בביטחון מלא</h3>
-                    </div>
-                    <p class="text-lg">לאחר שהעסקה ההוגנת הושלמה, התשלום יועבר אליכם באופן מהיר ובטוח, בהתאם להעדפת התשלום שתבחרו.
-                        הבטחנו פשוט – וקיימנו.</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-8 lg:gap-x-20 max-w-6xl mx-auto pb-12 lg:pb-20">
-                <!-- Buy -->
-                <div class="flex flex-col gap-4">
-                    <img src="/assets/icons/buy-faq.svg" alt="How it works" class="h-24 w-fit">
-                    <p class="max-w-xs font-medium text-2xl">מחפשים כרטיס
-                        ולא רוצים לקחת סיכונים מיותרים?</p>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">1</span>
-                        <h3 class="text-lg font-bold">מהיום קונים רק דרך הלינק </h3>
-                    </div>
-                    <p class="text-lg">כל מה שצריך לדעת על הכרטיס מחכה לכם - פשוט וקל, בדיוק כמו שצריך. </p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">2</span>
-                        <h3 class="text-lg font-bold">השלמת העסקה בקלות</h3>
-                    </div>
-                    <p class="text-lg">לאחר אישור התשלום, הכרטיס נשלח אליכם למייל באופן מיידי, בלי עיכובים. אם יש צורך להעביר מידע למוכר
-                        כדי להשלים את הרכישה, המערכת תדאג לכך במהירות וביעילות כדי שתוכלו לקבל את הכרטיסים בהקדם האפשרי.
-                    </p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">3</span>
-                        <h3 class="text-lg font-bold">הגנה על הכסף שלכם</h3>
-                    </div>
-                    <p class="text-lg">אנחנו תופסים את סכום העסקה מהמסגרת של כרטיס האשראי שלכם, אך נחייב את הכסף רק לאחר שהעסקה ההוגנת
-                        הושלמה. רק אז הכסף יעבור למוכר. אתם מכוסים לאורך כל הדרך.</p>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <span
-                            class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">4</span>
-                        <h3 class="text-lg font-bold">התמודדות עם בעיות והונאות</h3>
-                    </div>
-                    <p class="text-lg">אנחנו מקפידים לוודא שהכל מתנהל בצורה חלקה וללא בעיות. אם בכל זאת תתעורר בעיה, נדאג שיהיה לכם את
-                        כל מה שצריך כדי לפתור אותה במהירות, בהתאם לתנאי העסקה ההוגנת.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-full flex flex-col bg-[#072D4C] px-4 lg:px-14 py-12 lg:py-16">
-        <h2 class="text-center text-white font-medium text-3xl lg:text-4xl mb-12 lg:mb-20">החוויות שבגללן אנחנו כאן</h2>
-
-        <div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl">
-            <div class="px-10 pb-6 pt-3 bg-white rounded-2xl w-full mx-auto">
-                <h4 class="text-lg font-bold">רונית הראל</h4>
-                <div class="flex gap-1">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                </div>
-                <p class="w-4/5">קניתי כרטיס דרך קלינק והכל היה מושלם</p>
-            </div>
-
-            <div class="px-10 pb-6 pt-3 bg-white rounded-2xl w-full mx-auto">
-                <h4 class="text-lg font-bold">רונית הראל</h4>
-                <div class="flex gap-1">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                </div>
-                <p class="w-4/5">קניתי כרטיס דרך קלינק והכל היה מושלם</p>
-            </div>
-
-            <div class="px-10 pb-6 pt-3 bg-white rounded-2xl w-full mx-auto">
-                <h4 class="text-lg font-bold">רונית הראל</h4>
-                <div class="flex gap-1">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                    <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
-                </div>
-                <p class="w-4/5">קניתי כרטיס דרך קלינק והכל היה מושלם</p>
-            </div>
-        </div>
-    </div>
-
-    <app-footer class="mt-auto"></app-footer>
 </div>
 
-<!-- </div> -->
+<div class="w-full flex flex-col bg-[#072D4C] px-4 md:px-14 py-16">
+    <h2 class="text-center text-white font-medium text-4xl mb-10">קלינק אחד והכרטיס שלכם מוכן!</h2>
+
+    <button class="px-14 lg:px-20 py-3 bg-white rounded-full w-full md:w-fit mx-auto">
+        <p class="text-lg font-bold text-center">התחילו למכור עכשיו</p>
+    </button>
+</div>
+
+<div class="bg-white py-8 lg:py-16 container mx-auto px-4 lg:px-0">
+    <div class="w-full">
+        <h2 class="text-3xl lg:text-4xl font-medium text-center mb-8 lg:mb-10">איך זה עובד?</h2>
+
+        <div class="flex flex-col gap-8 lg:gap-x-20 max-w-6xl mx-auto pb-12 lg:pb-20">
+            <!-- Sell -->
+            <div class="flex flex-col gap-2">
+                <img src="/assets/icons/sell-faq.svg" alt="How it works" class="h-28 w-fit">
+                <p class="max-w-xs font-medium text-2xl">כרטיס למכירה?
+                    בואו נעשה את זה פשוט!</p>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">1</span>
+                    <h3 class="text-lg font-bold">העלו את הכרטיס בקלות</h3>
+                </div>
+                <p class="text-lg">העלו את פרטי הכרטיס, קבעו את המחיר שלכם(👀 רק לא יותר ממה ששילמתם!), והכרטיס מוכן
+                    למכירה בתוך
+                    דקות.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">2</span>
+                    <h3 class="text-lg font-bold">שתפו את הלינק</h3>
+                </div>
+                <p class="text-lg">לאחר העלאת הכרטיס, תקבלו לינק ייחודי אותו תוכלו לשתף ברשתות החברתיות, בהודעות אישיות
+                    או בכל פלטפורמה שתרצו.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">3</span>
+                    <h3 class="text-lg font-bold">מכירה ללא התעסקות</h3>
+                </div>
+                <p class="text-lg">לא צריך לדאוג לפרטים! ברגע שהקונה יבצע את הרכישה, תקבלו מאיתנו את כל המידע הדרוש
+                    להשלמת העסקה ההוגנת בצורה מהירה ונוחה.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">4</span>
+                    <h3 class="text-lg font-bold">קבלו תשלום בביטחון מלא</h3>
+                </div>
+                <p class="text-lg">לאחר שהעסקה ההוגנת הושלמה, התשלום יועבר אליכם באופן מהיר ובטוח, בהתאם להעדפת התשלום
+                    שתבחרו.
+                    הבטחנו פשוט – וקיימנו.</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-8 lg:gap-x-20 max-w-6xl mx-auto pb-12 lg:pb-20">
+            <!-- Buy -->
+            <div class="flex flex-col gap-4">
+                <img src="/assets/icons/buy-faq.svg" alt="How it works" class="h-24 w-fit">
+                <p class="max-w-xs font-medium text-2xl">מחפשים כרטיס
+                    ולא רוצים לקחת סיכונים מיותרים?</p>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">1</span>
+                    <h3 class="text-lg font-bold">מהיום קונים רק דרך הלינק </h3>
+                </div>
+                <p class="text-lg">כל מה שצריך לדעת על הכרטיס מחכה לכם - פשוט וקל, בדיוק כמו שצריך. </p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">2</span>
+                    <h3 class="text-lg font-bold">השלמת העסקה בקלות</h3>
+                </div>
+                <p class="text-lg">לאחר אישור התשלום, הכרטיס נשלח אליכם למייל באופן מיידי, בלי עיכובים. אם יש צורך
+                    להעביר מידע למוכר
+                    כדי להשלים את הרכישה, המערכת תדאג לכך במהירות וביעילות כדי שתוכלו לקבל את הכרטיסים בהקדם האפשרי.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">3</span>
+                    <h3 class="text-lg font-bold">הגנה על הכסף שלכם</h3>
+                </div>
+                <p class="text-lg">אנחנו תופסים את סכום העסקה מהמסגרת של כרטיס האשראי שלכם, אך נחייב את הכסף רק לאחר
+                    שהעסקה ההוגנת
+                    הושלמה. רק אז הכסף יעבור למוכר. אתם מכוסים לאורך כל הדרך.</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-center">
+                    <span
+                        class="h-10 w-10 bg-[#FFC5C5] rounded-full font-bold text-lg text-[#072D4C] flex items-center justify-center">4</span>
+                    <h3 class="text-lg font-bold">התמודדות עם בעיות והונאות</h3>
+                </div>
+                <p class="text-lg">אנחנו מקפידים לוודא שהכל מתנהל בצורה חלקה וללא בעיות. אם בכל זאת תתעורר בעיה, נדאג
+                    שיהיה לכם את
+                    כל מה שצריך כדי לפתור אותה במהירות, בהתאם לתנאי העסקה ההוגנת.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w-full flex flex-col bg-[#072D4C] px-4 lg:px-14 py-12 lg:py-16">
+    <h2 class="text-center text-white font-medium text-3xl lg:text-4xl mb-12 lg:mb-20">החוויות שבגללן אנחנו כאן</h2>
+
+    <div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl">
+        <div class="px-10 pb-6 pt-3 bg-white rounded-2xl w-full mx-auto">
+            <h4 class="text-lg font-bold">רונית הראל</h4>
+            <div class="flex gap-1">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+            </div>
+            <p class="w-4/5">קניתי כרטיס דרך קלינק והכל היה מושלם</p>
+        </div>
+
+        <div class="px-10 pb-6 pt-3 bg-white rounded-2xl w-full mx-auto">
+            <h4 class="text-lg font-bold">רונית הראל</h4>
+            <div class="flex gap-1">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+            </div>
+            <p class="w-4/5">קניתי כרטיס דרך קלינק והכל היה מושלם</p>
+        </div>
+
+        <div class="px-10 pb-6 pt-3 bg-white rounded-2xl w-full mx-auto">
+            <h4 class="text-lg font-bold">רונית הראל</h4>
+            <div class="flex gap-1">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+                <img src="/assets/icons/outlined-star.svg" alt="Rating" class="h-4 w-4">
+            </div>
+            <p class="w-4/5">קניתי כרטיס דרך קלינק והכל היה מושלם</p>
+        </div>
+    </div>
+</div>
+
+<app-footer class="mt-auto"></app-footer>

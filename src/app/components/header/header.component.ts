@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 import { LogoComponent } from "../logo/logo.component";
 import { RoundedPersonComponent } from "../icons/rounded-person/rounded-person.component";
 import { HamburgerComponent } from "../icons/hamburger/hamburger.component";
@@ -16,14 +16,27 @@ import { Router, RouterModule } from '@angular/router';
     class: 'block'
   }
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   isSubmenuOpen: boolean = false;
-
-  constructor(private router: Router) {}
-
   isLoggedIn: boolean = false;
   isMobileMenuOpen: boolean = false;
+  private resizeListener: () => void = () => {};
+
+  constructor(private router: Router, private el: ElementRef, private renderer: Renderer2) {}
+
+  ngOnInit(): void {
+    this.resizeListener = this.renderer.listen('window', 'resize', () => {
+      this.updateHeaderHeight();
+    });
+    this.updateHeaderHeight();
+  }
+
+  ngOnDestroy(): void {
+    if (this.resizeListener) {
+      this.resizeListener();
+    }
+  }
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
@@ -32,6 +45,7 @@ export class HeaderComponent {
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
   }
+
   toggleSubmenu(): void {
     this.isSubmenuOpen = !this.isSubmenuOpen;
   }
@@ -40,4 +54,11 @@ export class HeaderComponent {
     this.router.navigate(['/profile']);
   }
 
+  private updateHeaderHeight(): void {
+    const headerElement = this.el.nativeElement.querySelector('#header');
+    if (headerElement) {
+      const offsetHeight = headerElement.offsetHeight;
+      this.renderer.setStyle(headerElement, 'height', `${offsetHeight}px`);
+    }
+  }
 }

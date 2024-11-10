@@ -1,45 +1,37 @@
-<div class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="w-full flex flex-col bg-[#072D4C] ">
-        <div class="w-full flex flex-col bg-[#072D4C]">
-            <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
+<app-header></app-header>
+<div class="w-full mx-auto bg-[#072D4C]">
+    <div class="p-3 flex flex-row-reverse items-center justify-center py-8 px-8">
+        <div class="md:hidden w-2/12"></div>
+        <div class="sm:w-8/12 text-center">
+            <h2 class="text-white text-3xl font-medium">הכרטיסים שלי</h2>
         </div>
-
-        <div class="w-full md:max-w-[640px] mx-auto">
-            <div class="p-3 flex flex-row-reverse items-center justify-center py-8 px-8">
-                <div class="md:hidden w-2/12"></div>
-                <div class="sm:w-8/12 text-center">
-                    <h2 class="text-white text-3xl font-medium">הכרטיסים שלי</h2>
-                </div>
-                <button class="md:hidden w-2/12" (click)="goBack()">
-                    <img src="/assets/icons/chevron-right.svg" alt="chevron-right">
-                </button>
-            </div>
-        </div>
+        <button class="md:hidden w-2/12" (click)="goBack()">
+            <img src="/assets/icons/chevron-right.svg" alt="chevron-right">
+        </button>
     </div>
-    <div
-        class="flex-grow overflow-hidden w-full md:max-w-[500px] mx-auto min-h-[50vh] mb-16 md:pt-0 rounded-none md:rounded-3xl">
-
-        <div class="w-full min-h-[50vh] bg-white p-4 mt-2">
-            <div *ngFor="let ticket of tickets">
-                <app-ticket-entry [ticket]="ticket" [isFlightTicket]="ticket.departureDate !== undefined"
-                    (editTicket)="onEditTicket($event)" (deleteTicket)="onDeleteTicket($event)"
-                    (copyLink)="onCopyLink($event)"
-                    (markDetailsUpdated)="onMarkDetailsUpdated($event)"></app-ticket-entry>
-            </div>
-
-            <div *ngIf="tickets.length === 0" class="mt-8">
-                <h3 class="font-bold text-base">יש לכם כרטיס מיותר?</h3>
-                <p class="text-base">תנו לו הזדמנות שנייה ותמכרו אותו בקלות ובמהירות! העלו את הכרטיס, קבלו לינק לשיתוף
-                    ותנו לנו לדאוג לביטחון ולשקט הנפשי שלכם.</p>
-                <button class="bg-[#072D4C] text-white px-4 py-4 rounded-3xl w-full mt-5 font-semibold"
-                    (click)="router.navigate(['/ad-selection'])">לחצו כאן למכירת כרטיס</button>
-            </div>
-        </div>
-    </div>
-    <app-confirmation-dialog [showDialog]="true" *ngIf="showConfirmationDialog" [title]="'Are you sure you want to delete this ticket?'"
-        [cancelButtonText]="'Cancel'" [confirmButtonText]="'Delete'" (cancel)="onCancelConfirmation()"
-        (confirm)="onConfirmAction()">
-        <p class="mb-20">Are you sure you want to delete this ticket?</p>
-    </app-confirmation-dialog>
-    <app-footer class="mt-auto"></app-footer>
 </div>
+<div
+    class="flex-grow overflow-hidden w-full md:max-w-[500px] mx-auto min-h-[50vh] mb-16 md:pt-0 rounded-none md:rounded-3xl">
+
+    <div class="w-full min-h-[50vh] bg-white p-4 mt-2">
+        <div *ngFor="let ticket of tickets">
+            <app-ticket-entry [ticket]="ticket" [isFlightTicket]="ticket.departureDate !== undefined"
+                (editTicket)="onEditTicket($event)" (deleteTicket)="onDeleteTicket($event)"
+                (copyLink)="onCopyLink($event)" (markDetailsUpdated)="onMarkDetailsUpdated($event)"></app-ticket-entry>
+        </div>
+
+        <div *ngIf="tickets.length === 0" class="mt-8">
+            <h3 class="font-bold text-base">יש לכם כרטיס מיותר?</h3>
+            <p class="text-base">תנו לו הזדמנות שנייה ותמכרו אותו בקלות ובמהירות! העלו את הכרטיס, קבלו לינק לשיתוף
+                ותנו לנו לדאוג לביטחון ולשקט הנפשי שלכם.</p>
+            <button class="bg-[#072D4C] text-white px-4 py-4 rounded-3xl w-full mt-5 font-semibold"
+                (click)="router.navigate(['/ad-selection'])">לחצו כאן למכירת כרטיס</button>
+        </div>
+    </div>
+</div>
+<app-confirmation-dialog [showDialog]="true" *ngIf="showConfirmationDialog"
+    [title]="'Are you sure you want to delete this ticket?'" [cancelButtonText]="'Cancel'"
+    [confirmButtonText]="'Delete'" (cancel)="onCancelConfirmation()" (confirm)="onConfirmAction()">
+    <p class="mb-20">Are you sure you want to delete this ticket?</p>
+</app-confirmation-dialog>
+<app-footer class="mt-auto"></app-footer>

@@ -1,7 +1,5 @@
-<div class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="h-full w-full flex flex-col bg-[#072D4C]">
-        <app-header class="px-4 lg:px-14 py-6 lg:py-10 w-full"></app-header>
-    </div>
+<div class="flex flex-col min-h-screen">
+    <app-header></app-header>
 
     <div
         class="flex-grow w-full md:max-w-[640px] mx-auto min-h-[50vh] mb-16 p-5 pt-0 md:bg-white rounded-none md:rounded-3xl border-0 md:border md:border-[#9D9990] md:mt-8">
@@ -11,7 +9,7 @@
                 הצטרפתם למהפכה שלנו!</h3>
         </div>
 
-        <div class="flex flex-col gap-6 items-center mt-4 text-base md:text-lg w-full mx-auto">
+        <div class="flex flex-col gap-6 mt-4 text-base md:text-lg w-full mx-auto">
             <div class="font-bold">
                 <p class="w-full text-start">
                     תודה על הרכישה!
@@ -28,12 +26,15 @@
                 <p class="font-bold">יש לכם כרטיס מיותר?</p>
                 <p>תנו לו הזדמנות שנייה ותמכרו אותו בקלות ובמהירות!</p>
                 <p>העלו את הכרטיס, קבלו לינק לשיתוף ותנו לנו לדאוג לביטחון ולשקט הנפשי שלכם</p>
-                <app-button (click)="sellATicket()" buttonClasses="text-base py-4 md:text-xl md:px-14 md:font-bold mt-2 rounded-full w-full md:w-auto" label="לחצו כאן והתחילו למכור"></app-button>
+                <app-button (click)="sellATicket()"
+                    buttonClasses="text-base py-4 md:text-xl md:px-14 md:font-bold mt-2 rounded-full w-full md:w-auto"
+                    label="לחצו כאן והתחילו למכור"></app-button>
             </div>
 
             <div class="mt-3 w-full">
                 <p>רוצים לקחת חלק במהפכה?</p>
-                <p>גלו עוד עלינו ב-<a href="#" target="_blank" class="text-[#072D4C] font-bold underline">אתר שלנו!</a></p>
+                <p>גלו עוד עלינו ב-<a href="#" target="_blank" class="text-[#072D4C] font-bold underline">אתר שלנו!</a>
+                </p>
             </div>
         </div>
 
