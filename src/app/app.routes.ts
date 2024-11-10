@@ -15,6 +15,8 @@ import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
+import { authGuard } from './auth/auth.guard';
+import { PreAuthenticationComponent } from './components/pre-authentication/pre-authentication.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -34,5 +36,6 @@ export const routes: Routes = [
     { path: 'ticket/:ticketId', component: BuyTicketComponent },
     { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
     { path: 'how-it-works', component: HowItWorksComponent },
+    { path: 'start-auth', component: PreAuthenticationComponent },
     { path: '**', redirectTo: ''}
 ];     
