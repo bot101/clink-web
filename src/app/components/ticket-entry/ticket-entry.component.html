@@ -1,11 +1,11 @@
 <div class="bg-white border border-[#9D9990] rounded-xl mb-4 overflow-hidden">
     <div class="flex justify-between items-start mb-2 bg-[#EFECE6] py-6 p-4">
         <div>
-            <h3 class="text-2xl font-medium">{{ ticket.name }}</h3>
-            <p class="text-sm font-normal text-gray-600">מספר מזהה: {{ ticket.id }}</p>
-            <p class="text-base font-bold">מס כרטיסים: {{ ticket.numberOfTickets }}</p>
+            <h3 *ngIf="ticket.event?.title" class="text-2xl font-medium">{{ ticket.event?.title }}</h3>
+            <p class="text-sm font-normal text-gray-600">מספר מזהה: {{ ticket.shortId }}</p>
+            <p class="text-base font-bold">מס כרטיסים: {{ ticket.amount }}</p>
         </div>
-        <div class="relative" *ngIf="!ticket.sold; else soldLabel">
+        <div class="relative" *ngIf="!ticket.isSold; else soldLabel">
             <button (click)="toggleMenu()" class="text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -19,26 +19,26 @@
             </div>
         </div>
         <ng-template #soldLabel>
-            <span class="bg-[#FFC5C5] rounded-xl text-[#001729] text-base font-bold px-2.5 py-0.5">Sold</span>
+            <span class="bg-[#FFC5C5] rounded-xl text-[#001729] text-base font-bold px-2.5 py-0.5">נמכר</span>
         </ng-template>
     </div>
 
-    <div class="px-4 py-2" *ngIf="ticket.sold">
-        <p *ngIf="ticket.status === 'pending'" class="text-sm text-yellow-600">Pending</p>
-        <p *ngIf="ticket.status === 'completed'" class="text-sm text-green-600">Completed</p>
-        <p *ngIf="ticket.status === 'canceled'" class="text-sm text-red-600">Canceled</p>
+    <div class="px-4 py-2" *ngIf="ticket.isSold">
+        <p *ngIf="ticket.status === 'pending'" class="text-sm text-yellow-600">ממתין להעברה</p>
+        <p *ngIf="ticket.status === 'completed'" class="text-sm text-green-600">עסקה בוצעה</p>
+        <p *ngIf="ticket.status === 'canceled'" class="text-sm text-red-600">העסקה בוטלה</p>
     </div>
 
-    <div *ngIf="isFlightTicket && ticket.sold && !ticket.detailsUpdated"
+    <!-- <div *ngIf="isFlightTicket && ticket.isSold && !ticket?.isConfirmChanged"
         class="flex flex-col gap-2 px-4 justify-between items-center">
         <app-button label="Mark as Details Updated" class="w-full" (click)="onToggleConfirmationDialog()">
         </app-button>
         <p class="w-full">, עד שלא יבוצע שינוי פרטי הכרטיס </p>
-    </div>
+    </div> -->
 
     <div class="w-full my-4 px-4">
-        <button (click)="onCopyLink()" ngxClipboard [cbContent]="'just some placeholder text'" [disabled]="ticket.sold || (isEventPassed() && !ticket.sold)"
-            class="font-bold py-2 px-4 w-full border border-[#072D4C] text-[#072D4C] rounded-3xl disabled:opacity-50 disabled:cursor-not-allowed flex flex-row-reverse items-center justify-center {{ isCopied && 'bg-[#d1eddb]' }} ">
+        <button (click)="onCopyLink()" ngxClipboard [cbContent]="BASE_URL + '/ticket/' + ticket.shortId" [disabled]="ticket.isSold || (isEventPassed() && !ticket.isSold)"
+            class="font-bold py-2 px-4 w-full border border-[#072D4C] text-[#072D4C] rounded-3xl disabled:opacity-50 disabled:cursor-not-allowed flex flex-row-reverse items-center justify-center {{ isCopied && 'bg-[#EFECE6]' }} ">
             העתקת לינק למודעה <img src="/assets/icons/logo-chain.svg" alt="logo-chain">
         </button>
     </div>
@@ -50,13 +50,13 @@
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/calendar.svg" alt="calendar">
                 </span>
-                {{ ticket.eventDate | date:'medium' }}
+                {{ ticket.event?.date| date:'medium' }}
             </p>
             <p class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/map-pin.svg" alt="location">
                 </span>
-                {{ ticket.location }}
+                {{ ticket.event?.location }}
             </p>
         </ng-container>
 
@@ -66,30 +66,30 @@
                     <img src="/assets/icons/aeroplane-takeoff.svg" alt="aeroplane-takeoff">
                 </span>
                 <div class="flex flex-col">
-                    <p>{{ ticket.departureDate | date:'medium' }}</p>
-                    <p>{{ ticket.arrivalDate | date:'medium' }}</p>
+                    <p>{{ ticket.flight?.outboundDepartureDate| date:'medium' }}</p>
+                    <p>{{ ticket.flight?.outboundArrivalDate | date:'medium' }}</p>
                 </div>
             </div>
-            <div *ngIf="ticket.returnDepartureDate" class="text-sm flex gap-2 items-center">
+            <div *ngIf="ticket.flight?.inboundDepartureDate" class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/aeroplane-landing.svg" alt="aeroplane-landing">
                 </span>
                 <div class="flex flex-col">
-                    <p>{{ ticket.returnDepartureDate | date:'medium' }}</p>
-                    <p>{{ ticket.returnDate | date:'medium' }}</p>
+                    <p>{{ ticket.flight?.inboundDepartureDate| date:'medium' }}</p>
+                    <p>{{ ticket.flight?.inboundArrivalDate| date:'medium' }}</p>
                 </div>
             </div>
             <div class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/number-sign.svg" alt="number-sign">
                 </span>
-                {{ ticket.ticketNumber }}
+                {{ ticket.flight?.number }}
             </div>
             <div class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/map-pin.svg" alt="location">
                 </span>
-                {{ ticket.departureLocation }} - {{ ticket.arrivalLocation }}
+                {{ ticket.flight?.destination }}
             </div>
         </ng-container>
 
@@ -97,23 +97,23 @@
             <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                 <img src="/assets/icons/money.svg" alt="money">
             </span>
-            <ng-container *ngIf="ticket.salePrice"> 
-                <span class="line-through">{{ ticket.originalPrice | currency: 'ILS'}}</span>
-                <span>{{ ticket.salePrice | currency: 'ILS'}}</span> לכרטיס
+            <ng-container *ngIf="ticket.sellPrice"> 
+                <span class="line-through">{{ ticket.buyPrice| currency: 'ILS'}}</span>
+                <span>{{ ticket.sellPrice| currency: 'ILS'}}</span> לכרטיס
             </ng-container>
-            <ng-container *ngIf="!ticket.salePrice"> 
-                {{ ticket.originalPrice | currency: 'ILS'}}
+            <ng-container *ngIf="!ticket.sellPrice"> 
+                {{ ticket.buyPrice| currency: 'ILS'}}
             </ng-container>
         </p>
 
-        <p *ngIf="ticket.description" class="text-sm flex gap-2 items-center mt-2">
+        <p *ngIf="ticket.details" class="text-sm flex gap-2 items-center mt-2">
             <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                 <img src="/assets/icons/note.svg" alt="note">
             </span>
-            {{ ticket.description }}
+            {{ ticket.details }}
         </p>
 
-        <a *ngIf="ticket.eventWebsite" [href]="ticket.eventWebsite" target="_blank"
+        <a *ngIf="ticket.event?.url" [href]="ticket.event?.url" target="_blank"
             class="text-base font-bold text-[#072D4C] underline mt-2 flex gap-2 items-center">
             <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                 <img src="/assets/icons/globe.svg" alt="link">

@@ -5,6 +5,7 @@ import { HamburgerComponent } from "../icons/hamburger/hamburger.component";
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isMobileMenuOpen: boolean = false;
   private resizeListener: () => void = () => {};
 
-  constructor(private router: Router, private el: ElementRef, private renderer: Renderer2) {}
+  constructor(private router: Router, private authService:AuthService, private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.resizeListener = this.renderer.listen('window', 'resize', () => {
@@ -61,4 +62,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(headerElement, 'height', `${offsetHeight}px`);
     }
   }
+  signOut() {
+    this.authService.signOut();
+  }
+
 }

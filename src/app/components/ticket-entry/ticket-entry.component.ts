@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../button/button.component";
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 import { ClipboardModule } from 'ngx-clipboard';
+import { Ad } from '../../models/ad';
 
 @Component({
   selector: 'app-ticket-entry',
@@ -12,12 +13,14 @@ import { ClipboardModule } from 'ngx-clipboard';
   styleUrl: './ticket-entry.component.scss'
 })
 export class TicketEntryComponent {
-  @Input() ticket: any;
+  @Input() ticket: Ad;
   @Input() isFlightTicket: boolean = false;
   @Output() editTicket = new EventEmitter<string>();
   @Output() deleteTicket = new EventEmitter<string>();
   @Output() copyLink = new EventEmitter<string>();
   @Output() markDetailsUpdated = new EventEmitter<string>();
+
+  BASE_URL = 'http://localhost:4200'
 
   isCopied = false
 
@@ -28,20 +31,20 @@ export class TicketEntryComponent {
   }
 
   onEditTicket() {
-    this.editTicket.emit(this.ticket.id);
+    this.editTicket.emit(this.ticket._id);
   }
 
   onDeleteTicket() {
-    this.deleteTicket.emit(this.ticket.id);
+    this.deleteTicket.emit(this.ticket._id);
   }
 
   onCopyLink() {
-    //this.copyLink.emit(this.ticket.id);
+    //this.copyLink.emit(this.ticket._id);
     this.isCopied = true
   }
 
   onMarkDetailsUpdated() {
-    this.markDetailsUpdated.emit(this.ticket.id);
+    this.markDetailsUpdated.emit(this.ticket._id);
   }
 
   onToggleConfirmationDialog() {
@@ -49,7 +52,7 @@ export class TicketEntryComponent {
   }
 
   isEventPassed(): boolean {
-    return new Date(this.ticket.eventDate) < new Date();
+    return new Date(String(this.ticket.event?.date)) < new Date();
   }
 
   onCancelConfirmation() {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
@@ -17,6 +17,7 @@ import { AuthService } from '../../services/auth/auth.service';
     // FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    RouterModule,
     OnboardingHeaderComponent,
     LogoComponent,
     ButtonComponent,
@@ -35,7 +36,7 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.authForm = this.fb.group({
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      phone: ['', [Validators.required, Validators.pattern('^0(5[0-9]|7[2-9])[0-9]{7}$')]],
       termsAccepted: [false, Validators.requiredTrue]
     });
   }
@@ -59,7 +60,16 @@ export class AuthenticationComponent implements OnInit {
   onContinueClicked(): void {
     if (this.isFormValid()) {
       this.authService.updateFormData(this.authForm.value);
-      this.onContinue.emit();
+      this.authService.sendOTP(this.authForm.get('phone')?.value)
+      .subscribe({
+          next: (res)=>{
+            this.onContinue.emit();
+          },
+          error: (err) => {
+            console.log(err);
+            
+          },
+      })
       return;
       // Proceed with the authentication logic
       this.router.navigate(['/next-screen']); // Adjust the route as necessary
