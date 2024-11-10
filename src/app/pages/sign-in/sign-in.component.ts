@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OtpComponent } from "../../components/otp/otp.component";
 import { EmailConfirmationComponent } from "../../components/email-confirmation/email-confirmation.component";
 import { VerificationComponent } from "../../components/verification/verification.component";
@@ -24,13 +24,18 @@ import { AuthService } from '../../services/auth/auth.service';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit{
   readonly screenFlow = ['phone', 'otp', 'email', 'verification', 'payment', 'fair-deal-policy'];
   currentScreenIndex = 0;
   currentScreen = this.screenFlow[this.currentScreenIndex];
 
   constructor(private router: Router, private authService: AuthService) {}  
 
+  ngOnInit(): void {
+    if(this.authService.isLoggedIn()) {
+      this.router.navigate(["/profile"]);
+    }
+  }
   onBack() {
     this.currentScreenIndex--;
     this.currentScreen = this.screenFlow[this.currentScreenIndex];
@@ -40,8 +45,8 @@ export class SignInComponent {
     this.currentScreenIndex++;
     if(this.currentScreenIndex >= this.screenFlow.length) {
       this.authService.signUp().subscribe((res) => {
-        console.log(res);
         this.authService.clearFormData();
+        this.authService.setSession(res.access_token);
         this.router.navigate(["/"]);
       });
       return;

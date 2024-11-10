@@ -14,9 +14,9 @@
     <div
       *ngIf="ticketForm.get('ticketQuantity')?.invalid && (ticketForm.get('ticketQuantity')?.dirty || ticketForm.get('ticketQuantity')?.touched)"
       class="error-text">
-      <small *ngIf="ticketForm.get('ticketQuantity')?.errors?.['required']">שדה חובה.</small>
-      <small
-        *ngIf="ticketForm.get('ticketQuantity')?.errors?.['min'] || ticketForm.get('ticketQuantity')?.errors?.['max']">כמות הכרטיסים חייבת להיות בין 1 ל5.</small>
+      <div *ngIf="ticketForm.get('ticketQuantity')?.errors?.['required']">שדה חובה</div>
+      <div
+        *ngIf="ticketForm.get('ticketQuantity')?.errors?.['min'] || ticketForm.get('ticketQuantity')?.errors?.['max']">כמות הכרטיסים חייבת להיות בין 1 ל5</div>
     </div>
   </div>
 
@@ -33,8 +33,8 @@
     <div
       *ngIf="ticketForm.get('costPrice')?.invalid && (ticketForm.get('costPrice')?.dirty || ticketForm.get('costPrice')?.touched)"
       class="error-text">
-      <small *ngIf="ticketForm.get('costPrice')?.errors?.['required']">שדה חובה.</small>
-      <small *ngIf="ticketForm.get('costPrice')?.errors?.['min']">מחיר חייב להיות גדול מ0.</small>
+      <div *ngIf="ticketForm.get('costPrice')?.errors?.['required']">שדה חובה</div>
+      <div *ngIf="ticketForm.get('costPrice')?.errors?.['min']">מחיר חייב להיות גדול מ0</div>
     </div>
   </div>
 
@@ -51,8 +51,8 @@
     <div
       *ngIf="ticketForm.get('salePrice')?.invalid && (ticketForm.get('salePrice')?.dirty || ticketForm.get('salePrice')?.touched)"
       class="error-text">
-      <small *ngIf="ticketForm.get('salePrice')?.errors?.['required']">שדה חובה.</small>
-      <small *ngIf="ticketForm.get('salePrice')?.errors?.['min']">מחיר חייב להיות גדול מ0.</small>
+      <div *ngIf="ticketForm.get('salePrice')?.errors?.['required']">שדה חובה</div>
+      <div *ngIf="ticketForm.get('salePrice')?.errors?.['min']">מחיר חייב להיות גדול מ0</div>
     </div>
   </div>
 
@@ -63,7 +63,7 @@
     <div
       *ngIf="ticketForm.get('ticketDetails')?.invalid && (ticketForm.get('ticketDetails')?.dirty || ticketForm.get('ticketDetails')?.touched)"
       class="error-text">
-      <small *ngIf="ticketForm.get('ticketDetails')?.errors?.['required']">שדה חובה.</small>
+      <div *ngIf="ticketForm.get('ticketDetails')?.errors?.['required']">שדה חובה</div>
     </div>
   </div>
 
@@ -75,8 +75,8 @@
     <div
       *ngIf="ticketForm.get('eventLink')?.invalid && (ticketForm.get('eventLink')?.dirty || ticketForm.get('eventLink')?.touched)"
       class="error-text">
-      <small *ngIf="ticketForm.get('eventLink')?.errors?.['required']">שדה חובה.</small>
-      <small *ngIf="ticketForm.get('eventLink')?.errors?.['pattern']">אנא הזינו קישור תקין.</small>
+      <div *ngIf="ticketForm.get('eventLink')?.errors?.['required']">שדה חובה</div>
+      <div *ngIf="ticketForm.get('eventLink')?.errors?.['pattern']">אנא הזינו קישור תקין</div>
     </div>
   </div>
 

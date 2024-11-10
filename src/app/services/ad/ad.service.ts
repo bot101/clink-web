@@ -17,6 +17,10 @@ export class AdService {
     this.formDataSubject.next({ ...currentData, ...data });
   }
 
+  getUserAds() {
+    return this.apiService.getUserAds()
+  }
+
   getFormData() {
     return this.formDataSubject.value;
   }

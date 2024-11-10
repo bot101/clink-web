@@ -12,6 +12,7 @@ import { ApiService } from '../../services/api/api.service';
 import { NoAdComponent } from "../no-ad/no-ad.component";
 import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
 import { TicketDetailsComponent } from "../ticket-details/ticket-details.component";
+import { Ad } from '../../models/ad';
 
 @Component({
   selector: 'app-buy-ticket',
@@ -20,6 +21,7 @@ import { TicketDetailsComponent } from "../ticket-details/ticket-details.compone
     CommonModule,
     OnboardingHeaderComponent,
     LogoComponent,
+    TicketDetailsComponent,
     TicketPurchaseComponent,
     TicketPurchasePassengerDetailsComponent,
     PaymentSummaryComponent,
@@ -33,16 +35,16 @@ import { TicketDetailsComponent } from "../ticket-details/ticket-details.compone
 })
 export class BuyTicketComponent {
   ticketId: string;
-  ticketDetails: any;
+  ticketDetails: Ad;
   currentStep: number | null = 1;
   totalSteps: number = 6;
   filledTicketCount: number = 0;
   iconName: 'clipboard-pen' | 'id' = 'clipboard-pen';
 
   stepTitles: Record<string, string> = {
-    1: 'לפני שתמשיכו בתהליך הרכישה',
-    2: 'פרטים לשינוי שם הכרטיס',
-    3: 'תנאי עסקה הוגנת'
+    2: 'לפני שתמשיכו בתהליך הרכישה',
+    3: 'פרטים לשינוי שם הכרטיס',
+    4: 'תנאי עסקה הוגנת'
   };
 
 

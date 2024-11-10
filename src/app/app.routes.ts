@@ -15,6 +15,7 @@ import { BuyTicketComponent } from './pages/buy-ticket/buy-ticket.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { HowItWorksComponent } from './pages/how-it-works/how-it-works.component';
+import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -24,15 +25,19 @@ export const routes: Routes = [
     { path: 'terms', component: TermsComponent },
     { path: 'privacy', component: PrivacyComponent },
     { path: 'new-ad', component: CreateAdComponent },
-    { path: 'signin', component: SignInComponent },
-    { path: 'verification-testing', component: VerificationComponent }, // for testing - do not delete
-    { path: 'payment-testing', component: PaymentComponent }, // for testing - do not delete
-    { path: 'profile', component: ProfileComponent },
-    { path: 'my-tickets', component: MyTicketsComponent },
-    { path: 'ticket-details', component: TicketDetailsComponent },
+    { path: 'sign', component: SignInComponent },
+    { path: 'profile', 
+        canActivate:[authGuard],
+        children:[
+            {path:'',component: ProfileComponent},
+            {path:'tickets', component: MyTicketsComponent},
+            {path:'details', component: MyTicketsComponent},
+            {path:'payment', component: MyTicketsComponent}
+        ] 
+    },
     { path: 'report', component: ReportComponent },
     { path: 'ticket/:ticketId', component: BuyTicketComponent },
     { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
     { path: 'how-it-works', component: HowItWorksComponent },
     { path: '**', redirectTo: ''}
-];     
+]

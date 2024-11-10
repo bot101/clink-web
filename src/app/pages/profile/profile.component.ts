@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from "../../components/header/header.component";
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { ConfirmationDialogComponent } from "../../components/confirmation-dialog/confirmation-dialog.component";
 import { CheckboxComponent } from "../../components/checkbox/checkbox.component";
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     HeaderComponent,
     CommonModule,
+    RouterModule,
     FooterComponent,
     ConfirmationDialogComponent,
     CheckboxComponent
@@ -28,8 +31,9 @@ export class ProfileComponent implements OnInit {
   showTrustedSellerPopup: boolean = false;
   ticketsSold: number = 0;
   deleteAccountConfirmed: boolean = false;
+  userInfo:User | undefined
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private authService:AuthService) {}
 
   ngOnInit() {
     // Fetch user data and set properties
@@ -37,8 +41,11 @@ export class ProfileComponent implements OnInit {
   }
 
   fetchUserData() {
-    // TODO: Implement API call to fetch user data
-    // For now, we'll use mock data
+    this.authService.getUserInfo().subscribe({
+      next:(info)=>{
+        this.userInfo = info
+      }
+    })
     this.isTrustedSeller = true;
     this.ticketsSold = 10;
   }

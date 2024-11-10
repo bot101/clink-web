@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { ButtonComponent } from '../button/button.component';
 import { AuthService } from '../../services/auth/auth.service';
+import { catchError, interval, map, takeWhile, timer } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-otp',
@@ -13,6 +15,7 @@ import { AuthService } from '../../services/auth/auth.service';
     LogoComponent,
     CommonModule,
     FormsModule,
+    RouterModule,
     ButtonComponent,
     OnboardingHeaderComponent
   ],
@@ -29,9 +32,12 @@ export class OtpComponent implements OnInit {
   otp3: string = '';
   otp4: string = '';
   otp5: string = '';
+  isResendEnabled = true;
+  isOtpError = false;
+  timer = 0;
   formData: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.formData = this.authService.getFormData();
@@ -59,11 +65,31 @@ export class OtpComponent implements OnInit {
 
   onContinueClicked(): void {
     if (this.isOtpComplete()) {
-      this.authService.verifyOtp({
-        phone: this.formData.phone,
-        otp: this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5
-      });
-      this.onContinue.emit();
+      this.authService.verifyOTP(
+        this.formData.phone,
+        this.otp1 + this.otp2 + this.otp3 + this.otp4 + this.otp5
+      )
+      .subscribe({
+          next: (res)=>{
+            console.log(res);
+            this.isOtpError = false;
+            if(res.access_token) {
+              this.authService.setSession(res.access_token);
+              this.router.navigate(['/'])
+            } else {
+              this.onContinue.emit();
+            }
+          },
+          error: (err)=> {
+            console.log(err);
+            this.isOtpError = true;
+            this.otp1 = ''
+            this.otp2 = ''
+            this.otp3 = ''
+            this.otp4 = ''
+            this.otp5 = ''
+          },
+      })
       return;
     } else {
       console.log('OTP is not complete');
@@ -77,6 +103,25 @@ export class OtpComponent implements OnInit {
   }
 
   onResend() {
-    console.log('Resend');
+    const that = this
+    this.authService.sendOTP(this.formData.phone)
+    .subscribe({
+      next: (res)=>{
+        that.isResendEnabled = false;
+        that.timer = 30;
+        interval(1000)
+        .pipe(
+          takeWhile(() => that.timer > 0)
+        )
+        .subscribe({
+          next: () => this.timer--,
+          complete: () => this.isResendEnabled = true 
+        })
+      },
+      error: (err) => {
+        console.log(err);
+        
+      },
+    })
   }
 }

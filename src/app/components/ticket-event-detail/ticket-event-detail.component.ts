@@ -78,7 +78,7 @@ export class TicketEventDetailComponent implements OnInit {
           this.nextStep.emit();
         },
         (error: any) => {
-          alert('Error submitting ticket event');
+          //alert('Error submitting ticket event');
         }
       );
     }

@@ -90,7 +90,7 @@ export class NewAd3Component implements OnInit {
           this.nextStep.emit();
         },
         (error: any) => {
-          alert('Error submitting ticket event');
+          //alert('Error submitting ticket event');
         }
       );
     } else {

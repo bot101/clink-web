@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,of } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { map, catchError } from 'rxjs/operators';
+import { User } from '../auth/auth.service';
+import { Ad } from '../../models/ad';
 
  export interface TicketEventResponse {
   success: boolean;
@@ -72,8 +75,7 @@ export class ApiService {
       amount: completeData.ticketQuantity,
       isSold: false,
       status: 'pending',
-      user: '67096c6b8d507be7794ed78c',
-      serialNumber: '',
+      user: '67096c6b8d507be7794ed78c'
     });
   }
 
@@ -118,29 +120,31 @@ export class ApiService {
       amount: completeData.ticketQuantity,
       isSold: false,
       status: 'pending',
-      user: '67096c6b8d507be7794ed78c',
-      serialNumber: '',
+      user: '67096c6b8d507be7794ed78c'
     });
   }
 
-  signIn(data: any) {
-    // return this.http.post<any>(`${this.apiUrl}/auth/signin`, data);
+  getUserAds(): Observable<Ad[]> {
+    return this.http.get<Ad[]>(`${environment.apiUrl}/ads`)
   }
 
   signUp(data: any) {
     return this.http.post<any>(`${this.apiUrl}/users`, data);
   }
 
-  signOut() {
-    // return this.http.post<any>(`${this.apiUrl}/auth/signout`, {});
+
+  getUserInfo():Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/auth/info`)
   }
 
-  verifyOtp(data: any) {
-    // return this.http.post<any>(`${this.apiUrl}/auth/verify-otp`, data);
+  verifyOTP(phone: string,otp: string):Observable<{access_token:string}> {
+    return this.http.get<{access_token:string}>(`${environment.apiUrl}/auth/otp?phone=${phone}&otp=${otp}`);
   }
-
-  verifyEmail(data: any) {
-    // return this.http.post<any>(`${this.apiUrl}/auth/verify-email`, data);
+  sendOTP(phone: string) {
+    return this.http.post(`${environment.apiUrl}/auth/otp`,{phone})
+  }
+  verifyEmail(email: string):Observable<{ available: boolean }> {
+    return this.http.get<{ available: boolean }>(`${environment.apiUrl}/auth/checkemail?email=${email}`)
   }
 
   get<R = any>(endpoint: string, params?: HttpParams): Observable<R> {

@@ -1,6 +1,6 @@
 <div class="fixed inset-0 bg-white z-50 flex flex-col" [@slideInOut]="menuState">
     <div class="flex justify-between items-center px-4 py-6">
-        <button (click)="onBack()" class="text-[#001729]">
+        <button (click)="closeMenu()" class="text-[#001729]">
             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.45312 18.75L16.2031 12L9.45313 5.25" stroke="#072D4C" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round" />
@@ -12,19 +12,19 @@
     </div>
 
     <nav class="flex-grow flex flex-col mt-4 px-4">
-        <button (click)="onCreateNewListing()" class="text-white bg-[#072D4C] py-3 rounded-full mb-8 font-bold">
+        <button (click)="closeMenu()" routerLink="/new-ad" class="text-white bg-[#072D4C] py-3 rounded-full mb-8 font-bold">
             לחצו כאן למכירת כרטיס
         </button>
-        <button *ngIf="!isLoggedIn" (click)="onLogin()" class="text-[#072D4C] border border-[#072D4C] rounded-full py-3 mb-8 font-bold">
+        <button *ngIf="!isLoggedIn" (click)="closeMenu()" routerLink="/logout" class="text-[#072D4C] border border-[#072D4C] rounded-full py-3 mb-8 font-bold">
             התנתקות
         </button>
-        <a (click)="onProfile()" class="text-[#001729] py-3 mb-4">הפרופיל שלי</a>
-        <a (click)="onHowItWorks()" class="text-[#001729] py-3 mb-4">איך זה עובד?</a>
-        <a (click)="onAboutUs()" class="text-[#001729] py-3 mb-4">תנאי עסקה הוגנת</a>
-        <a (click)="onContactUs()" class="text-[#001729] py-3 mb-4">עלינו</a>
-        <a (click)="onPrivacyPolicy()" class="text-[#001729] py-3 mb-4">יצירת קשר</a>
-        <a (click)="onTermsOfUse()" class="text-[#001729] py-3">מדיניות פרטיות</a>
-        <a (click)="onTermsOfUse()" class="text-[#001729] py-3">תנאי שימוש</a>
+        <a (click)="closeMenu()" routerLink="/profile" class="text-[#001729] py-3 mb-4">הפרופיל שלי</a>
+        <a (click)="closeMenu()" routerLink="/overview" class="text-[#001729] py-3 mb-4">איך זה עובד?</a>
+        <a (click)="closeMenu()" routerLink="/terms" class="text-[#001729] py-3 mb-4">תנאי עסקה הוגנת</a>
+        <a (click)="closeMenu()" routerLink="/about" class="text-[#001729] py-3 mb-4">עלינו</a>
+        <a (click)="closeMenu()" routerLink="/" class="text-[#001729] py-3 mb-4">יצירת קשר</a>
+        <a (click)="closeMenu()" routerLink="/privacy" class="text-[#001729] py-3">מדיניות פרטיות</a>
+        <a (click)="closeMenu()" routerLink="/agreement" class="text-[#001729] py-3">תנאי שימוש</a>
 
     </nav>
 </div>
