@@ -1,16 +1,16 @@
 <div class="flex flex-col space-y-6 px-4 md:max-w-[430px] mx-auto">
-    <h2 class="block text-xl font-medium text-[#001729] md:text-center">איזה כרטיס אתם מוכרים?</h2>
+    <h2 class="block text-xl md:text-2xl font-medium text-[#001729] md:text-center">איזה כרטיס אתם מוכרים?</h2>
 
     <label (click)="onSelect(flight, 'flight')" [ngClass]="{'selection': flight.checked}"
         class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-[10px] border border-[#072d4c]">
         <input type="radio" #flight name="selection" class="hidden">
         <app-flight-icon [outlineColor]="!flight.checked ? '#072d4c' : '#fff'" fillColor="#ffc5c5"></app-flight-icon>
-        <span>כרטיס טיסה</span>
+        <span class="text-base md:text-[18px] font-bold md:font-normal">כרטיס טיסה</span>
     </label>
     <label (click)="onSelect(event, 'ticket')" [ngClass]="{'selection': event.checked}"
         class="flex flex-col gap-2 items-center cursor-pointer p-3 rounded-[10px] border border-[#072d4c]">
         <input #event type="radio" name="selection" class="hidden">
         <app-ticket-icon [outlineColor]="event.checked ? '#fff' : '#072d4c'" fillColor="#ffc5c5"></app-ticket-icon>
-        <span>כרטיס לאירוע</span>
+        <span class="text-base md:text-[18px] font-bold md:font-normal">כרטיס לאירוע</span>
     </label>
 </div>

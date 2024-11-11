@@ -87,7 +87,6 @@ export class CreateAdComponent implements OnInit, OnChanges {
   }
 
   onAdTypeSelected($event: string) {
-    // this.nextStep();
     this.adType = $event as 'ticket' | 'flight';
     if (this.adType === 'flight') {
       this.totalSteps = 3;
@@ -103,7 +102,7 @@ export class CreateAdComponent implements OnInit, OnChanges {
       this.router.navigate(['..']);
       return;
     }
-    if (this.currentStep > 1) {
+    if (this.currentStep > 0) {
       this.currentStep--;
       if(this.adType !== 'adSelection' && this.currentStep === 1) {
         this.adType = 'adSelection';

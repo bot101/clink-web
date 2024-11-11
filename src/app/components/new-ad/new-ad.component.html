@@ -1,6 +1,6 @@
 <form [formGroup]="adForm" (ngSubmit)="onContinue()"
   class="space-y-5 lowercase md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto">
-  <h2 for="eventName" class="block text-lg font-[700] text-gray-700 text-center">פרטים כלליים</h2>
+  <h2 for="eventName" class="block text-lg font-[700] text-gray-700 text-start md:text-center">פרטים כלליים</h2>
 
   <div class="mt-6">
     <app-input-field placeholder="יעד טיסה" label="יעד הטיסה" formControlName="flightDestination" [required]="true"></app-input-field>
