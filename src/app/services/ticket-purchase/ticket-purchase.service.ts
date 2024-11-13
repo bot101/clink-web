@@ -43,10 +43,6 @@ export class TicketPurchaseService {
     return this.apiService.get(`ads/${ticketId}`).pipe(
       tap((ticket) => {
         this.ticketDetails = ticket;
-      }),
-      catchError((error) => {
-        console.log(error);
-        return of(null);
       })
     );
   }

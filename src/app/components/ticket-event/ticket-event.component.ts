@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogoComponent } from '../logo/logo.component';
+
 import { TicketEventService } from '../../services/ticket-event/ticket-event.service';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
@@ -18,7 +18,7 @@ import { TimePickerComponent } from "../time-picker/time-picker.component";
     ReactiveFormsModule,
     OnboardingHeaderComponent,
     DatePickerComponent,
-    LogoComponent,
+
     HeaderComponent,
     InputFieldComponent,
     TimePickerComponent
@@ -31,6 +31,7 @@ export class TicketEventComponent implements OnInit {
   @Output() previousStep = new EventEmitter<void>();
 
   ticketForm: FormGroup;
+  today = new Date().toISOString().split('T')[0];
   tomorrow!: string;
   uploadedFiles: File[] = [];
 
@@ -134,7 +135,7 @@ export class TicketEventComponent implements OnInit {
   }
 
   onBack() {
-    console.log('Going back to the previous screen');
+    this.previousStep.emit();
   }
 
   private formatDate(date: Date): string {

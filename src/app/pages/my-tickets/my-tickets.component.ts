@@ -20,13 +20,15 @@ export class MyTicketsComponent implements OnInit {
   tickets: Ad[] = [];
   showConfirmationDialog: boolean = false;
   ticketId: string = '';
+  isLoading:boolean = false;
   constructor(public router: Router,private adService:AdService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.adService.getUserAds().subscribe({
       next: (res)=>{
         this.tickets = res
-        
+        this.isLoading = false;
       }
     })
     // Fetch tickets from a service

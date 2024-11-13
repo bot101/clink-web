@@ -5,7 +5,7 @@ import { ButtonComponent } from '../button/button.component';
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
-import { LogoComponent } from "../logo/logo.component";
+
 import { AdService } from '../../services/ad/ad.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 
@@ -19,7 +19,7 @@ import { InputFieldComponent } from '../input-field/input-field.component';
     ButtonComponent,
     RadioGroupComponent,
     OnboardingHeaderComponent,
-    LogoComponent
+
   ],
   templateUrl: './new-ad.component.html',
   styleUrl: './new-ad.component.scss'

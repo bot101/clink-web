@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../logo/logo.component";
+
 import { Router } from '@angular/router';
 import { ButtonComponent } from "../button/button.component";
 import { AuthService } from '../../services/auth/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-verification',
   standalone: true,
-  imports: [OnboardingHeaderComponent, LogoComponent, ButtonComponent],
+  imports: [OnboardingHeaderComponent,  ButtonComponent],
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.scss'
 })

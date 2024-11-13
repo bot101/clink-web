@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../logo/logo.component";
+
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { TicketDetails, TicketPurchaseService } from '../../services/ticket-purchase/ticket-purchase.service';
@@ -9,7 +9,7 @@ import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation
 @Component({
   selector: 'app-payment-summary',
   standalone: true,
-  imports: [OnboardingHeaderComponent, LogoComponent, ButtonComponent, CommonModule, ConfirmationDialogComponent],
+  imports: [OnboardingHeaderComponent,  ButtonComponent, CommonModule, ConfirmationDialogComponent],
   templateUrl: './payment-summary.component.html',
   styleUrl: './payment-summary.component.scss'
 })

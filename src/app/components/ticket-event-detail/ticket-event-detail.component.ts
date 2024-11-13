@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogoComponent } from '../logo/logo.component';
 import { TicketEventService } from '../../services/ticket-event/ticket-event.service';
 import { ApiService } from '../../services/api/api.service';
 import { NgxCurrencyDirective } from 'ngx-currency';
@@ -18,7 +17,6 @@ import { salePriceValidator } from '../../validators/validator';
   imports: [
     CommonModule, 
     ReactiveFormsModule, 
-    LogoComponent, 
     NgxCurrencyDirective, 
     OnboardingHeaderComponent, 
     RadioGroupComponent,

@@ -8,7 +8,7 @@ import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { LogoComponent } from "../logo/logo.component";
+
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { AdService } from '../../services/ad/ad.service';
 import { salePriceValidator } from '../../validators/validator';
@@ -25,7 +25,7 @@ import { salePriceValidator } from '../../validators/validator';
     ButtonComponent,
     InputFieldComponent,
     RadioGroupComponent,
-    LogoComponent,
+
     CheckboxComponent
 ],
   templateUrl: './new-ad3.component.html',

@@ -3,7 +3,7 @@
     <div class="flex items-center w-full md:hidden">
       <!-- Mobile header -->
       <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
-      <app-logo class="mx-auto"></app-logo>
+      test
       <app-hamburger (toggleMenu)="toggleMobileMenu()"></app-hamburger>
     </div>
 
@@ -16,15 +16,13 @@
           <ul class="flex flex-col gap-y-2">
             <li><a href="/profile" class="text-black hover:text-gray-700">הפרופיל שלי</a></li>
             <!-- <li><a href="#" class="text-black hover:text-gray-700">Settings</a></li> -->
-            <li><a href="#" class="text-black hover:text-gray-700">התנתקות</a></li>
+            <li><a href="#" class="text-black hover:text-gray-700" (click)="signOut()">התנתקות</a></li>
           </ul>
         </div>
-        <div class="flex flex-row-reverse items-center gap-x-2">
-          <img *ngIf="isSubmenuOpen" src="/assets/icons/chevron-up.svg" alt="Chevron Up" class="cursor-pointer"
-            (click)="toggleSubmenu()">
-          <img *ngIf="!isSubmenuOpen" src="/assets/icons/chevron-down.svg" alt="Chevron Down" class="cursor-pointer"
-            (click)="toggleSubmenu()">
-          <app-rounded-person class="cursor-pointer" (click)="toggleSubmenu()"></app-rounded-person>
+        <div class="flex flex-row-reverse items-center gap-x-2"> 
+          <img *ngIf="isSubmenuOpen" src="/assets/icons/chevron-up.svg" alt="Chevron Up" class="cursor-pointer" (click)="toggleSubmenu()">
+          <img *ngIf="!isSubmenuOpen" src="/assets/icons/chevron-down.svg" alt="Chevron Down" class="cursor-pointer" (click)="toggleSubmenu()">
+          <app-rounded-person class="cursor-pointer" (click)="toggleSubmenu()"></app-rounded-person>  
         </div>
       </div>
 

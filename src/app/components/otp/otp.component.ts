@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { LogoComponent } from '../logo/logo.component';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
@@ -12,7 +12,7 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-otp',
   standalone: true,
   imports: [
-    LogoComponent,
+
     CommonModule,
     FormsModule,
     RouterModule,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../../components/logo/logo.component";
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketPurchaseComponent } from "../../components/ticket-purchase/ticket-purchase.component";
 import { TicketPurchasePassengerDetailsComponent } from "../../components/ticket-purchase-passenger-details/ticket-purchase-passenger-details.component";
@@ -20,7 +20,7 @@ import { Ad } from '../../models/ad';
   imports: [
     CommonModule,
     OnboardingHeaderComponent,
-    LogoComponent,
+
     TicketDetailsComponent,
     TicketPurchaseComponent,
     TicketPurchasePassengerDetailsComponent,
@@ -37,14 +37,22 @@ export class BuyTicketComponent {
   ticketId: string;
   ticketDetails: Ad;
   currentStep: number | null = 1;
-  totalSteps: number = 6;
+  totalSteps: number = 5;
   filledTicketCount: number = 0;
-  iconName: 'clipboard-pen' | 'id' = 'clipboard-pen';
 
-  stepTitles: Record<string, string> = {
-    2: 'לפני שתמשיכו בתהליך הרכישה',
-    3: 'פרטים לשינוי שם הכרטיס',
-    4: 'תנאי עסקה הוגנת'
+  stepTitles: Record<string, {title:string,icon:'clipboard-pen' | 'check-handshake' | 'ticket' | ''}> = {
+    2: {
+      title:'לפני שתמשיכו בתהליך הרכישה',
+      icon:'clipboard-pen'
+    },
+    3: {
+      title:'תנאי עסקה הוגנת',
+      icon:'check-handshake'
+    },
+    4: {
+      title:'',
+      icon:'ticket'
+    }
   };
 
 
@@ -61,75 +69,30 @@ export class BuyTicketComponent {
   }
 
   getTicketDetails() {
-    this.ticketPurchaseService.getTicketDetails(this.ticketId).subscribe((ticketDetails) => {
-      this.ticketDetails = ticketDetails;
+    this.ticketPurchaseService.getTicketDetails(this.ticketId).subscribe({
+      next: (ticketDetails) => {
+        this.ticketDetails = ticketDetails;
+      },
+      error: (err)=> {
+        this.currentStep = null;
+      }
     });
   }
-
-  stepChange(step: number) {
-    this.iconName = step === 1 ? 'clipboard-pen' : 'id';
-  }
-
+  
   nextStep() {
-    console.log('Before next step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
-    if (this.currentStep && this.currentStep < this.totalSteps) {
-      if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
-        if(this.filledTicketCount < 0) {
-          this.filledTicketCount = 0;
-        }
-        if (this.filledTicketCount < this.ticketDetails.amount - 1) {
-          this.filledTicketCount++;
-          console.log('After next step (filling tickets)', {
-            currentStep: this.currentStep, 
-            filledTicketCount: this.filledTicketCount,
-            ticketDetails: this.ticketDetails
-          });
-          return;
-        }
-      }
-      this.currentStep++;
-      this.stepChange(this.currentStep);
+    if(this.currentStep === 5) {
+      this.stepTitles[5].title = this.ticketDetails.event?.title || '';
     }
-    console.log('After next step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
+    if(this.currentStep && this.currentStep < this.totalSteps) {
+      this.currentStep++
+    }
   }
-  // Short IDs
-  // gM9O2xhB - flight:amount:3
-  // gM5QOdhV - flight:amount:10
   previousStep() {
-    console.log('Before previous step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
-    if (this.currentStep && this.currentStep > 1) {
-      if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
-        if (this.filledTicketCount > 0) {
-          this.filledTicketCount--;
-          console.log('After previous step (filling tickets)', {
-            currentStep: this.currentStep, 
-            filledTicketCount: this.filledTicketCount,
-            ticketDetails: this.ticketDetails
-          });
-          return;
-        }
-      }
-      this.currentStep--;
-      this.stepChange(this.currentStep);
-    } else {
-      this.router.navigate(['..']);
+    if(this.currentStep === 5) {
+      this.stepTitles[5].title = this.ticketDetails.event?.title || '';
     }
-    console.log('After previous step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
+    if(this.currentStep && this.currentStep > 1) {
+      this.currentStep--
+    }
   }
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../logo/logo.component";
+
 import { ButtonComponent } from "../button/button.component";
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { RadioGroupComponent } from "../radio-group/radio-group.component";
@@ -17,7 +17,7 @@ import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-pur
     CommonModule,
     ReactiveFormsModule,
     OnboardingHeaderComponent,
-    LogoComponent,
+
     ButtonComponent,
     InputFieldComponent,
     RadioGroupComponent,
