@@ -15,7 +15,4 @@ import { Router, RouterModule } from '@angular/router';
 
   constructor(private router: Router) {}
 
-  goToNewAd() {
-    this.router.navigate(['/ad-selection']);
-  }
 }

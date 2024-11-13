@@ -6,7 +6,6 @@ import { RadioGroupComponent } from "../../components/radio-group/radio-group.co
 import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
 import { ButtonComponent } from "../../components/button/button.component";
 import { Router } from '@angular/router';
-import { LogoComponent } from "../../components/logo/logo.component";
 import { ReportSummaryComponent } from "../report-summary/report-summary.component";
 
 @Component({
@@ -19,7 +18,6 @@ import { ReportSummaryComponent } from "../report-summary/report-summary.compone
     RadioGroupComponent,
     OnboardingHeaderComponent,
     ButtonComponent,
-    LogoComponent,
     ReportSummaryComponent
 ],
   templateUrl: './report.component.html',

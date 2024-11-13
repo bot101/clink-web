@@ -17,43 +17,42 @@
         </div>
 
         <div class="mt-6">
-            <app-input-field label="כתובת אימייל" formControlName="email" [required]="true"></app-input-field>
+            <app-input-field label="כתובת אימייל" 
+            [isError]="(ticketPurchaseForm.get('email')?.touched && ticketPurchaseForm.get('email')?.invalid)"
+            formControlName="email" [required]="true"></app-input-field>
             <div
                 *ngIf="ticketPurchaseForm.get('email')?.invalid && (ticketPurchaseForm.get('email')?.dirty || ticketPurchaseForm.get('email')?.touched)">
-                <div *ngIf="ticketPurchaseForm.get('email')?.errors?.['required']" class="error-text">כתובת אימייל
-                    הוא שדה חובה</div>
-                <div *ngIf="ticketPurchaseForm.get('email')?.errors?.['email']" class="error-text">אנא הזינו כתובת
-                    אימייל בפורמט
-                    example&#64;domain.com</div>
+                    <div *ngIf="ticketPurchaseForm.get('email')?.hasError('required')"
+                        class="error-text text-sm">
+                        כתובת אימייל הוא שדה חובה
+                    </div>
+                    <div *ngIf="ticketPurchaseForm.get('email')?.hasError('email')"
+                        class="error-text text-sm">
+                        אנא הזינו כתובת אימייל בפורמט example&#64;domain.com
+                    </div>
             </div>
         </div>
 
         <div class="mt-6">
-            <app-input-field label="הקלידו את כתובת האימייל שוב" formControlName="confirmEmail"
+            <app-input-field 
+            [isError]="ticketPurchaseForm.hasError('emailsDoNotMatch') && ticketPurchaseForm.get('email')?.touched && ticketPurchaseForm.get('confirmEmail')?.touched"
+            label="הקלידו את כתובת האימייל שוב" 
+            formControlName="confirmEmail"
                 [required]="true"></app-input-field>
-            <div
-                *ngIf="ticketPurchaseForm.get('confirmEmail')?.invalid && (ticketPurchaseForm.get('confirmEmail')?.dirty || ticketPurchaseForm.get('confirmEmail')?.touched)">
-                <div *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['required']" class="error-text">אימייל
-                    משתמש הוא שדה חובה</div>
-                <div *ngIf="ticketPurchaseForm.get('confirmEmail')?.errors?.['email']" class="error-text">אנא הזינו
-                    כתובת אימייל בפורמט
-                    example&#64;domain.com</div>
-            </div>
-            <div *ngIf="ticketPurchaseForm.errors?.['emailMismatch']">
-                <div class="error-text">כתובות האימייל שהוזנו אינן תואמות</div>
+            <div *ngIf="ticketPurchaseForm.hasError('emailsDoNotMatch') && ticketPurchaseForm.get('email')?.touched && ticketPurchaseForm.get('confirmEmail')?.touched"
+                class="error-text text-sm">
+                כתובות האימייל שהוזנו אינן תואמות
             </div>
         </div>
 
         <div class="mt-6">
-            <app-input-field label="מספר טלפון" formControlName="phoneNumber" [required]="true"></app-input-field>
-            <div
+            <app-input-field label="מספר טלפון" 
+            [isError]="ticketPurchaseForm.get('phoneNumber')?.invalid && (ticketPurchaseForm.get('phoneNumber')?.dirty || ticketPurchaseForm.get('phone')?.touched)"
+            formControlName="phoneNumber" [required]="true"></app-input-field>
+            <div class="error-text"
                 *ngIf="ticketPurchaseForm.get('phoneNumber')?.invalid && (ticketPurchaseForm.get('phoneNumber')?.dirty || ticketPurchaseForm.get('phoneNumber')?.touched)">
-                <div *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['required']" class="error-text">מספר
-                    טלפון
-                    הוא שדה חובה</div>
-                <div *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['pattern']" class="error-text">המספר
-                    שהוזן קצר מדי. אנא הזינו מספר טלפון
-                    תקין בעל 10 ספרות</div>
+                <div *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['required']">המספר שהוזן קצר מדי. אנא הזינו מספר טלפון</div>
+                <div *ngIf="ticketPurchaseForm.get('phoneNumber')?.errors?.['pattern']">יש להזין מס טלפון תקין</div>
             </div>
         </div>
 

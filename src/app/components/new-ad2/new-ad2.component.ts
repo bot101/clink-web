@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdService } from '../../services/ad/ad.service';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
-import { LogoComponent } from '../logo/logo.component';
+
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
@@ -19,7 +19,7 @@ import { TimePickerComponent } from '../time-picker/time-picker.component';
     TimePickerComponent,
     RadioGroupComponent,
     OnboardingHeaderComponent,
-    LogoComponent
+
 ],
   templateUrl: './new-ad2.component.html',
   styleUrl: './new-ad2.component.scss'

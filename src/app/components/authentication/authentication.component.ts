@@ -3,12 +3,13 @@ import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
-import { LogoComponent } from '../logo/logo.component';
+
 import { MainHeaderComponent } from "../main-header/main-header.component";
 import { ButtonComponent } from '../button/button.component';
 import { HeaderComponent } from "../header/header.component";
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { AuthService } from '../../services/auth/auth.service';
+import { InputFieldComponent } from "../input-field/input-field.component";
 
 @Component({
   selector: 'app-authentication',
@@ -19,12 +20,12 @@ import { AuthService } from '../../services/auth/auth.service';
     CommonModule,
     RouterModule,
     OnboardingHeaderComponent,
-    LogoComponent,
     ButtonComponent,
     MainHeaderComponent,
     HeaderComponent,
     CheckboxComponent,
-  ],
+    InputFieldComponent
+],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })

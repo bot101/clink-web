@@ -4,6 +4,7 @@ import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-pur
 import { InputFieldComponent } from "../input-field/input-field.component";
 import { ButtonComponent } from "../button/button.component";
 import { CommonModule } from '@angular/common';
+import { matchEmailsValidator } from '../../validators/validator';
 
 @Component({
   selector: 'app-ticket-purchase',
@@ -21,24 +22,21 @@ export class TicketPurchaseComponent implements OnInit {
   constructor(private fb: FormBuilder, private ticketPurchaseService: TicketPurchaseService) {}
 
   ngOnInit(): void {
-    this.ticketPurchaseForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      confirmEmail: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
-    }, { validator: this.emailMatchValidator });
+    this.ticketPurchaseForm = this.fb.group(
+      {
+        fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+        email: ['', [Validators.required, Validators.email]],
+        confirmEmail: ['', [Validators.required, Validators.email]],
+        phoneNumber: ['', [Validators.required, Validators.pattern('^0(5[0-9]|7[2-9])[0-9]{7}$')]]
+      },
+      { validators: [matchEmailsValidator] }
+    )
 
     // Load data from service if available
     const savedData = this.ticketPurchaseService.getTicketPurchaseData();
     if (savedData) {
       this.ticketPurchaseForm.patchValue(savedData);
     }
-  }
-
-  emailMatchValidator(group: FormGroup) {
-    const email = group.get('email')?.value;
-    const confirmEmail = group.get('confirmEmail')?.value;
-    return email === confirmEmail ? null : { emailMismatch: true };
   }
 
   onContinue() {

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { Router } from '@angular/router';
-import { LogoComponent } from "../logo/logo.component";
+
 import { PaymentBankComponent } from "../payment-bank/payment-bank.component";
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from "../button/button.component";
@@ -14,7 +14,7 @@ import { PaymentService } from '../../services/payment/payment.service';
   imports: [
     NgIf,
     OnboardingHeaderComponent,
-    LogoComponent,
+
     PaymentBankComponent,
     ButtonComponent,
     FairDealPolicyComponent,

@@ -1,22 +1,13 @@
-<app-ticket-details></app-ticket-details>
-<div *ngIf="currentStep && currentStep < 3" class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="w-full flex flex-col bg-[#072D4C] " *ngIf="currentStep > 1">
-        <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto">
-            <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
-            <app-onboarding-header [totalSteps]="totalSteps-1" [currentStep]="currentStep-1" (back)="previousStep()"
-                class="mb-4" [title]="stepTitles[currentStep]" [iconName]="iconName"></app-onboarding-header>
-        </div>
-    </div>
-    <app-ticket-details *ngIf="currentStep === 1" (continue)="nextStep()" [ticket]="ticketDetails"
-        (back)="previousStep()"></app-ticket-details>
+<app-ticket-details *ngIf="currentStep === 1 && ticketDetails" (continue)="nextStep()" [ticket]="ticketDetails"
+(back)="previousStep()"></app-ticket-details>
+<div *ngIf="currentStep && currentStep < 5 &&  currentStep > 1" class="overflow-x-hidden flex flex-col min-h-screen">
+    <app-onboarding-header [totalSteps]="totalSteps-1" [currentStep]="currentStep-1" (back)="previousStep()"
+        class="mb-4" [title]="stepTitles[currentStep].title" [iconName]="stepTitles[currentStep].icon"></app-onboarding-header>
     <app-ticket-purchase *ngIf="currentStep === 2" (continue)="nextStep()"
         (back)="previousStep()"></app-ticket-purchase>
-    <app-ticket-purchase-passenger-details [currentTicketIndex]="filledTicketCount" *ngIf="currentStep === 3" (continue)="nextStep()"
-        (back)="previousStep()"></app-ticket-purchase-passenger-details>
-    <!-- <app-payment-summary *ngIf="currentStep === 3" (continue)="nextStep()" (back)="previousStep()"></app-payment-summary> -->
+    <app-fair-deal-policy *ngIf="currentStep === 3" (onContinue)="nextStep()" (onBack)="previousStep()"></app-fair-deal-policy>
+    <app-payment-summary [ticketInformation]="ticketDetails" *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-payment-summary>
 </div>
-<app-fair-deal-policy *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-fair-deal-policy>
-<app-payment-summary [ticketInformation]="ticketDetails" *ngIf="currentStep === 5" (onContinue)="nextStep()" (onBack)="previousStep()"></app-payment-summary>
-<app-ticket-purchase-success *ngIf="currentStep === 6" (onContinue)="nextStep()"
+<app-ticket-purchase-success *ngIf="currentStep === 5" (onContinue)="nextStep()"
     (onBack)="previousStep()"></app-ticket-purchase-success>
 <app-no-ad *ngIf="currentStep === null"></app-no-ad>

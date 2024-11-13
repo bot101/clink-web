@@ -19,3 +19,10 @@ export function salePriceValidator(controlName1: string, controlName2: string): 
     return null; 
   };
 }
+
+export function matchEmailsValidator(control: AbstractControl): ValidationErrors | null {
+  const email = control.get('email')?.value;
+  const confirmEmail = control.get('confirmEmail')?.value;
+
+  return email === confirmEmail ? null : { emailsDoNotMatch: true };
+}

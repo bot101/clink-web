@@ -24,10 +24,21 @@ export class TicketDetailsComponent implements OnInit {
   location: string = 'Stadium A, City B';
 
   showTrustedSellerPopup: boolean = false;
+  isLoading:boolean = false;
   @Output() continue = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
-  @Input() ticket:Ad
+  
+  private _ticket:Ad;
 
+  @Input() get ticket() {
+    return this._ticket;
+  }
+  set ticket(value) {
+    console.log(Boolean(value));
+    
+    this.isLoading = !Boolean(value)
+    this._ticket = value || undefined;
+  }
   constructor(private router: Router) {}
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
-import { LogoComponent } from "../logo/logo.component";
+
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { Router } from '@angular/router';
 import { ButtonComponent } from "../button/button.component";
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-fair-deal-policy',
   standalone: true,
-  imports: [CommonModule, FormsModule, LogoComponent, OnboardingHeaderComponent, ButtonComponent, CheckboxComponent],
+  imports: [CommonModule, FormsModule,  OnboardingHeaderComponent, ButtonComponent, CheckboxComponent],
   templateUrl: './fair-deal-policy.component.html',
   styleUrl: './fair-deal-policy.component.scss'
 })

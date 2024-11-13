@@ -20,7 +20,7 @@ import { PreAuthenticationComponent } from './components/pre-authentication/pre-
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'overview', component: OverviewComponent },
+    { path: 'overview', component: HowItWorksComponent },
     { path: 'agreement', component: AgreementComponent },
     { path: 'about', component: AboutComponent },
     { path: 'terms', component: TermsComponent },
@@ -38,8 +38,6 @@ export const routes: Routes = [
     },
     { path: 'report', component: ReportComponent },
     { path: 'ticket/:ticketId', component: BuyTicketComponent },
-    { path: 'buy-ticket/:ticketId', component: BuyTicketComponent },
-    { path: 'how-it-works', component: HowItWorksComponent },
     { path: 'start-auth', component: PreAuthenticationComponent },
     { path: '**', redirectTo: ''}
 ]

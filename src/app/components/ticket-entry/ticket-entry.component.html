@@ -37,8 +37,8 @@
     </div> -->
 
     <div class="w-full my-4 px-4">
-        <button (click)="onCopyLink()" ngxClipboard [cbContent]="BASE_URL + '/ticket/' + ticket.shortId" [disabled]="ticket.isSold || (isEventPassed() && !ticket.isSold)"
-            class="font-bold py-2 px-4 w-full border border-[#072D4C] text-[#072D4C] rounded-3xl disabled:opacity-50 disabled:cursor-not-allowed flex flex-row-reverse items-center justify-center {{ isCopied && 'bg-[#EFECE6]' }} ">
+        <button (click)="onCopyLink()" ngxClipboard [cbContent]="BASE_URL + '/ticket/' + ticket.shortId"
+            class="font-bold py-2 px-4 w-full border border-[#072D4C] text-[#072D4C] rounded-3xl disabled:opacity-50 disabled:cursor-not-allowed flex flex-row-reverse items-center justify-center ">
             העתקת לינק למודעה <img src="/assets/icons/logo-chain.svg" alt="logo-chain">
         </button>
     </div>

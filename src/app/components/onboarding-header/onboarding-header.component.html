@@ -1,4 +1,14 @@
-<div class="bg-[#072d4c] py-4">
+<div class="w-full flex flex-col bg-[#072D4C] ">
+  <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto pb-8">
+      <div class="px-2 py-4 md:py-2  w-full">
+          <div class="flex flex-col justify-between items-center">
+            <div class="hidden md:block mx-auto mt-8 mb-4">
+              <a class="cursor-pointer" routerLink="/">
+                <img src="/assets/icons/logo.png" alt="Logo" style="width: 150px;">
+              </a>
+            </div>
+          </div>
+        </div>
   <div class="text-center">
     <app-progress-bar *ngIf="!hideStep" class="mb-7" [max]="totalSteps" [current]="currentStep"></app-progress-bar>
 
@@ -41,4 +51,5 @@
       <div class="col-span-1"></div>
     </div>
   </div>
+</div>
 </div>

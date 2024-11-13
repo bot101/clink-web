@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { LogoComponent } from '../logo/logo.component';
+
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
@@ -8,6 +8,7 @@ import { InputFieldComponent } from "../input-field/input-field.component";
 import { CommonModule, NgIf } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { catchError, debounceTime, delay, fromEvent, map, Observable, of, switchMap, tap } from 'rxjs';
+import { matchEmailsValidator } from '../../validators/validator';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -16,7 +17,7 @@ import { catchError, debounceTime, delay, fromEvent, map, Observable, of, switch
     NgIf,
     CommonModule,
     ReactiveFormsModule,
-    LogoComponent,
+
     ProgressBarComponent,
     FormsModule,
     ButtonComponent,
@@ -42,7 +43,7 @@ export class EmailConfirmationComponent {
         ],
         confirmEmail: ['', [Validators.required, Validators.email]]
         },
-        { validators: [this.matchEmailsValidator] }
+        { validators: [matchEmailsValidator] }
     );
   }
 
@@ -69,10 +70,5 @@ export class EmailConfirmationComponent {
     return;
   }
 
-  matchEmailsValidator(control: AbstractControl): ValidationErrors | null {
-    const email = control.get('email')?.value;
-    const confirmEmail = control.get('confirmEmail')?.value;
 
-    return email === confirmEmail ? null : { emailsDoNotMatch: true };
-  }
 }

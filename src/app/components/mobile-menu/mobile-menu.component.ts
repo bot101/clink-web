@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { LogoComponent } from '../logo/logo.component';
+
 import { LogoDarkComponent } from "../logo-dark/logo-dark.component";
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-mobile-menu',
   standalone: true,
-  imports: [CommonModule,RouterModule, LogoComponent, LogoDarkComponent],
+  imports: [CommonModule,RouterModule,  LogoDarkComponent],
   templateUrl: './mobile-menu.component.html',
   styleUrls: ['./mobile-menu.component.scss'],
   animations: [

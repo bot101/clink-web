@@ -27,11 +27,10 @@ import { User } from '../../models/user';
 export class ProfileComponent implements OnInit {
   
   showConfirmationDialog = false;
-  isTrustedSeller: boolean = false;
   showTrustedSellerPopup: boolean = false;
-  ticketsSold: number = 0;
   deleteAccountConfirmed: boolean = false;
   userInfo:User | undefined
+  isLoading:boolean = false;
 
   constructor(private router: Router,private authService:AuthService) {}
 
@@ -41,13 +40,13 @@ export class ProfileComponent implements OnInit {
   }
 
   fetchUserData() {
+    this.isLoading = true;
     this.authService.getUserInfo().subscribe({
       next:(info)=>{
         this.userInfo = info
+        this.isLoading = false;
       }
     })
-    this.isTrustedSeller = true;
-    this.ticketsSold = 10;
   }
 
   toggleTrustedSellerPopup() {
