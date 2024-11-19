@@ -10,6 +10,8 @@ import { HeaderComponent } from "../header/header.component";
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { InputFieldComponent } from "../input-field/input-field.component";
+import { FooterComponent } from '../footer/footer.component';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-authentication',
@@ -24,7 +26,8 @@ import { InputFieldComponent } from "../input-field/input-field.component";
     MainHeaderComponent,
     HeaderComponent,
     CheckboxComponent,
-    InputFieldComponent
+    InputFieldComponent,
+    FooterComponent
 ],
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
@@ -35,7 +38,7 @@ export class AuthenticationComponent implements OnInit {
   authForm: FormGroup;
   isFromCreateTicketAd: boolean = false; // Set this based on your navigation logic
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService,private userService: UserService) {
     this.authForm = this.fb.group({
       phone: ['', [Validators.required, Validators.pattern('^0(5[0-9]|7[2-9])[0-9]{7}$')]],
       termsAccepted: [false, Validators.requiredTrue]
@@ -43,7 +46,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const formData = this.authService.getFormData();
+    const formData = this.userService.getFormData();
     this.authForm.patchValue(formData);
   }
 
@@ -60,7 +63,7 @@ export class AuthenticationComponent implements OnInit {
 
   onContinueClicked(): void {
     if (this.isFormValid()) {
-      this.authService.updateFormData(this.authForm.value);
+      this.userService.updateFormData(this.authForm.value);
       this.authService.sendOTP(this.authForm.get('phone')?.value)
       .subscribe({
           next: (res)=>{

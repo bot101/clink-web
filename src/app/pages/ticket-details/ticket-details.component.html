@@ -44,7 +44,7 @@
             <div class="flex justify-between mb-2"  *ngIf="!isLoading">
                 <div class="flex flex-col">
                     <h2 class="text-2xl font-medium mr-2 mb-4">{{ticket.user.fullName}}</h2>
-                    <p class=" flex items-center gap-1" *ngIf="ticket.user.isVerified">
+                    <p class=" flex items-center gap-1" *ngIf="ticket.user?.isVerified">
                         <img src="/assets/icons/shield-checked.svg" alt="shield-checked">
                         זהות מאומתת
                     </p>
@@ -129,54 +129,81 @@
                             <p>אנחנו נותנים לכם את הכלים לבצע עסקה בטוחה והוגנת, אם תתעורר בעיה – יש לכם פתרון מהיר ויעיל.</p>
                         </div>
                     </div>
-                    <!-- </div> -->
-                    <!-- <div  class="flex flex-col">
-                        <p class="flex gap-2 items-center mb-2">
-                            <img src="/assets/icons/pink-checkmark.svg" class="w-6 h-6" alt="pink-checkmark">
-                            <span class="text-lg font-medium">header</span>
-                        </p>
-                        <p>text</p>
-                        <p>text</p>
-                    </div> -->
 
                 </app-expandable-section>
             </div>
 
-            <div class="p-4"  *ngIf="!isLoading">
-                <h2 class="text-xl font-medium mb-2">פרטי האירוע</h2>
-                <!-- <p class="text-sm text-gray-600 mb-2">ID: {{ uniqueIdentifier }}</p> -->
-                <!-- <p class="text-base mb-2">{{ numberOfTickets }} tickets available</p> -->
-                <p class="text-sm flex gap-2 items-center mb-2">
-                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
-                        <img src="/assets/icons/calendar.svg" alt="calendar">
-                    </span>
-                    {{  ticket.event?.date  | date:'medium' }}
-                </p>
-                <p class="text-sm flex gap-2 items-center mb-2">
-                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
-                        <img src="/assets/icons/map-pin.svg" alt="location">
-                    </span>
-                    {{ ticket.event?.location }}
-                </p>
-                <p class="text-sm flex gap-2 items-center mb-2">
+ 
+            <div class="flex flex-col gap-4 p-4">
+                <h3 class="text-xl font-semibold">פרטי האירוע</h3>
+                <ng-container *ngIf="ticket.type == 'event'">
+                    <p class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/calendar.svg" alt="calendar">
+                        </span>
+                        {{ ticket.event?.date| date: 'HH:mm ,dd/MM/yy' }}
+                    </p>
+                    <p class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/map-pin.svg" alt="location">
+                        </span>
+                        {{ ticket.event?.location }}
+                    </p>
+                </ng-container>
+        
+                <ng-container *ngIf="ticket.type == 'flight'">
+                    <div class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/aeroplane-takeoff.svg" alt="aeroplane-takeoff">
+                        </span>
+                        <div class="flex flex-col">
+                            <p><span class="font-bold">המראה:</span> {{ ticket.flight?.outboundDepartureDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                            <p><span class="font-bold">נחיתה ביעד:</span> {{ ticket.flight?.outboundArrivalDate | date: 'dd/MM/yy, HH:mm' }}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="ticket.flight?.inboundDepartureDate" class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/aeroplane-landing.svg" alt="aeroplane-landing">
+                        </span>
+                        <div class="flex flex-col">
+                            <p><span class="font-bold">המראה:</span> {{ ticket.flight?.inboundDepartureDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                            <p><span class="font-bold">נחיתה ביעד:</span> {{ ticket.flight?.inboundArrivalDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                        </div>
+                    </div>
+                    <div class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/number-sign.svg" alt="number-sign">
+                        </span>
+                        {{ ticket.flight?.number }}
+                    </div>
+                </ng-container>
+        
+                <p class="text-sm flex gap-2 items-center">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/money.svg" alt="money">
                     </span>
-                    <span class="line-through gap-2">{{ ticket.buyPrice| currency: 'ILS' }}</span>
-                    <span>{{ ticket.sellPrice | currency: 'ILS' }} לכרטיס</span>
+                    <ng-container *ngIf="ticket.sellPrice"> 
+                        <span class="line-through">{{ ticket.buyPrice| currency: 'ILS'}}</span>
+                        <span>{{ ticket.sellPrice| currency: 'ILS'}}</span> לכרטיס
+                    </ng-container>
+                    <ng-container *ngIf="!ticket.sellPrice"> 
+                        {{ ticket.buyPrice| currency: 'ILS'}}
+                    </ng-container>
                 </p>
-                <p *ngIf="ticket.details" class="text-sm flex gap-2 items-center mb-2">
+        
+                <p *ngIf="ticket.details" class="text-sm flex gap-2 items-center mt-2">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/note.svg" alt="note">
                     </span>
                     {{ ticket.details }}
                 </p>
+        
                 <a *ngIf="ticket.event?.url" [href]="ticket.event?.url" target="_blank"
                     class="text-base font-bold text-[#072D4C] underline mt-2 flex gap-2 items-center">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/globe.svg" alt="link">
                     </span>
-                    Official Booking Website
+                    אתר ההזמנה הרשמי
                 </a>
             </div>
         </div>

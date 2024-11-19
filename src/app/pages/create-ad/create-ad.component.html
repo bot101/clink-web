@@ -1,24 +1,41 @@
-<div *ngIf="!isFinished" class="overflow-x-hidden flex flex-col min-h-screen">
-    <app-onboarding-header (back)="previousStep()" [currentStep]="currentStep"
-        [totalSteps]="totalSteps" [hideStep]="adType === 'adSelection' ? true : false" [title]="stepTitle" [iconType]="adType === 'adSelection' ? null : adType"></app-onboarding-header>
+<div *ngIf="currentStep < 4" class="overflow-x-hidden flex flex-col min-h-screen">
+  <app-onboarding-header
+    (back)="previousStep()"
+    [currentStep]="currentStep"
+    [totalSteps]="totalSteps"
+    [hideStep]="adType === 'adSelection' ? true : false"
+    [title]="this.stepTitles[this.adType][this.currentStep]"
+    [iconName]="adType === 'adSelection' ? null : adType"
+  ></app-onboarding-header>
 
-    <div
-        class="w-full md:max-w-[640px] mx-auto md:mt-12 mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990]">
-        <!-- <app-ad-selection class="mt-4 mb-20" *ngIf="currentStep === 0" (onAdTypeSelected)="onAdTypeSelected($event)"></app-ad-selection> -->
-        <ng-container *ngIf="adType === 'ticket'">
-            <ng-container *ngIf="currentStep === 1">
-                <app-ticket-event (nextStep)="nextStep()" (previousStep)="previousStep()"></app-ticket-event>
-            </ng-container>
-            <ng-container *ngIf="currentStep === 2">
-                <app-ticket-event-detail (nextStep)="nextStep()"
-                    (previousStep)="previousStep()"></app-ticket-event-detail>
-            </ng-container>
-        </ng-container>
-        <!-- <ng-container *ngIf="adType === 'flight'">
-            <app-new-ad *ngIf="currentStep === 1" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-new-ad>
-            <app-new-ad2 *ngIf="currentStep === 2" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-new-ad2>
-            <app-new-ad3 *ngIf="currentStep === 3" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-new-ad3>
-        </ng-container> -->
-    </div>
+  <div
+    class="w-full md:max-w-[640px] mx-auto md:mt-12 mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990]"
+  >
+    <!-- <app-ad-selection class="mt-4 mb-20" *ngIf="currentStep === 0" (onAdTypeSelected)="onAdTypeSelected($event)"></app-ad-selection> -->
+    <ng-container *ngIf="adType === 'ticket'">
+      <ng-container *ngIf="currentStep === 1">
+        <app-ticket-event
+          (nextStep)="nextStep()"
+          (previousStep)="previousStep()"
+        ></app-ticket-event>
+      </ng-container>
+      <ng-container *ngIf="currentStep === 2">
+        <app-ticket-event-detail
+          (nextStep)="submit()"
+          (previousStep)="previousStep()"
+        ></app-ticket-event-detail>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="adType === 'flight'">
+        <app-ticket-flight *ngIf="currentStep === 1" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-ticket-flight>
+        <app-ticket-flight-dates *ngIf="currentStep === 2" (nextStep)="nextStep()" (previousStep)="previousStep()"></app-ticket-flight-dates>
+        <app-ticket-flight-detail *ngIf="currentStep === 3" (nextStep)="submit()" (previousStep)="previousStep()"></app-ticket-flight-detail>
+    </ng-container>
+  </div>
 </div>
-<app-create-ad-success *ngIf="isFinished" [shortId]="'test'"></app-create-ad-success>
+<ng-container 
+*ngIf="currentStep == 4">
+  <app-create-ad-success
+  [shortId]="shortId" *ngIf="isLoggedIn"></app-create-ad-success>
+  <app-pre-authentication *ngIf="!isLoggedIn"></app-pre-authentication>
+</ng-container>

@@ -1,13 +1,16 @@
 <app-ticket-details *ngIf="currentStep === 1 && ticketDetails" (continue)="nextStep()" [ticket]="ticketDetails"
 (back)="previousStep()"></app-ticket-details>
-<div *ngIf="currentStep && currentStep < 5 &&  currentStep > 1" class="overflow-x-hidden flex flex-col min-h-screen">
+<div *ngIf="currentStep && currentStep < totalSteps &&  currentStep > 1" class="overflow-x-hidden flex flex-col min-h-screen">
     <app-onboarding-header [totalSteps]="totalSteps-1" [currentStep]="currentStep-1" (back)="previousStep()"
         class="mb-4" [title]="stepTitles[currentStep].title" [iconName]="stepTitles[currentStep].icon"></app-onboarding-header>
     <app-ticket-purchase *ngIf="currentStep === 2" (continue)="nextStep()"
-        (back)="previousStep()"></app-ticket-purchase>
-    <app-fair-deal-policy *ngIf="currentStep === 3" (onContinue)="nextStep()" (onBack)="previousStep()"></app-fair-deal-policy>
-    <app-payment-summary [ticketInformation]="ticketDetails" *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-payment-summary>
+    (back)="previousStep()"></app-ticket-purchase>
+    <ng-container *ngIf="ticketDetails.type==='flight'">
+        <app-ticket-purchase-passenger-details *ngIf="currentStep === 3" [currentTicketIndex]="filledTicketCount" (continue)="nextStep()" (back)="previousStep()"></app-ticket-purchase-passenger-details>
+    </ng-container>
+    <app-fair-deal-policy *ngIf="currentStep === 4" (onContinue)="nextStep()" (onBack)="previousStep()"></app-fair-deal-policy>
+    <app-payment-summary [ticketInformation]="ticketDetails" *ngIf="currentStep === 5" (onContinue)="submit()" (onBack)="previousStep()"></app-payment-summary>
 </div>
-<app-ticket-purchase-success *ngIf="currentStep === 5" (onContinue)="nextStep()"
+<app-ticket-purchase-success *ngIf="currentStep === 10" (onContinue)="nextStep()"
     (onBack)="previousStep()"></app-ticket-purchase-success>
-<app-no-ad *ngIf="currentStep === null"></app-no-ad>
+<app-no-ad *ngIf="currentStep === 0"></app-no-ad>

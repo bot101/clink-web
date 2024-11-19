@@ -40,7 +40,7 @@ export class TicketPurchaseService {
   constructor(private apiService: ApiService) {}
 
   getTicketDetails(ticketId: string) {
-    return this.apiService.get(`ads/${ticketId}`).pipe(
+    return this.apiService.getTicketDetails(ticketId).pipe(
       tap((ticket) => {
         this.ticketDetails = ticket;
       })
@@ -88,9 +88,7 @@ export class TicketPurchaseService {
         dateOfBirth: this.formatDate(passenger.dateOfBirth)
       }))
     };
-    console.log('payload', payload);
-    const transaction = this.apiService.post('transactions', payload);
-    return firstValueFrom(transaction);
+    return this.apiService.createTransaction(payload)
   }
 
   formatDate(date: string) {

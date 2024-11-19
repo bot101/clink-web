@@ -1,31 +1,41 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../button/button.component";
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 import { ClipboardModule } from 'ngx-clipboard';
 import { Ad } from '../../models/ad';
+import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { registerLocaleData } from '@angular/common';
+import localHe from '@angular/common/locales/he';
+registerLocaleData(localHe);
 
 @Component({
   selector: 'app-ticket-entry',
   standalone: true,
-  imports: [ClipboardModule,CommonModule, ButtonComponent, ConfirmationDialogComponent],
+  imports: [ClipboardModule,CommonModule,RouterModule, ButtonComponent, ConfirmationDialogComponent],
+  providers:[
+    {
+      provide: LOCALE_ID, useValue: "he-IL"
+    }
+  ],
   templateUrl: './ticket-entry.component.html',
   styleUrl: './ticket-entry.component.scss'
 })
 export class TicketEntryComponent {
   @Input() ticket: Ad;
-  @Input() isFlightTicket: boolean = false;
   @Output() editTicket = new EventEmitter<string>();
   @Output() deleteTicket = new EventEmitter<string>();
   @Output() copyLink = new EventEmitter<string>();
   @Output() markDetailsUpdated = new EventEmitter<string>();
 
-  BASE_URL = 'http://localhost:4200'
+  BASE_URL = environment.BASE_URL
 
   isCopied = false
 
   showMenu: boolean = false;
-  showConfirmationDialog: boolean = false;
+  showUpdateConfirmationDialog: boolean = false;
+  showDeleteConfirmationDialog: boolean = false;
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
@@ -39,16 +49,23 @@ export class TicketEntryComponent {
   }
 
   onCopyLink() {
-    //this.copyLink.emit(this.ticket._id);
     this.isCopied = true
   }
 
   onMarkDetailsUpdated() {
+    if(this.ticket.flight) {
+      this.ticket.flight.isConfirmChanged = true
+    }
     this.markDetailsUpdated.emit(this.ticket._id);
   }
 
-  onToggleConfirmationDialog() {
-    this.showConfirmationDialog = !this.showConfirmationDialog;
+  onToggleUpdateConfirmationDialog() {
+    this.showUpdateConfirmationDialog = !this.showUpdateConfirmationDialog;
+  }
+
+  onToggleDeleteConfirmationDialog() {
+    this.showDeleteConfirmationDialog = !this.showDeleteConfirmationDialog;
+    this.showMenu = false;
   }
 
   isEventPassed(): boolean {
@@ -56,11 +73,17 @@ export class TicketEntryComponent {
   }
 
   onCancelConfirmation() {
-    this.showConfirmationDialog = false;
+    this.showUpdateConfirmationDialog = false;
+    this.showDeleteConfirmationDialog = false;
   }
 
-  onConfirmAction() {
+  onConfirmDeleteAction() {
+    this.onDeleteTicket()
+    this.showDeleteConfirmationDialog = false;
+  }
+
+  onConfirmUpdateAction() {
     this.onMarkDetailsUpdated();
-    this.showConfirmationDialog = false;
+    this.showUpdateConfirmationDialog = false;
   }
 }

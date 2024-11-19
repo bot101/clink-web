@@ -1,6 +1,6 @@
 <form [formGroup]="ticketForm" (ngSubmit)="onContinue()"
   class="space-y-5 lowercase md:pt-8 md:pb-4 md:max-w-[340px] mx-auto">
-  <h2 for="eventName" class="block text-lg md:text-2xl md:text-center  font-[700] text-gray-700">פרטי האירוע</h2>
+  <h2 for="eventName" class="block text-lg md:text-2xl font-[700] text-gray-700">פרטי האירוע</h2>
   <div>
     <app-input-field placeholder="אביב גפן בפארק הירקון" label="שם האירוע" formControlName="eventName" [required]="true"></app-input-field>
     <div *ngIf="ticketForm.get('eventName')?.touched && ticketForm.get('eventName')?.errors"
@@ -114,11 +114,8 @@
       </button>
     </li>
   </ul>
-
-  <button type="submit" [disabled]="!isFormValid()"
-    class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-white bg-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
-    המשך
-  </button>
+  
+  <app-button type="submit" [disabled]="!isFormValid()" label="המשך" class="block"></app-button>
 
   <button type="button" (click)="onBack()"
     class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">

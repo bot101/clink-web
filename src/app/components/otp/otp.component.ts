@@ -7,6 +7,7 @@ import { ButtonComponent } from '../button/button.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { catchError, interval, map, takeWhile, timer } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-otp',
@@ -37,10 +38,10 @@ export class OtpComponent implements OnInit {
   timer = 0;
   formData: any;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private userService: UserService,private authService:AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.formData = this.authService.getFormData();
+    this.formData = this.userService.getFormData();
   }
 
   onInput(event: any, nextInput: number): void {

@@ -36,20 +36,24 @@ import { Ad } from '../../models/ad';
 export class BuyTicketComponent {
   ticketId: string;
   ticketDetails: Ad;
-  currentStep: number | null = 1;
-  totalSteps: number = 5;
+  currentStep: number = 1;
+  totalSteps: number = 6;
   filledTicketCount: number = 0;
 
-  stepTitles: Record<string, {title:string,icon:'clipboard-pen' | 'check-handshake' | 'ticket' | ''}> = {
+  stepTitles: Record<string, {title:string,icon:'clipboard-pen' | 'check-handshake' | 'ticket' | 'id' | ''}> = {
     2: {
       title:'לפני שתמשיכו בתהליך הרכישה',
       icon:'clipboard-pen'
     },
     3: {
+      title:'פרטים לשינוי שם הכרטיס',
+      icon:'id'
+    },
+    4: {
       title:'תנאי עסקה הוגנת',
       icon:'check-handshake'
     },
-    4: {
+    5: {
       title:'',
       icon:'ticket'
     }
@@ -74,25 +78,49 @@ export class BuyTicketComponent {
         this.ticketDetails = ticketDetails;
       },
       error: (err)=> {
-        this.currentStep = null;
+        this.currentStep = 0;
       }
     });
   }
+
+  submit() {
+    this.ticketPurchaseService.createTransaction().subscribe({
+      next: ()=>{
+        this.currentStep = 10;
+        //this.stepTitles[5].title = this.ticketDetails.event?.title || '';
+      },
+      error: ()=>{
+
+      }
+    })
+
+    //   this.confirmationDialog.configureDialog({
+    //     showDialog: true,
+    //     showCancelButton: false,
+    //     disableConfirmButton: false,
+    //     title: 'Error!',
+    //     message: 'An error occurred while creating the transaction',
+    //     cancelButtonText: 'Cancel',
+    //     confirmButtonText: 'Continue'
+    //   });
+  }
   
   nextStep() {
-    if(this.currentStep === 5) {
-      this.stepTitles[5].title = this.ticketDetails.event?.title || '';
-    }
-    if(this.currentStep && this.currentStep < this.totalSteps) {
-      this.currentStep++
-    }
+    if(this.ticketDetails.type==='event' && this.currentStep === 2) {
+      this.currentStep = 4;
+    } else if(this.ticketDetails.type==='flight' && this.currentStep === 3) {
+      if(this.filledTicketCount < this.ticketDetails.amount - 1) {
+        console.log(this.filledTicketCount < this.ticketDetails.amount);
+        console.log(this.filledTicketCount,this.ticketDetails.amount);
+        this.filledTicketCount++;
+      } else {
+        this.currentStep++;
+      }
+    } else {
+      this.currentStep++;
+    } 
   }
   previousStep() {
-    if(this.currentStep === 5) {
-      this.stepTitles[5].title = this.ticketDetails.event?.title || '';
-    }
-    if(this.currentStep && this.currentStep > 1) {
-      this.currentStep--
-    }
+    this.currentStep--;
   }
 }

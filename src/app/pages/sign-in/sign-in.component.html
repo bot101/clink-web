@@ -1,6 +1,11 @@
-<app-authentication *ngIf="currentScreen === 'phone'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-authentication>
-<app-otp *ngIf="currentScreen === 'otp'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-otp>
-<app-email-confirmation *ngIf="currentScreen === 'email'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-email-confirmation>
-<app-verification *ngIf="currentScreen === 'verification'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-verification>
-<app-payment *ngIf="currentScreen === 'payment'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-payment>
-<app-fair-deal-policy *ngIf="currentScreen === 'fair-deal-policy'" (onBack)="onBack()" (onContinue)="onContinue()" ></app-fair-deal-policy>
+<app-authentication *ngIf="currentStep === 0" (onBack)="onBack()" (onContinue)="onContinue()" ></app-authentication>
+
+<div *ngIf="currentStep && currentStep < 6 &&  currentStep > 0" class="overflow-x-hidden flex flex-col min-h-screen">
+    <app-onboarding-header [totalSteps]="totalSteps-1" [currentStep]="currentStep-1" (back)="onBack()"
+        class="mb-4" [hideStep]="currentStep===1" [title]="stepTitles[currentStep].title" [iconName]="stepTitles[currentStep].icon"></app-onboarding-header>
+    <app-otp *ngIf="currentStep === 1" (onBack)="onBack()" (onContinue)="onContinue()" ></app-otp>
+    <app-email-confirmation *ngIf="currentStep === 2" (onBack)="onBack()" (onContinue)="onContinue()" ></app-email-confirmation>
+    <app-verification *ngIf="currentStep === 3" (onBack)="onBack()" (onContinue)="onContinue()" ></app-verification>
+    <app-payment *ngIf="currentStep === 4" (onBack)="onBack()" (onContinue)="onContinue()" ></app-payment>
+    <app-fair-deal-policy *ngIf="currentStep === 5" (onBack)="onBack()" (onContinue)="onSubmit()" ></app-fair-deal-policy>
+</div>

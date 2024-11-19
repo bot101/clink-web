@@ -47,7 +47,10 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit, OnChange
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       gender: ['', Validators.required],
-      idNumber: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      idNumber: ['', [
+        Validators.required, 
+        //Validators.pattern(/^\d{9}$/)
+      ]],
       dateOfBirth: ['', Validators.required],
       passportNumber: ['', Validators.pattern(/^\d+$/)],
       passportExpirationDate: ['']

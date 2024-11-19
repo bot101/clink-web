@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
@@ -6,11 +6,11 @@ import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 
-import { AdService } from '../../services/ad/ad.service';
+import { AdService, CompleteTicketFlightData } from '../../services/ad/ad.service';
 import { InputFieldComponent } from '../input-field/input-field.component';
 
 @Component({
-  selector: 'app-new-ad',
+  selector: 'app-ticket-flight',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,12 +21,13 @@ import { InputFieldComponent } from '../input-field/input-field.component';
     OnboardingHeaderComponent,
 
   ],
-  templateUrl: './new-ad.component.html',
-  styleUrl: './new-ad.component.scss'
+  templateUrl: './ticket-flight.component.html',
+  styleUrl: './ticket-flight.component.scss'
 })
-export class NewAdComponent implements OnInit {
+export class TicketFlightComponent implements OnInit {
   @Output() nextStep = new EventEmitter<void>();
   @Output() previousStep = new EventEmitter<void>();
+  @Input() isEditMode:boolean = false;
 
   adForm!: FormGroup;
   currentStep: number = 1;
@@ -35,30 +36,34 @@ export class NewAdComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private adService: AdService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.adForm = this.fb.group({
       flightDestination: ['', Validators.required],
       airlineName: ['', Validators.required],
       flightNumber: ['', Validators.required],
       flightType: ['round_trip', Validators.required]
     });
-
-    // Load saved data if available
-    const savedData = this.adService.getFormData();
-    if (savedData.newAd) {
-      this.adForm.patchValue(savedData.newAd);
-    }
   }
 
-  onCancel(): void {
+  ngOnInit() {
+    
+    this.adService.formData$.subscribe((formData: Partial<CompleteTicketFlightData>) => {
+      this.adForm.patchValue({
+        flightDestination: formData?.flightDestination || '',
+        airlineName: formData?.airlineName || '',
+        flightNumber: formData?.flightNumber || '',
+        flightType: formData?.flightType || ''
+      });
+    });
+  }
+
+  onBack() {
     this.previousStep.emit();
   }
 
   onContinue(): void {
     if (this.adForm.valid) {
-      this.adService.updateFormData({ newAd: this.adForm.value });
+      this.adService.updateFormData(this.adForm.value);
       this.nextStep.emit();
     } else {
       Object.keys(this.adForm.controls).forEach(key => {

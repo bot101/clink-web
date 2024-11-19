@@ -24,7 +24,7 @@ export class TicketPurchaseComponent implements OnInit {
   ngOnInit(): void {
     this.ticketPurchaseForm = this.fb.group(
       {
-        fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
+        fullName: ['', [Validators.required, Validators.pattern(/^[א-תa-zA-Z\s]*$/)]],
         email: ['', [Validators.required, Validators.email]],
         confirmEmail: ['', [Validators.required, Validators.email]],
         phoneNumber: ['', [Validators.required, Validators.pattern('^0(5[0-9]|7[2-9])[0-9]{7}$')]]

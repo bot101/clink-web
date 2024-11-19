@@ -29,20 +29,7 @@ export class PaymentSummaryComponent {
   constructor(private ticketPurchaseService: TicketPurchaseService) {}
 
   continue() {
-    this.ticketPurchaseService.createTransaction().then(() => {
-      this.onContinue.emit();
-    }, (error) => {
-      console.error(error);
-      this.confirmationDialog.configureDialog({
-        showDialog: true,
-        showCancelButton: false,
-        disableConfirmButton: false,
-        title: 'Error!',
-        message: 'An error occurred while creating the transaction',
-        cancelButtonText: 'Cancel',
-        confirmButtonText: 'Continue'
-      });
-    });
+    this.onContinue.emit();
   }
 
   back() {

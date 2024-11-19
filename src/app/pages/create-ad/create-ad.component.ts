@@ -5,12 +5,15 @@ import { OnboardingHeaderComponent } from "../../components/onboarding-header/on
 import { TicketEventComponent } from '../../components/ticket-event/ticket-event.component';
 import { TicketEventDetailComponent } from '../../components/ticket-event-detail/ticket-event-detail.component';
 import { Router } from '@angular/router';
-import { NewAdComponent } from "../../components/new-ad/new-ad.component";
-import { NewAd2Component } from "../../components/new-ad2/new-ad2.component";
-import { NewAd3Component } from "../../components/new-ad3/new-ad3.component";
 import { AdService } from '../../services/ad/ad.service';
 import { AdSelectionComponent } from "../../components/ad-selection/ad-selection.component";
 import { CreateAdSuccessComponent } from "../../components/create-ad-success/create-ad-success.component";
+import { AuthService } from '../../services/auth/auth.service';
+import { PreAuthenticationComponent } from '../../components/pre-authentication/pre-authentication.component';
+import { TicketFlightComponent } from '../../components/ticket-flight/ticket-flight.component';
+import { TicketFlightDatesComponent } from '../../components/ticket-flight-dates/ticket-flight-dates.component';
+import { TicketFlightDetailComponent } from '../../components/ticket-flight-detail/ticket-flight-detail.component';
+import { TicketDetailsComponent } from "../ticket-details/ticket-details.component";
 
 @Component({
   selector: 'app-create-ad',
@@ -18,22 +21,23 @@ import { CreateAdSuccessComponent } from "../../components/create-ad-success/cre
   imports: [
     CommonModule,
     OnboardingHeaderComponent,
-
+    PreAuthenticationComponent,
     TicketEventComponent,
     TicketEventDetailComponent,
-    NewAdComponent,
-    NewAd2Component,
-    NewAd3Component,
+    TicketFlightComponent,
+    TicketFlightDatesComponent,
+    TicketFlightDetailComponent,
     AdSelectionComponent,
-    CreateAdSuccessComponent
+    CreateAdSuccessComponent,
+    TicketDetailsComponent
 ],
   templateUrl: './create-ad.component.html',
   styleUrl: './create-ad.component.scss'
 })
-export class CreateAdComponent implements OnInit, OnChanges {
+export class CreateAdComponent implements OnInit {
 
-  adType: 'ticket' | 'flight' | 'adSelection' = 'ticket';
-  isFinished: boolean = false;
+  adType: 'ticket' | 'flight' | 'adSelection' = 'flight';
+  isLoggedIn: boolean = false;
   stepTitles: Record<string, Record<number, string>> = {
     adSelection: {
       0: 'מכירת כרטיס',
@@ -49,26 +53,14 @@ export class CreateAdComponent implements OnInit, OnChanges {
     }
   };
   currentStep: number = 1;
-  totalSteps: number = 2;
-  stepTitle: string = this.stepTitles[this.adType][this.currentStep];
+  totalSteps: number = 3;
+  shortId:string;
 
-  constructor(private router: Router, private adService: AdService, private cdr: ChangeDetectorRef) {
-    this.stepTitle = this.stepTitles[this.adType][this.currentStep];
+  constructor(private router: Router, private adService: AdService, private authService:AuthService) {
   }
 
   ngOnInit() {
-    this.onContextChanged();
   }
-
-  ngOnChanges() {
-    this.onContextChanged();
-  }
-
-  onContextChanged() {
-    console.log('on context changed', this.adType, this.currentStep);
-    this.stepTitle = this.stepTitles[this.adType][this.currentStep];
-  }
-
 
 
   onAdTypeSelected($event: string) {
@@ -78,7 +70,6 @@ export class CreateAdComponent implements OnInit, OnChanges {
     } else {
       this.totalSteps = 2;
     }
-    this.onContextChanged();
     this.nextStep();
   }
 
@@ -90,10 +81,28 @@ export class CreateAdComponent implements OnInit, OnChanges {
     }
   }
   nextStep() {
-    if(this.currentStep === this.totalSteps) {
-      this.isFinished = true;
+    this.currentStep++;
+  }
+  submit(){ 
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if(this.isLoggedIn) {
+      if(this.adType === 'flight'){
+        this.adService.createFlightAd().subscribe({
+          next: (res)=>{
+            this.currentStep = 4;
+            this.shortId = res.shortId || "";
+          },
+          error: ()=>{
+  
+          }
+        });
+      }
     } else {
-      this.currentStep++;
+      this.currentStep = 4;
+      setTimeout(() => {
+        this.router.navigate(["/sign"]);
+      }, 5000);
     }
+    
   }
 }

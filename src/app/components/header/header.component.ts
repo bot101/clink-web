@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private authService:AuthService, private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
     this.resizeListener = this.renderer.listen('window', 'resize', () => {
       this.updateHeaderHeight();
     });
@@ -61,10 +62,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (headerElement) {
       const offsetHeight = headerElement.offsetHeight;
       this.renderer.setStyle(headerElement, 'height', `${offsetHeight}px`);
+      console.log(offsetHeight);
+      
     }
   }
   signOut() {
     this.authService.signOut();
+    this.isSubmenuOpen = false;
+    this.isLoggedIn = false;
   }
 
 }

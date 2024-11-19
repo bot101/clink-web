@@ -4,6 +4,7 @@ import { ButtonComponent } from "../button/button.component";
 import { FooterComponent } from "../footer/footer.component";
 import { ClipboardModule } from 'ngx-clipboard';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create-ad-success',
@@ -15,6 +16,6 @@ import { RouterModule } from '@angular/router';
 export class CreateAdSuccessComponent {
 
   @Input() shortId:string;
-  BASE_URL = 'http://localhost:4200'
+  BASE_URL = environment.BASE_URL
 
 }

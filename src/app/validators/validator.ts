@@ -26,3 +26,10 @@ export function matchEmailsValidator(control: AbstractControl): ValidationErrors
 
   return email === confirmEmail ? null : { emailsDoNotMatch: true };
 }
+
+export function dateValidator() {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const valid = /^\d{2}\/\d{2}\/\d{4}$/.test(control.value);
+    return valid ? null : { invalidDate: { value: control.value } };
+  };
+}

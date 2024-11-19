@@ -7,6 +7,7 @@ export interface User {
     isVerified: boolean;
     isTrustedSeller?:boolean;
     ticketsSold?:number;
+    paymentType:'bit' | 'bank';
     paymentBank?: string;
     paymentNumber?: string;
     paymentBranch?: string;

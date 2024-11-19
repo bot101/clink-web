@@ -2,48 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable,of } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { map, catchError } from 'rxjs/operators';
-import { User } from '../auth/auth.service';
 import { Ad } from '../../models/ad';
+import { User } from '../../models/user';
 
- export interface TicketEventResponse {
-  success: boolean;
-  message: string;
-  id?: string;
-}
-
-interface CompleteTicketEventData {
-  uploadedFiles: File[];
-  eventName: string;
-  eventDate: string;
-  eventTime: string;
-  eventLocation: string;
-  ticketQuantity: number;
-  costPrice: string;
-  salePrice: string;
-  ticketDetails: string;
-  eventLink: string;
-}
-
-interface CompleteTicketFlightData {
-  flightDestination: string;
-  airlineName: string;
-  flightNumber: string;
-  flightType: string;
-  isOneWayFlight: boolean;
-  departureDate: string;
-  departureTime: string;
-  arrivalDate: string;
-  arrivalTime: string;
-  returnDepartureDate: string;
-  returnDepartureTime: string;
-  returnDate: string;
-  returnTime: string;
-  ticketQuantity: number;
-  costPrice: string;
-  salePrice: string;
-  generalDetails: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -53,90 +14,49 @@ export class ApiService {
   private http = inject(HttpClient);
 
 
-  submitTicketEvent(completeData: CompleteTicketEventData): Observable<TicketEventResponse> {
-
-    const event = {
-      title: completeData.eventName,
-      date: this.formatDate(completeData.eventDate),
-      location: completeData.eventLocation,
-      url: completeData.eventLink,
-      files: completeData.uploadedFiles.map(file => ({
-        name: file.name,
-        type: file.type,
-        size: file.size
-      }))
-    };
-    return this.http.post<TicketEventResponse>(`${this.apiUrl}/ads`, {
-      type: 'event',
-      event,
-      buyPrice: Number(completeData.costPrice),
-      sellPrice: Number(completeData.salePrice),
-      details: completeData.ticketDetails,
-      amount: completeData.ticketQuantity,
-      isSold: false,
-      status: 'pending',
-      user: '67096c6b8d507be7794ed78c'
-    });
+  createAd(payload: Partial<Ad>): Observable<Ad> {
+    return this.http.post<Ad>(`${this.apiUrl}/ads`, payload);
+  }
+  updateAd(ticketId:string,payload:Partial<Ad>):Observable<Ad> {
+    return this.http.patch<Ad>(`${this.apiUrl}/ads/${ticketId}`,payload);
+  }
+  deleteAd(ticketId:string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/ads/${ticketId}`);
+  }
+  getTicketDetails(shortId:string): Observable<any> {
+    return this.http.get<User>(`${environment.apiUrl}/ads/${shortId}`)
+  }
+  markDetailsUpdated(ticketId:string):Observable<{ done: boolean }> {
+    return this.http.post<{ done: boolean }>(`${this.apiUrl}/ads/${ticketId}`,{});
   }
 
-  submitFlight(completeData: CompleteTicketFlightData): Observable<TicketEventResponse> {
-    const outboundDepartureDate = new Date(this.formatDate(completeData.departureDate));
-    const outboundArrivalDate = new Date(this.formatDate(completeData.arrivalDate));
-    const [departureHours, departureMinutes] = completeData.departureTime.split(':').map(Number);
-    const [arrivalHours, arrivalMinutes] = completeData.arrivalTime.split(':').map(Number);
-    const [returnDepartureHours, returnDepartureMinutes] = completeData.returnDepartureTime.split(':').map(Number);
-    const [returnHours, returnMinutes] = completeData.returnTime.split(':').map(Number);
 
-    outboundDepartureDate.setHours(departureHours, departureMinutes, 0, 0);
-    outboundArrivalDate.setHours(arrivalHours, arrivalMinutes, 0, 0);
-    
-    const inboundDepartureDate = new Date(this.formatDate(completeData.returnDepartureDate));
-    const inboundArrivalDate = new Date(this.formatDate(completeData.returnDate));
-    inboundDepartureDate.setHours(returnDepartureHours, returnDepartureMinutes, 0, 0);
-    inboundArrivalDate.setHours(returnHours, returnMinutes, 0, 0);
 
-    const flight = {
-      type: completeData.flightType,
-      airline: completeData.airlineName,
-      number: completeData.flightNumber,
-      destination: completeData.flightDestination,
-      outboundDepartureDate: outboundDepartureDate.toISOString(),
-      outboundArrivalDate: outboundArrivalDate.toISOString(),
-      inboundDepartureDate: null,
-      inboundArrivalDate: null,
-    };
 
-    if(completeData.flightType === 'round_trip') {
-      flight['inboundDepartureDate'] = inboundDepartureDate.toISOString() as any;
-      flight['inboundArrivalDate'] = inboundArrivalDate.toISOString() as any;
-    }
-    
-    return this.http.post<TicketEventResponse>(`${this.apiUrl}/ads`, {
-      type: 'flight',
-      flight,
-      buyPrice: Number(completeData.costPrice),
-      sellPrice: Number(completeData.salePrice),
-      details: completeData.generalDetails,
-      amount: completeData.ticketQuantity,
-      isSold: false,
-      status: 'pending',
-      user: '67096c6b8d507be7794ed78c'
-    });
+  createTransaction(payload:any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/transactions`, payload);
   }
+
+
+
 
   getUserAds(): Observable<Ad[]> {
     return this.http.get<Ad[]>(`${environment.apiUrl}/ads`)
   }
-
-  signUp(data: any) {
-    return this.http.post<any>(`${this.apiUrl}/users`, data);
+  editUser(userId:string,payload:Partial<User>): Observable<Partial<User>> {
+    return this.http.patch<User>(`${environment.apiUrl}/users`,payload)
+  }
+  signUp(payload: any) {
+    return this.http.post<any>(`${this.apiUrl}/users`, payload);
+  }
+  deleteUser(): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/users`);
   }
 
 
   getUserInfo():Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/auth/info`)
   }
-
   verifyOTP(phone: string,otp: string):Observable<{access_token:string}> {
     return this.http.get<{access_token:string}>(`${environment.apiUrl}/auth/otp?phone=${phone}&otp=${otp}`);
   }
@@ -147,28 +67,5 @@ export class ApiService {
     return this.http.get<{ available: boolean }>(`${environment.apiUrl}/auth/checkemail?email=${email}`)
   }
 
-  get<R = any>(endpoint: string, params?: HttpParams): Observable<R> {
-    return this.http.get<R>(`${this.apiUrl}/${endpoint}`, { params });
-  }
 
-  post<P = any, R = any>(endpoint: string, payload: P, headers?: HttpHeaders): Observable<R> {
-    return this.http.post<R>(`${this.apiUrl}/${endpoint}`, payload, { headers });
-  }
-
-  put<P = any, R = any>(endpoint: string, payload: P, headers?: HttpHeaders): Observable<R> {
-    return this.http.put<R>(`${this.apiUrl}/${endpoint}`, payload, { headers });
-  }
-
-  patch<P = any, R = any>(endpoint: string, payload: P, headers?: HttpHeaders): Observable<R> {
-    return this.http.patch<R>(`${this.apiUrl}/${endpoint}`, payload, { headers });
-  }
-
-  delete<R = any>(endpoint: string, params?: HttpParams): Observable<R> {
-    return this.http.delete<R>(`${this.apiUrl}/${endpoint}`, { params });
-  }
-
-  private formatDate(date: string): string {
-    const [day, month, year] = date.split('/');
-    return `${year}-${month}-${day}`;
-  }
 }

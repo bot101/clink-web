@@ -50,12 +50,12 @@ export class ButtonComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
   
   ngOnInit() {
-    this.setClasses = `${this.buttonClasses} ${this.classes}`;
+    this.setClasses = `${this.classes} ${this.buttonClasses}`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['buttonClasses']) {
-      this.setClasses = `${changes['buttonClasses'].currentValue} ${this.classes}`;
+      this.setClasses = `${this.classes} ${changes['buttonClasses'].currentValue}`;
     }
   }
 

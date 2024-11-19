@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { TicketEventService } from '../../services/ticket-event/ticket-event.service';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { HeaderComponent } from "../header/header.component";
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { TimePickerComponent } from "../time-picker/time-picker.component";
+import { ButtonComponent } from '../button/button.component';
+import { AdService, CompleteTicketEventData } from '../../services/ad/ad.service';
 
 @Component({
   selector: 'app-ticket-event',
@@ -18,7 +19,7 @@ import { TimePickerComponent } from "../time-picker/time-picker.component";
     ReactiveFormsModule,
     OnboardingHeaderComponent,
     DatePickerComponent,
-
+    ButtonComponent,
     HeaderComponent,
     InputFieldComponent,
     TimePickerComponent
@@ -37,7 +38,7 @@ export class TicketEventComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private ticketEventService: TicketEventService,
+    private adService: AdService,
     private fb: FormBuilder
   ) {
     this.ticketForm = this.fb.group({
@@ -78,7 +79,9 @@ export class TicketEventComponent implements OnInit {
   }
 
   loadSavedFormData() {
-    const savedData = this.ticketEventService.getFormData();
+    const savedData:Partial<CompleteTicketEventData> = this.adService.getFormData();
+    
+    console.log(savedData);
     if (savedData) {
       this.ticketForm.patchValue({
         eventName: savedData.eventName || '',
@@ -129,7 +132,7 @@ export class TicketEventComponent implements OnInit {
         ...this.ticketForm.value,
         uploadedFiles: [], // this.uploadedFiles
       };
-      this.ticketEventService.setFormData(formData);
+      this.adService.updateFormData(formData);
       this.nextStep.emit();
     }
   }

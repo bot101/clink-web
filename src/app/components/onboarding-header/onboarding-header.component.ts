@@ -16,7 +16,6 @@ export class OnboardingHeaderComponent {
   @Input() title: string = '';
   @Input() currentStep: number = 1;
   @Input() totalSteps: number = 3;
-  @Input() iconType: 'email' | 'flight' | 'ticket' | null = null;
   @Input() iconName: string | null = null;
   @Input() showLogo: boolean = true;
   @Input() hideStep: boolean = false;

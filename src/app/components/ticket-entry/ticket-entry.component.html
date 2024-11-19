@@ -2,6 +2,7 @@
     <div class="flex justify-between items-start mb-2 bg-[#EFECE6] py-6 p-4">
         <div>
             <h3 *ngIf="ticket.event?.title" class="text-2xl font-medium">{{ ticket.event?.title }}</h3>
+            <h3 *ngIf="ticket.flight?.destination" class="text-2xl font-medium">{{ ticket.flight?.destination }}</h3>
             <p class="text-sm font-normal text-gray-600">מספר מזהה: {{ ticket.shortId }}</p>
             <p class="text-base font-bold">מס כרטיסים: {{ ticket.amount }}</p>
         </div>
@@ -14,8 +15,8 @@
                 </svg>
             </button>
             <div *ngIf="showMenu" class="absolute end-2 mt-2 w-30 px-2 py-4 bg-white rounded-lg shadow-lg z-10">
-                <a (click)="onEditTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">עריכה</a>
-                <a (click)="onDeleteTicket()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">מחיקה</a>
+                <a [routerLink]="ticket.shortId" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">עריכה</a>
+                <a (click)="onToggleDeleteConfirmationDialog()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">מחיקה</a>
             </div>
         </div>
         <ng-template #soldLabel>
@@ -29,12 +30,22 @@
         <p *ngIf="ticket.status === 'canceled'" class="text-sm text-red-600">העסקה בוטלה</p>
     </div>
 
-    <!-- <div *ngIf="isFlightTicket && ticket.isSold && !ticket?.isConfirmChanged"
-        class="flex flex-col gap-2 px-4 justify-between items-center">
-        <app-button label="Mark as Details Updated" class="w-full" (click)="onToggleConfirmationDialog()">
+    <div *ngIf="ticket.type == 'flight'"
+        class="flex flex-col gap-2 w-full my-4 px-4 justify-between items-center">
+        <app-button label="ביצעתי שינוי שם מלא בכרטיס" class="w-full" [disabled]="ticket.flight?.isConfirmChanged || false" (click)="onToggleUpdateConfirmationDialog()">
         </app-button>
-        <p class="w-full">, עד שלא יבוצע שינוי פרטי הכרטיס </p>
-    </div> -->
+        <p class="w-full text-right">
+            <span class="font-bold">שימו</span> <svg class="inline" width="14" height="13" viewBox="0 0 14 13" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.821289 4.49624C0.821289 9.29584 7.06129 12.5198 7.06129 12.5198C7.06129 12.5198 13.3013 9.29844 13.3013 4.49624C13.3013 2.52804 11.7049 0.931644 9.73669 0.931644C8.66549 0.931644 7.71649 1.41264 7.06129 2.16144C6.40869 1.41264 5.45709 0.931644 4.38589 0.931644C2.41769 0.929044 0.821289 2.52544 0.821289 4.49624Z"
+                fill="#FFC5C5" />
+              <path
+                d="M7.06152 12.7807C7.01992 12.7807 6.98092 12.7703 6.94192 12.7521C6.68192 12.6169 0.561523 9.39812 0.561523 4.49712C0.561523 2.38852 2.27752 0.669922 4.38612 0.669922C5.38452 0.669922 6.34392 1.07032 7.06152 1.78012C7.77912 1.07032 8.73852 0.669922 9.73692 0.669922C11.8455 0.669922 13.5615 2.38852 13.5615 4.49712C13.5615 9.40072 7.44112 12.6169 7.18112 12.7521C7.14212 12.7703 7.10312 12.7807 7.06152 12.7807ZM4.38612 1.18992C2.56352 1.18992 1.08152 2.67452 1.08152 4.49712C1.08152 8.72212 6.20872 11.7485 7.06152 12.2243C7.91432 11.7485 13.0415 8.72212 13.0415 4.49712C13.0415 2.67452 11.5595 1.19252 9.73692 1.19252C8.79572 1.19252 7.89092 1.60852 7.25912 2.33392C7.16032 2.44572 6.96532 2.44572 6.86652 2.33392C6.23212 1.60592 5.32732 1.18992 4.38612 1.18992Z"
+                fill="#FEB4B4" />
+            </svg>, עד שלא יבוצע שינוי פרטי הכרטיס התהליך לא יושלם
+        </p>
+    </div>
 
     <div class="w-full my-4 px-4">
         <button (click)="onCopyLink()" ngxClipboard [cbContent]="BASE_URL + '/ticket/' + ticket.shortId"
@@ -43,14 +54,14 @@
         </button>
     </div>
 
-    <div class="flex flex-col gap-2 p-4">
-        <h3 class="text-lg font-semibold">Details</h3>
-        <ng-container *ngIf="!isFlightTicket">
+    <div class="flex flex-col gap-4 p-4">
+        <h3 class="text-xl font-semibold">פרטי האירוע</h3>
+        <ng-container *ngIf="ticket.type == 'event'">
             <p class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/calendar.svg" alt="calendar">
                 </span>
-                {{ ticket.event?.date| date:'medium' }}
+                {{ ticket.event?.date| date: 'HH:mm ,dd/MM/yy' }}
             </p>
             <p class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
@@ -60,14 +71,14 @@
             </p>
         </ng-container>
 
-        <ng-container *ngIf="isFlightTicket">
+        <ng-container *ngIf="ticket.type == 'flight'">
             <div class="text-sm flex gap-2 items-center">
                 <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                     <img src="/assets/icons/aeroplane-takeoff.svg" alt="aeroplane-takeoff">
                 </span>
                 <div class="flex flex-col">
-                    <p>{{ ticket.flight?.outboundDepartureDate| date:'medium' }}</p>
-                    <p>{{ ticket.flight?.outboundArrivalDate | date:'medium' }}</p>
+                    <p><span class="font-bold">המראה:</span> {{ ticket.flight?.outboundDepartureDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                    <p><span class="font-bold">נחיתה ביעד:</span> {{ ticket.flight?.outboundArrivalDate | date: 'dd/MM/yy, HH:mm' }}</p>
                 </div>
             </div>
             <div *ngIf="ticket.flight?.inboundDepartureDate" class="text-sm flex gap-2 items-center">
@@ -75,8 +86,8 @@
                     <img src="/assets/icons/aeroplane-landing.svg" alt="aeroplane-landing">
                 </span>
                 <div class="flex flex-col">
-                    <p>{{ ticket.flight?.inboundDepartureDate| date:'medium' }}</p>
-                    <p>{{ ticket.flight?.inboundArrivalDate| date:'medium' }}</p>
+                    <p><span class="font-bold">המראה:</span> {{ ticket.flight?.inboundDepartureDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                    <p><span class="font-bold">נחיתה ביעד:</span> {{ ticket.flight?.inboundArrivalDate| date: 'dd/MM/yy, HH:mm' }}</p>
                 </div>
             </div>
             <div class="text-sm flex gap-2 items-center">
@@ -84,12 +95,6 @@
                     <img src="/assets/icons/number-sign.svg" alt="number-sign">
                 </span>
                 {{ ticket.flight?.number }}
-            </div>
-            <div class="text-sm flex gap-2 items-center">
-                <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
-                    <img src="/assets/icons/map-pin.svg" alt="location">
-                </span>
-                {{ ticket.flight?.destination }}
             </div>
         </ng-container>
 
@@ -118,13 +123,30 @@
             <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                 <img src="/assets/icons/globe.svg" alt="link">
             </span>
-            Official Event Website
+            אתר ההזמנה הרשמי
         </a>
     </div>
-    <app-confirmation-dialog [showDialog]="true" *ngIf="showConfirmationDialog" [title]="'האם ביצעתם שינוי שם מלא בכרטיס הטיסה?'"
+    <app-confirmation-dialog [showDialog]="true" *ngIf="showUpdateConfirmationDialog" [title]="'האם ביצעתם שינוי שם מלא בכרטיס הטיסה?'"
         [cancelButtonText]="'לא, עוד לא'" [confirmButtonText]="'כן, ביצעתי'" (cancel)="onCancelConfirmation()"
-        (confirm)="onConfirmAction()">
+        (confirm)="onConfirmUpdateAction()">
         <p class="mb-5">האם ביצעתם את השינוי בשם ההזמנה/הכרטיס לשמו המלא ופרטיו המלאים של הקונה מול חברת התעופה/התיירות?</p>
     </app-confirmation-dialog>
+    <app-confirmation-dialog [showDialog]="true" *ngIf="showDeleteConfirmationDialog"
+    title="האם אתם בטוחים שברצונכם
+    למחוק את הכרטיס?" cancelButtonText='שיניתי את דעתי'
+    confirmButtonText='מחיקת כרטיס' (cancel)="onCancelConfirmation()" (confirm)="onConfirmDeleteAction()">
+    <p class="mb-2">
+        <span class="font-bold">שימו</span> <svg class="inline" width="14" height="13" viewBox="0 0 14 13" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M0.821289 4.49624C0.821289 9.29584 7.06129 12.5198 7.06129 12.5198C7.06129 12.5198 13.3013 9.29844 13.3013 4.49624C13.3013 2.52804 11.7049 0.931644 9.73669 0.931644C8.66549 0.931644 7.71649 1.41264 7.06129 2.16144C6.40869 1.41264 5.45709 0.931644 4.38589 0.931644C2.41769 0.929044 0.821289 2.52544 0.821289 4.49624Z"
+          fill="#FFC5C5" />
+        <path
+          d="M7.06152 12.7807C7.01992 12.7807 6.98092 12.7703 6.94192 12.7521C6.68192 12.6169 0.561523 9.39812 0.561523 4.49712C0.561523 2.38852 2.27752 0.669922 4.38612 0.669922C5.38452 0.669922 6.34392 1.07032 7.06152 1.78012C7.77912 1.07032 8.73852 0.669922 9.73692 0.669922C11.8455 0.669922 13.5615 2.38852 13.5615 4.49712C13.5615 9.40072 7.44112 12.6169 7.18112 12.7521C7.14212 12.7703 7.10312 12.7807 7.06152 12.7807ZM4.38612 1.18992C2.56352 1.18992 1.08152 2.67452 1.08152 4.49712C1.08152 8.72212 6.20872 11.7485 7.06152 12.2243C7.91432 11.7485 13.0415 8.72212 13.0415 4.49712C13.0415 2.67452 11.5595 1.19252 9.73692 1.19252C8.79572 1.19252 7.89092 1.60852 7.25912 2.33392C7.16032 2.44572 6.96532 2.44572 6.86652 2.33392C6.23212 1.60592 5.32732 1.18992 4.38612 1.18992Z"
+          fill="#FEB4B4" />
+      </svg>
+      , הכרטיס יימחק לצמיתות ולא ניתן יהיה לשחזרו.
+    </p>
+</app-confirmation-dialog>
 </div>
 
