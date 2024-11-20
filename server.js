@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 
 // Serve static files from Angular dist directory
-app.use(express.static(path.join(__dirname, 'dist/clink-web')));
+app.use(express.static(path.join(__dirname, 'dist/clink-web/browser')));
 
 // Handle Angular routing
 app.get('*', (req, res) => {
