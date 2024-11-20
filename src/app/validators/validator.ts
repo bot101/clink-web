@@ -1,8 +1,5 @@
-import { AbstractControl, ValidatorFn, FormGroup, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { catchError, debounceTime, switchMap, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { AuthService } from '../services/auth/auth.service';
-
+import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+  
 export function salePriceValidator(controlName1: string, controlName2: string): ValidatorFn {
   return (formGroup: AbstractControl): {[key: string]: boolean} | null => {
     const control1 = formGroup.get(controlName1);

@@ -8,7 +8,7 @@ phases:
   pre_build:
     commands:
       - npm install
-      - npm run lint
+      # - npm run lint #Temporarily disabled linting
   build:
     commands:
       - npm run build

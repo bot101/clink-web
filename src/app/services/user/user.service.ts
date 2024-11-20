@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
 import { ApiService } from '../api/api.service';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { User } from '../../models/user';
@@ -32,7 +31,7 @@ export class UserService {
   checkEmailAvailability(email: string): Observable<boolean> {
     return this.apiService.verifyEmail(email).pipe(
       map(response => response.available),
-      catchError((err) => of(false))  
+      catchError(() => of(false))  
     );
   }
 

@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname, 'dist/clink-web')));
 
 // Handle Angular routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/clink-web/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/clink-web/browser/index.html'));
 });
 
 const port = process.env.PORT || 8080;
