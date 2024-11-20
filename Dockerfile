@@ -9,6 +9,6 @@ RUN npm run build --prod
 # Stage 2: Serve the Angular app
 FROM nginx:stable
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist/clink-mobile/browser /usr/share/nginx/html
+COPY --from=build /app/dist/clink-web/browser /usr/share/nginx/html
 EXPOSE 80
 # CMD ["nginx", "-g", "daemon off;"]
