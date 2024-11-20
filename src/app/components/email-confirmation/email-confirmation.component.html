@@ -1,43 +1,104 @@
-<div class="overflow-x-hidden flex flex-col min-h-screen">
-    <div class="w-full flex flex-col bg-[#072D4C] ">
-        <div class="flex flex-col w-[90%] md:w-[80%] md:max-w-screen-lg mx-auto">
-            <div class="hidden md:block mx-auto mt-8 mb-4"><app-logo></app-logo></div>
-            <app-onboarding-header (back)="onBackClicked()" iconType="email" class="mb-4"
-                title="אימייל ליצירת קשר ועדכונים"></app-onboarding-header>
-        </div>
-    </div>
-    <p class="text-sm lowercase text-gray-700 w-full md:max-w-[640px] mx-auto mt-10 px-9 md:px-0">אנא הזינו את כתובת
-        האימייל שלכם כדי שנוכל לשלוח עדכונים
-        חשובים
-        וליצור קשר
-        במקרה הצורך</p>
+<p
+  class="text-lg lowercase text-gray-700 w-full md:max-w-[640px] mx-auto mt-10 px-9 md:px-0"
+>
+  אנא הזינו את כתובת האימייל שלכם כדי שנוכל לשלוח עדכונים חשובים וליצור קשר
+  במקרה הצורך
+</p>
+<div
+  class="w-full md:max-w-[640px] mx-auto mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-6"
+>
+  <div
+    class="space-y-5 lowercase px-4 md:pt-8 md:pb-6 w-full md:max-w-[340px] md:mx-auto"
+  >
     <div
-        class="w-full md:max-w-[640px] mx-auto mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990] mt-6">
-        <div class="space-y-5 lowercase px-4 md:pt-8 md:pb-6 w-full md:max-w-[340px] md:mx-auto">
-            <div [formGroup]="emailForm"  class="flex flex-col justify-between space-y-3 mt-4">
-                <div class="flex flex-col">
-                    <app-input-field formControlName="email" [isError]="(emailForm.get('email')?.touched && emailForm.invalid) || false" [required]="true" type="email" label="כתובת אימייל" class="mb-1"></app-input-field>
-                    <div *ngIf="emailForm.hasError('emailTaken')"
-                        class="error-text text-sm">
-                        כתובת אימייל תפוסה
-                    </div>
-                    <div *ngIf="emailForm.get('email')?.hasError('email')"
-                        class="error-text text-sm">
-                        אנא הזינו כתובת אימייל בפורמט example&#64;domain.com
-                    </div>
-                </div>
-                <div class="flex flex-col  mt-1">
-                    <app-input-field formControlName="confirmEmail" [isError]="emailForm.touched && emailForm.invalid" type="email" label="הקלידו את כתובת האימייל שוב" class="mb-1"></app-input-field>
-                    <div *ngIf="emailForm.hasError('emailsDoNotMatch') && emailForm.touched"
-                        class="error-text text-sm">
-                        כתובות האימייל שהוזנו אינן תואמות
-                    </div>
-                </div>
-            </div>
-
-            <app-button type="submit" [disabled]="emailForm.invalid" (click)="onContinueClicked()" class="block mt-12"
-                label="המשך"></app-button>
+      [formGroup]="emailForm"
+      class="flex flex-col justify-between space-y-3 mt-4"
+    >
+      <div class="flex flex-col">
+        <app-input-field
+          formControlName="email"
+          placeholder="כתובת אימייל"
+          [isError]="
+            (emailForm.get('email')?.touched && emailForm.invalid) || false
+          "
+          [required]="true"
+          type="email"
+          label="כתובת אימייל"
+          class="mb-1"
+        ></app-input-field>
+        <div
+          *ngIf="
+            emailForm.get('email')?.touched &&
+            emailForm.get('email')?.hasError('required')
+          "
+          class="error-text text-sm"
+        >
+          שדה חובה
         </div>
+        <div
+          *ngIf="emailForm.hasError('emailTaken')"
+          class="error-text text-sm"
+        >
+          כתובת אימייל תפוסה
+        </div>
+        <div
+          *ngIf="emailForm.get('email')?.hasError('email')"
+          class="error-text text-sm"
+        >
+          אנא הזינו כתובת אימייל בפורמט example&#64;domain.com
+        </div>
+      </div>
+      <div class="flex flex-col mt-1">
+        <app-input-field
+          formControlName="confirmEmail"
+          placeholder="כתובת אימייל"
+          [isError]="emailForm.touched && emailForm.invalid"
+          type="email"
+          label="הקלידו את כתובת האימייל שוב"
+          class="mb-1"
+        ></app-input-field>
+        <div
+          *ngIf="
+            emailForm.get('confirmEmail')?.touched &&
+            emailForm.get('confirmEmail')?.hasError('required')
+          "
+          class="error-text text-sm"
+        >
+          שדה חובה
+        </div>
+        <div
+          *ngIf="
+            emailForm.get('confirmEmail')?.value &&
+            emailForm.hasError('emailsDoNotMatch') &&
+            emailForm.touched
+          "
+          class="error-text text-sm"
+        >
+          כתובות האימייל שהוזנו אינן תואמות
+        </div>
+      </div>
     </div>
+    @if(isEditMode) {
 
+      <app-button
+      type="submit"
+      [disabled]="emailForm.invalid"
+      (click)="onContinueClicked()"
+      class="block mt-12"
+      label="שמירה"
+    ></app-button>
+    <button type="button" (click)="previousStep()"
+    class="w-full px-4 py-3 border rounded-[20px] shadow-sm text-sm font-medium text-[#072d4c] border-[#072d4c] disabled:opacity-50 disabled:cursor-not-allowed">
+    ביטול
+    </button>
+    } @else {
+      <app-button
+      type="submit"
+      [disabled]="emailForm.invalid"
+      (click)="onContinueClicked()"
+      class="block mt-12"
+      label="המשך"
+    ></app-button>
+    }
+  </div>
 </div>

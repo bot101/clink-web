@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OnboardingHeaderComponent } from "../../components/onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../../components/logo/logo.component";
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketPurchaseComponent } from "../../components/ticket-purchase/ticket-purchase.component";
 import { TicketPurchasePassengerDetailsComponent } from "../../components/ticket-purchase-passenger-details/ticket-purchase-passenger-details.component";
@@ -20,7 +20,7 @@ import { Ad } from '../../models/ad';
   imports: [
     CommonModule,
     OnboardingHeaderComponent,
-    LogoComponent,
+
     TicketDetailsComponent,
     TicketPurchaseComponent,
     TicketPurchasePassengerDetailsComponent,
@@ -36,15 +36,27 @@ import { Ad } from '../../models/ad';
 export class BuyTicketComponent {
   ticketId: string;
   ticketDetails: Ad;
-  currentStep: number | null = 1;
+  currentStep: number = 1;
   totalSteps: number = 6;
   filledTicketCount: number = 0;
-  iconName: 'clipboard-pen' | 'id' = 'clipboard-pen';
 
-  stepTitles: Record<string, string> = {
-    2: 'לפני שתמשיכו בתהליך הרכישה',
-    3: 'פרטים לשינוי שם הכרטיס',
-    4: 'תנאי עסקה הוגנת'
+  stepTitles: Record<string, {title:string,icon:'clipboard-pen' | 'check-handshake' | 'ticket' | 'id' | ''}> = {
+    2: {
+      title:'לפני שתמשיכו בתהליך הרכישה',
+      icon:'clipboard-pen'
+    },
+    3: {
+      title:'פרטים לשינוי שם הכרטיס',
+      icon:'id'
+    },
+    4: {
+      title:'תנאי עסקה הוגנת',
+      icon:'check-handshake'
+    },
+    5: {
+      title:'',
+      icon:'ticket'
+    }
   };
 
 
@@ -61,75 +73,54 @@ export class BuyTicketComponent {
   }
 
   getTicketDetails() {
-    this.ticketPurchaseService.getTicketDetails(this.ticketId).subscribe((ticketDetails) => {
-      this.ticketDetails = ticketDetails;
+    this.ticketPurchaseService.getTicketDetails(this.ticketId).subscribe({
+      next: (ticketDetails) => {
+        this.ticketDetails = ticketDetails;
+      },
+      error: (err)=> {
+        this.currentStep = 0;
+      }
     });
   }
 
-  stepChange(step: number) {
-    this.iconName = step === 1 ? 'clipboard-pen' : 'id';
-  }
+  submit() {
+    this.ticketPurchaseService.createTransaction().subscribe({
+      next: ()=>{
+        this.currentStep = 10;
+        //this.stepTitles[5].title = this.ticketDetails.event?.title || '';
+      },
+      error: ()=>{
 
+      }
+    })
+
+    //   this.confirmationDialog.configureDialog({
+    //     showDialog: true,
+    //     showCancelButton: false,
+    //     disableConfirmButton: false,
+    //     title: 'Error!',
+    //     message: 'An error occurred while creating the transaction',
+    //     cancelButtonText: 'Cancel',
+    //     confirmButtonText: 'Continue'
+    //   });
+  }
+  
   nextStep() {
-    console.log('Before next step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
-    if (this.currentStep && this.currentStep < this.totalSteps) {
-      if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
-        if(this.filledTicketCount < 0) {
-          this.filledTicketCount = 0;
-        }
-        if (this.filledTicketCount < this.ticketDetails.amount - 1) {
-          this.filledTicketCount++;
-          console.log('After next step (filling tickets)', {
-            currentStep: this.currentStep, 
-            filledTicketCount: this.filledTicketCount,
-            ticketDetails: this.ticketDetails
-          });
-          return;
-        }
+    if(this.ticketDetails.type==='event' && this.currentStep === 2) {
+      this.currentStep = 4;
+    } else if(this.ticketDetails.type==='flight' && this.currentStep === 3) {
+      if(this.filledTicketCount < this.ticketDetails.amount - 1) {
+        console.log(this.filledTicketCount < this.ticketDetails.amount);
+        console.log(this.filledTicketCount,this.ticketDetails.amount);
+        this.filledTicketCount++;
+      } else {
+        this.currentStep++;
       }
-      this.currentStep++;
-      this.stepChange(this.currentStep);
-    }
-    console.log('After next step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
-  }
-  // Short IDs
-  // gM9O2xhB - flight:amount:3
-  // gM5QOdhV - flight:amount:10
-  previousStep() {
-    console.log('Before previous step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
-    if (this.currentStep && this.currentStep > 1) {
-      if (this.currentStep === 2 && this.ticketDetails.type === 'flight') {
-        if (this.filledTicketCount > 0) {
-          this.filledTicketCount--;
-          console.log('After previous step (filling tickets)', {
-            currentStep: this.currentStep, 
-            filledTicketCount: this.filledTicketCount,
-            ticketDetails: this.ticketDetails
-          });
-          return;
-        }
-      }
-      this.currentStep--;
-      this.stepChange(this.currentStep);
     } else {
-      this.router.navigate(['..']);
-    }
-    console.log('After previous step', {
-      currentStep: this.currentStep, 
-      filledTicketCount: this.filledTicketCount,
-      ticketDetails: this.ticketDetails
-    });
+      this.currentStep++;
+    } 
+  }
+  previousStep() {
+    this.currentStep--;
   }
 }

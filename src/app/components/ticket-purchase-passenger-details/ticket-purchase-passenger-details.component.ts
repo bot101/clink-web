@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../logo/logo.component";
+
 import { ButtonComponent } from "../button/button.component";
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { RadioGroupComponent } from "../radio-group/radio-group.component";
@@ -17,7 +17,7 @@ import { TicketPurchaseService } from '../../services/ticket-purchase/ticket-pur
     CommonModule,
     ReactiveFormsModule,
     OnboardingHeaderComponent,
-    LogoComponent,
+
     ButtonComponent,
     InputFieldComponent,
     RadioGroupComponent,
@@ -47,7 +47,10 @@ export class TicketPurchasePassengerDetailsComponent implements OnInit, OnChange
       firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]],
       gender: ['', Validators.required],
-      idNumber: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      idNumber: ['', [
+        Validators.required, 
+        //Validators.pattern(/^\d{9}$/)
+      ]],
       dateOfBirth: ['', Validators.required],
       passportNumber: ['', Validators.pattern(/^\d+$/)],
       passportExpirationDate: ['']

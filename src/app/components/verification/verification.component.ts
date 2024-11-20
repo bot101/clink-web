@@ -1,14 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
-import { LogoComponent } from "../logo/logo.component";
+
 import { Router } from '@angular/router';
 import { ButtonComponent } from "../button/button.component";
 import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-verification',
   standalone: true,
-  imports: [OnboardingHeaderComponent, LogoComponent, ButtonComponent],
+  imports: [OnboardingHeaderComponent,  ButtonComponent],
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.scss'
 })
@@ -19,14 +20,14 @@ export class VerificationComponent implements OnInit {
   totalSteps: number = 2;
   formData: any;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.formData = this.authService.getFormData();
+    this.formData = this.userService.getFormData();
   }
 
   nextStep() {
-    this.authService.updateFormData({ ...this.formData, isVerified: true });
+    this.userService.updateFormData({ ...this.formData, isVerified: true });
     this.onContinue.emit();
     return;
     if (this.currentStep < this.totalSteps) {

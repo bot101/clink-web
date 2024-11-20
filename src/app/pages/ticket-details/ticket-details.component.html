@@ -3,11 +3,20 @@
         <div class="px-4 lg:px-14 py-6 lg:py-10 w-full">
             <div class="flex flex-col justify-between items-center">
                 <a class="cursor-pointer" [routerLink]="['/']">
-                    <img src="/assets/icons/logo.svg" alt="Logo">
+                    <img src="/assets/icons/logo.png" alt="Logo" style="width: 200px;">
                 </a>
             </div>
         </div>
-        <div class="flex flex-col gap-2 items-center text-center">
+        @if (isLoading) {
+            <div role="status" class="flex justify-center">
+                <svg aria-hidden="true" class="inline w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                </svg>
+                <span class="sr-only">Loading...</span>
+            </div>
+        } 
+        <div class="flex flex-col gap-2 items-center text-center"  *ngIf="!isLoading">
             <div class="flex flex-col gap-2 text-white  items-center">
                 <h2 class="text-4xl font-bold mr-2 mb-4">{{ticket.event?.title}}</h2>
                 <p class="text-sm">
@@ -21,11 +30,21 @@
 
     <div
         class="flex-grow w-full md:max-w-[640px] mx-auto -mt-[130px] md:-mt-[130px] min-h-[50vh] mb-44 md:mb-48 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:border md:border-[#D9D6D1]">
+
         <div class="my-8 bg-[#EFECE6] rounded-xl p-4">
-            <div class="flex justify-between mb-2">
+            @if (isLoading) {
+                <div role="status" class="flex justify-center">
+                    <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            } 
+            <div class="flex justify-between mb-2"  *ngIf="!isLoading">
                 <div class="flex flex-col">
                     <h2 class="text-2xl font-medium mr-2 mb-4">{{ticket.user.fullName}}</h2>
-                    <p class=" flex items-center gap-1" *ngIf="ticket.user.isVerified">
+                    <p class=" flex items-center gap-1" *ngIf="ticket.user?.isVerified">
                         <img src="/assets/icons/shield-checked.svg" alt="shield-checked">
                         זהות מאומתת
                     </p>
@@ -40,7 +59,7 @@
                     </span>
                     <div *ngIf="showTrustedSellerPopup"
                         class="absolute z-10 p-2 left-1 bg-white border border-gray-300 rounded-xl shadow-md mt-1 w-[60vw] md:w-[30vw]">
-                        <p class="text-sm">This seller has completed 5 or more sales without any deleted ads.</p>
+                        <p class="text-sm">מוכר אמין הוא מוכר שביצע 5 מכירות לפחות ללא תלונות מצד הרוכשים.</p>
                     </div>
                 </div>
             </div>
@@ -54,71 +73,153 @@
                     <a routerLink="/how-it-works" class="text-[#072D4C] font-bold underline">Learn more about how it
                         works</a> -->
                     <!-- <div class="flex flex-col gap-2"> -->
-                    <div *ngFor="let i of [1,2,3,4,5]">
-                        <div class="flex flex-col mb-3">
+                    <div>
+                        <div class="flex flex-col mb-8">
                             <p class="flex gap-2 items-center mb-2">
-                                <img src="/assets/icons/pink-checkmark.svg" class="w-6 h-6" alt="pink-checkmark">
-                                <span class="text-lg font-medium">header</span>
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-8 h-8" alt="pink-checkmark">
+                                <span class="text-lg font-medium">מוכרים מאומתים</span>
                             </p>
-                            <p>text</p>
-                            <p>text</p>
+                            <p>כל עסקה מתבצעת בביטחון מלא – בלי חשש
+                                להונאות או בעיות.</p>
                         </div>
                     </div>
-                    <!-- </div> -->
-                    <!-- <div  class="flex flex-col">
-                        <p class="flex gap-2 items-center mb-2">
-                            <img src="/assets/icons/pink-checkmark.svg" class="w-6 h-6" alt="pink-checkmark">
-                            <span class="text-lg font-medium">header</span>
-                        </p>
-                        <p>text</p>
-                        <p>text</p>
-                    </div> -->
+                    <div>
+                        <div class="flex flex-col mb-8">
+                            <p class="flex gap-2 items-center mb-2">
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-8 h-8" alt="pink-checkmark">
+                                <span class="text-lg font-medium">הגנה על הכסף</span>
+                            </p>
+                            <p>הכסף שלכם מוגן עד שהעסקה ההוגנת הושלמה.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex flex-col mb-8">
+                            <p class="flex gap-2 items-center mb-2">
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-8 h-8" alt="pink-checkmark">
+                                <span class="text-lg font-medium">פרטיות מלאה</span>
+                            </p>
+                            <p>בלי לחשוף מספרי טלפון או פרטי חשבון בנק – הכל נשאר מוגן ובטוח.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex flex-col mb-8">
+                            <p class="flex gap-2 items-center mb-2">
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-8 h-8" alt="pink-checkmark">
+                                <span class="text-lg font-medium">תהליך פשוט ומהיר</span>
+                            </p>
+                            <p>מוכרים וקונים בקלות, עם מינימום תקשורת
+                                ובלי בלגן מיותר.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex flex-col mb-8">
+                            <p class="flex gap-2 items-center mb-2">
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-8 h-8" alt="pink-checkmark">
+                                <span class="text-lg font-medium">תמיד כאן בשבילכם</span>
+                            </p>
+                            <p>לכל שאלה, בעיה או עצה – אנחנו כאן ללוות אתכם לאורך כל הדרך.</p>
+                        </div>
+                    </div>                    
+                    <div>
+                        <div class="flex flex-col mb-8">
+                            <p class="flex gap-2 items-center mb-2">
+                                <img src="/assets/icons/pink-checkmark.svg" class="w-8 h-8" alt="pink-checkmark">
+                                <span class="text-lg font-medium">הדרך הבטוחה לעסקה הוגנת</span>
+                            </p>
+                            <p>אנחנו נותנים לכם את הכלים לבצע עסקה בטוחה והוגנת, אם תתעורר בעיה – יש לכם פתרון מהיר ויעיל.</p>
+                        </div>
+                    </div>
 
                 </app-expandable-section>
             </div>
 
-            <div class="p-4">
-                <h2 class="text-xl font-medium mb-2">פרטי האירוע</h2>
-                <!-- <p class="text-sm text-gray-600 mb-2">ID: {{ uniqueIdentifier }}</p> -->
-                <!-- <p class="text-base mb-2">{{ numberOfTickets }} tickets available</p> -->
-                <p class="text-sm flex gap-2 items-center mb-2">
-                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
-                        <img src="/assets/icons/calendar.svg" alt="calendar">
-                    </span>
-                    {{  ticket.event?.date  | date:'medium' }}
-                </p>
-                <p class="text-sm flex gap-2 items-center mb-2">
-                    <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
-                        <img src="/assets/icons/map-pin.svg" alt="location">
-                    </span>
-                    {{ ticket.event?.location }}
-                </p>
-                <p class="text-sm flex gap-2 items-center mb-2">
+ 
+            <div class="flex flex-col gap-4 p-4">
+                <h3 class="text-xl font-semibold">פרטי האירוע</h3>
+                <ng-container *ngIf="ticket.type == 'event'">
+                    <p class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/calendar.svg" alt="calendar">
+                        </span>
+                        {{ ticket.event?.date| date: 'HH:mm ,dd/MM/yy' }}
+                    </p>
+                    <p class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/map-pin.svg" alt="location">
+                        </span>
+                        {{ ticket.event?.location }}
+                    </p>
+                </ng-container>
+        
+                <ng-container *ngIf="ticket.type == 'flight'">
+                    <div class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/aeroplane-takeoff.svg" alt="aeroplane-takeoff">
+                        </span>
+                        <div class="flex flex-col">
+                            <p><span class="font-bold">המראה:</span> {{ ticket.flight?.outboundDepartureDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                            <p><span class="font-bold">נחיתה ביעד:</span> {{ ticket.flight?.outboundArrivalDate | date: 'dd/MM/yy, HH:mm' }}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="ticket.flight?.inboundDepartureDate" class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/aeroplane-landing.svg" alt="aeroplane-landing">
+                        </span>
+                        <div class="flex flex-col">
+                            <p><span class="font-bold">המראה:</span> {{ ticket.flight?.inboundDepartureDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                            <p><span class="font-bold">נחיתה ביעד:</span> {{ ticket.flight?.inboundArrivalDate| date: 'dd/MM/yy, HH:mm' }}</p>
+                        </div>
+                    </div>
+                    <div class="text-sm flex gap-2 items-center">
+                        <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
+                            <img src="/assets/icons/number-sign.svg" alt="number-sign">
+                        </span>
+                        {{ ticket.flight?.number }}
+                    </div>
+                </ng-container>
+        
+                <p class="text-sm flex gap-2 items-center">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/money.svg" alt="money">
                     </span>
-                    <span class="line-through gap-2">{{ ticket.buyPrice| currency: 'ILS' }}</span>
-                    <span>{{ ticket.sellPrice | currency: 'ILS' }} לכרטיס</span>
+                    <ng-container *ngIf="ticket.sellPrice"> 
+                        <span class="line-through">{{ ticket.buyPrice| currency: 'ILS'}}</span>
+                        <span>{{ ticket.sellPrice| currency: 'ILS'}}</span> לכרטיס
+                    </ng-container>
+                    <ng-container *ngIf="!ticket.sellPrice"> 
+                        {{ ticket.buyPrice| currency: 'ILS'}}
+                    </ng-container>
                 </p>
-                <p *ngIf="ticket.details" class="text-sm flex gap-2 items-center mb-2">
+        
+                <p *ngIf="ticket.details" class="text-sm flex gap-2 items-center mt-2">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/note.svg" alt="note">
                     </span>
                     {{ ticket.details }}
                 </p>
+        
                 <a *ngIf="ticket.event?.url" [href]="ticket.event?.url" target="_blank"
                     class="text-base font-bold text-[#072D4C] underline mt-2 flex gap-2 items-center">
                     <span class="h-8 w-8 rounded-full flex items-center justify-center bg-[#EFECE6]">
                         <img src="/assets/icons/globe.svg" alt="link">
                     </span>
-                    Official Booking Website
+                    אתר ההזמנה הרשמי
                 </a>
             </div>
         </div>
 
         <div
             class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-md shadow-gray-300 border-gray-200 text-center">
-            <h2 class="text-xl font-medium mb-4 text-center">
+            @if (isLoading) {
+                <div role="status" class="flex justify-center mb-4">
+                    <svg aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            } 
+            <h2 class="text-xl font-medium mb-4 text-center"  *ngIf="!isLoading">
                 <ng-container *ngIf="ticket.sellPrice">
                     <span class="line-through gap-2">{{ ticket.buyPrice| currency: 'ILS' }}</span>
                     <span>{{ ticket.sellPrice | currency: 'ILS' }} לכרטיס</span>

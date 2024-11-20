@@ -8,6 +8,7 @@ import { CheckboxComponent } from "../../components/checkbox/checkbox.component"
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,27 +28,18 @@ import { User } from '../../models/user';
 export class ProfileComponent implements OnInit {
   
   showConfirmationDialog = false;
-  isTrustedSeller: boolean = false;
   showTrustedSellerPopup: boolean = false;
-  ticketsSold: number = 0;
   deleteAccountConfirmed: boolean = false;
-  userInfo:User | undefined
+  userInfo: User | null = null;
+  isLoading:boolean = false;
 
-  constructor(private router: Router,private authService:AuthService) {}
+  constructor(private router: Router,private userService:UserService,private authService:AuthService) {
 
-  ngOnInit() {
-    // Fetch user data and set properties
-    this.fetchUserData();
   }
-
-  fetchUserData() {
-    this.authService.getUserInfo().subscribe({
-      next:(info)=>{
-        this.userInfo = info
-      }
-    })
-    this.isTrustedSeller = true;
-    this.ticketsSold = 10;
+  ngOnInit(): void {
+    this.userService.user$.subscribe(user => {
+      this.userInfo = user;
+    });
   }
 
   toggleTrustedSellerPopup() {
@@ -82,7 +74,12 @@ export class ProfileComponent implements OnInit {
   }
 
   onConfirmAction() {
-    // TODO: Implement action
-    this.showConfirmationDialog = false;
+    this.userService.deleteUser().subscribe({
+      next: ()=>{
+        this.authService.signOut();
+        this.router.navigate(['/']);
+        this.showConfirmationDialog = false;
+      }
+    })
   }
 }

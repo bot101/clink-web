@@ -6,7 +6,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-      <h2 class="text-2xl font-medium text-[#072d4c]">{{ title }}</h2>
+      <h2 class="text-2xl font-medium text-[#072d4c] max-w-[20rem]">{{ title }}</h2>
     </div>
     <div class="p-4">
       <div *ngIf="message; else contentProjection">
@@ -17,11 +17,11 @@
       </ng-template>
       <ng-template #dynamicComponentContainer></ng-template>
     </div>
-    <div class="flex flex-row-reverse justify-end gap-2 space-x-4 p-4 w-full">
-      <button *ngIf="showCancelButton" (click)="onCancel()" class="px-4 py-2 text-sm font-medium text-[#072d4c] border border-[#072d4c] rounded-2xl hover:bg-gray-100 w-full">
+    <div class="flex flex-row-reverse justify-end space-x-4 p-4 w-full">
+      <button *ngIf="showCancelButton" (click)="onCancel()" class="px-6 py-3 text-sm font-medium text-[#072d4c] border border-[#072d4c] rounded-3xl hover:bg-gray-100 w-full">
         {{ cancelButtonText }}
       </button>
-      <button (click)="onConfirm()" [disabled]="disableConfirmButton" class="px-4 py-2 text-sm font-medium text-white bg-[#072d4c] rounded-2xl hover:bg-[#051f35] w-full disabled:bg-gray-400">
+      <button (click)="onConfirm()" [disabled]="disableConfirmButton" class="px-6 py-3 text-sm font-medium text-white bg-[#072d4c] rounded-3xl hover:bg-[#051f35] w-full disabled:bg-gray-400">
         {{ confirmButtonText }}
       </button>
     </div>

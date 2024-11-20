@@ -1,0 +1,45 @@
+<div class="overflow-x-hidden flex flex-col min-h-screen">
+  <app-onboarding-header
+    [currentStep]="currentStep"
+    [totalSteps]="totalSteps"
+    [title]="stepTitles[adType][currentStep]"
+    [iconName]="adType"
+    (back)="previousStep()"
+  ></app-onboarding-header>
+
+  <div
+    class="w-full md:max-w-[640px] mx-auto md:mt-12 mb-16 p-5 md:pt-0 md:bg-white rounded-none md:rounded-3xl md:shadow-gray-300 border-0 md:border md:border-[#9D9990]"
+  >
+    <ng-container *ngIf="adType === 'event'">
+      <ng-container *ngIf="currentStep === 1">
+        <app-ticket-event></app-ticket-event>
+      </ng-container>
+      <ng-container *ngIf="currentStep === 2">
+        <app-ticket-event-detail></app-ticket-event-detail>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="adType === 'flight'">
+      <app-ticket-flight 
+        *ngIf="currentStep === 1"
+        (nextStep)="nextStep()"
+        (previousStep)="previousStep()"
+        [isEditMode]="true"
+      >
+      </app-ticket-flight>
+      <app-ticket-flight-dates
+        *ngIf="currentStep === 2"
+        
+        (nextStep)="nextStep()"
+        (previousStep)="previousStep()"
+        [isEditMode]="true"
+      ></app-ticket-flight-dates>
+      <app-ticket-flight-detail
+        *ngIf="currentStep === 3"
+        
+        (nextStep)="submit()"
+        (previousStep)="previousStep()"
+        [isEditMode]="true"
+      ></app-ticket-flight-detail>
+    </ng-container>
+  </div>
+</div>

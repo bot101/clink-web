@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { LogoComponent } from '../logo/logo.component';
+
 import { CommonModule } from '@angular/common';
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { FlightIconComponent } from "../icons/flight-icon/flight-icon.component";
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     OnboardingHeaderComponent,
-    LogoComponent,
+
     CommonModule,
     FlightIconComponent,
     TicketIconComponent

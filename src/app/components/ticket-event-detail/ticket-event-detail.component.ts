@@ -2,15 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogoComponent } from '../logo/logo.component';
-import { TicketEventService } from '../../services/ticket-event/ticket-event.service';
-import { ApiService } from '../../services/api/api.service';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { OnboardingHeaderComponent } from "../onboarding-header/onboarding-header.component";
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { ButtonComponent } from '../button/button.component';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { salePriceValidator } from '../../validators/validator';
+import { AdService } from '../../services/ad/ad.service';
 
 @Component({
   selector: 'app-ticket-event-detail',
@@ -18,7 +16,6 @@ import { salePriceValidator } from '../../validators/validator';
   imports: [
     CommonModule, 
     ReactiveFormsModule, 
-    LogoComponent, 
     NgxCurrencyDirective, 
     OnboardingHeaderComponent, 
     RadioGroupComponent,
@@ -38,14 +35,12 @@ export class TicketEventDetailComponent implements OnInit {
   
   constructor(
     private router: Router,
-    private ticketEventService: TicketEventService,
-    private apiService: ApiService,
-    private currencyPipe: CurrencyPipe,
+    private adService: AdService,
     private fb: FormBuilder
   ) {}
   
   ngOnInit() {
-    this.previousData = this.ticketEventService.getFormData();
+    this.previousData = this.adService.getFormData();
     this.initForm();
   }
 
@@ -57,7 +52,7 @@ export class TicketEventDetailComponent implements OnInit {
       ticketDetails: [''],
       eventLink: ['', [Validators.pattern('https?://.+')]]
     }, {
-      validators: salePriceValidator('costPrice', 'salePrice')
+      validators: salePriceValidator('salePrice','costPrice')
     });
   }
 
@@ -67,25 +62,13 @@ export class TicketEventDetailComponent implements OnInit {
 
   onFinish(): void {
     if (this.ticketForm.valid) {
-      const completeData = {
-        ...this.previousData,
-        ...this.ticketForm.value
-      };
-
-      this.apiService.submitTicketEvent(completeData).subscribe(
-        (response: any) => {
-          this.clearForm();
-          this.nextStep.emit();
-        },
-        (error: any) => {
-          //alert('Error submitting ticket event');
-        }
-      );
+      this.adService.updateFormData(this.ticketForm.value);
+      this.nextStep.emit();
     }
   }
 
   private clearForm(): void {
-    this.ticketEventService.clearFormData();
+    this.adService.clearFormData();
     this.ticketForm.reset({
       ticketQuantity: 1,
       costPrice: 0,

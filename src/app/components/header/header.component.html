@@ -1,9 +1,11 @@
-<div #header class="fixed left-0 top-0 w-screen bg-[#072D4C] px-4 lg:px-14 py-6 lg:py-10 z-[500]">
+<div #header class="fixed left-0 top-0 w-screen bg-[#072D4C] px-4 lg:px-14 py-6 lg:py-10 z-[49]">
   <div class="flex flex-col md:flex-row justify-between items-center">
-    <div class="flex items-center w-full md:hidden">
+    <div class="flex items-center w-full md:hidden px-4">
       <!-- Mobile header -->
       <app-rounded-person class="cursor-pointer" (click)="goToProfile()"></app-rounded-person>
-      <app-logo class="mx-auto"></app-logo>
+      <div class="mx-auto">
+        <img width="142" height="38" src="/assets/icons/logo.png" alt="Logo">
+      </div>
       <app-hamburger (toggleMenu)="toggleMobileMenu()"></app-hamburger>
     </div>
 
@@ -16,15 +18,16 @@
           <ul class="flex flex-col gap-y-2">
             <li><a href="/profile" class="text-black hover:text-gray-700">הפרופיל שלי</a></li>
             <!-- <li><a href="#" class="text-black hover:text-gray-700">Settings</a></li> -->
-            <li><a href="#" class="text-black hover:text-gray-700">התנתקות</a></li>
+            <li><a href="#" class="text-black hover:text-gray-700" (click)="signOut()">התנתקות</a></li>
           </ul>
         </div>
-        <div class="flex flex-row-reverse items-center gap-x-2">
-          <img *ngIf="isSubmenuOpen" src="/assets/icons/chevron-up.svg" alt="Chevron Up" class="cursor-pointer"
-            (click)="toggleSubmenu()">
-          <img *ngIf="!isSubmenuOpen" src="/assets/icons/chevron-down.svg" alt="Chevron Down" class="cursor-pointer"
-            (click)="toggleSubmenu()">
-          <app-rounded-person class="cursor-pointer" (click)="toggleSubmenu()"></app-rounded-person>
+        <div class="flex flex-row-reverse items-center gap-x-2"> 
+          <ng-container *ngIf="isLoggedIn">
+            <img *ngIf="isSubmenuOpen" src="/assets/icons/chevron-up.svg" alt="Chevron Up" class="cursor-pointer" (click)="toggleSubmenu()">
+            <img *ngIf="!isSubmenuOpen" src="/assets/icons/chevron-down.svg" alt="Chevron Down" class="cursor-pointer" (click)="toggleSubmenu()">
+            <app-rounded-person class="cursor-pointer" (click)="toggleSubmenu()"></app-rounded-person>  
+          </ng-container>
+          <app-rounded-person *ngIf="!isLoggedIn" class="cursor-pointer" routerLink="/sign"></app-rounded-person>  
         </div>
       </div>
 
@@ -40,7 +43,7 @@
     </div>
     <div class="hidden md:flex items-center gap-x-2">
       <a class="cursor-pointer" [routerLink]="['/']">
-        <img width="142" height="38" src="/assets/icons/logo.svg" alt="Logo">
+        <img width="142" height="38" src="/assets/icons/logo.png" alt="Logo">
       </a>
     </div>
 

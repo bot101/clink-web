@@ -1,0 +1,2 @@
+<app-onboarding-header title="פרטים לקבלת תשלום" iconName="money-hand" [hideStep]="true" (back)="cancel()"></app-onboarding-header>
+<app-payment (onContinue)="submit()" (onBack)="cancel()" [isEditMode]="true"></app-payment>

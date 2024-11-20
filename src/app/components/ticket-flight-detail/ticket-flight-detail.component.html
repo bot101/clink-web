@@ -1,0 +1,188 @@
+<form
+  [formGroup]="ticketForm"
+  (ngSubmit)="onFinish()"
+  class="space-y-5 lowercase md:pt-8 md:pb-4 w-full md:max-w-[340px] md:mx-auto"
+>
+  <h2
+    for="eventName"
+    class="block text-lg md:text-2xl font-[700] text-gray-700"
+  >
+    מחיר ופרטים נוספים
+  </h2>
+
+  <div>
+    <label for="ticketQuantity" class="block text-lg lowercase text-gray-700"
+      >כמות כרטיסים</label
+    >
+    <app-radio-group
+      id="ticketQuantity"
+      formControlName="ticketQuantity"
+      name="ticketQuantity"
+      [options]="[
+        { value: 1, label: '1' },
+        { value: 2, label: '2' },
+        { value: 3, label: '3' },
+        { value: 4, label: '4' },
+        { value: 5, label: '5' }
+      ]"
+    ></app-radio-group>
+    <div
+      *ngIf="
+        ticketForm.get('ticketQuantity')?.invalid &&
+        (ticketForm.get('ticketQuantity')?.dirty ||
+          ticketForm.get('ticketQuantity')?.touched)
+      "
+      class="error-text"
+    >
+      <div *ngIf="ticketForm.get('ticketQuantity')?.errors?.['required']">
+        שדה חובה
+      </div>
+      <div
+        *ngIf="ticketForm.get('ticketQuantity')?.errors?.['min'] || ticketForm.get('ticketQuantity')?.errors?.['max']"
+      >
+        כמות הכרטיסים חייבת להיות בין 1 ל5
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="costPrice" class="block text-lg text-gray-700">
+      בכמה רכשתם כל כרטיס?
+    </label>
+    <p class="mt-3 text-[14px]">
+      לדוגמה, אם רכשתם 2 כרטיסים ב -1000 ₪ כל אחד, רשמו 1000 ₪
+    </p>
+    <input
+      [class.error-field]="
+        (ticketForm.hasError('numberComparison') ||
+          ticketForm.get('costPrice')?.invalid) &&
+        ticketForm.get('costPrice')?.touched
+      "
+      type="text"
+      id="costPrice"
+      formControlName="costPrice"
+      currencyMask
+      [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }"
+      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36"
+    />
+    <div
+      *ngIf="
+        ticketForm.hasError('numberComparison') &&
+        ticketForm.get('costPrice')?.touched
+      "
+      class="error-text text-sm mt-1"
+    >
+      מחיר המכירה לא יכול להיות גבוה יותר מהמחיר ששילמתם
+    </div>
+    <div
+      *ngIf="
+        ticketForm.get('costPrice')?.invalid &&
+        (ticketForm.get('costPrice')?.dirty ||
+          ticketForm.get('costPrice')?.touched)
+      "
+      class="error-text"
+    >
+      <div *ngIf="ticketForm.get('costPrice')?.hasError('required')">
+        שדה חובה
+      </div>
+      <div *ngIf="ticketForm.get('costPrice')?.hasError('min')">
+        מחיר חייב להיות גדול מ0
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="salePrice" class="block text-lg text-gray-700">
+      בכמה אתם מוכרים כל כרטיס?
+    </label>
+    <p class="mt-3 text-[14px]">
+      לדוגמה, אם רכשתם 2 כרטיסים ב -1000 ₪ כל אחד, רשמו 1000 ₪
+    </p>
+    <input
+      [class.error-field]="
+        (ticketForm.hasError('numberComparison') ||
+          ticketForm.get('salePrice')?.invalid) &&
+        ticketForm.get('salePrice')?.touched
+      "
+      type="text"
+      id="salePrice"
+      formControlName="salePrice"
+      currencyMask
+      [options]="{ prefix: '₪ ', thousands: ',', decimal: '.', precision: 2 }"
+      class="mt-1 rounded-xl border-[#D9D9D9] border pr-4 py-3 max-w-36"
+    />
+    <div
+      *ngIf="
+        ticketForm.get('salePrice')?.invalid &&
+        ticketForm.get('salePrice')?.touched
+      "
+      class="error-text"
+    >
+      <div *ngIf="ticketForm.get('salePrice')?.hasError('required')">
+        שדה חובה
+      </div>
+      <div *ngIf="ticketForm.get('salePrice')?.hasError('min')">
+        מחיר חייב להיות גדול מ0
+      </div>
+    </div>
+  </div>
+
+
+
+  <p class="text-md">
+    יש להכניס מחיר בשקלים בלבד. <br/>
+    עליכם לחשב המרה? כדי להקל עליכם, צירפנו
+    <a
+      href="https://www.google.com/search?q=convert+currency"
+      target="_blank"
+      class="text-[#072d4c] underline font-bold"
+      >קישור</a
+    > למחשבון של גוגל.
+  </p>
+
+  <div>
+    <label for="generalDetails" class="block text-lg text-gray-700"
+      >פירוט כללי על הכרטיס</label
+    >
+    <textarea
+      [class.error-field]="
+        ticketForm.get('generalDetails')?.invalid &&
+        ticketForm.get('generalDetails')?.touched
+      "
+      placeholder="אנא ציינו פרטים נוספים על כרטיס הטיסה, למשל: סוג התעריף ( Y, B, M – כל אות מסמלת תנאים שונים), סוג המחלקה (תיירים, פרימיום, עסקים), האם הכרטיס גמיש לשינויים בתאריכים, מיקום ישיבה ושירותים נוספים (כגון כבודה, מזון ומשקאות, כיסאות עם מקום נוסף לרגליים).כל פרט נוסף שיכול לעניין את הקונה חשוב!"
+      id="generalDetails"
+      formControlName="generalDetails"
+      class="mt-1 block w-full min-h-40 rounded-xl border-[#D9D9D9] border px-4 py-3"
+    ></textarea>
+    <div
+      *ngIf="
+        ticketForm.get('generalDetails')?.invalid &&
+        ticketForm.get('generalDetails')?.touched
+      "
+      class="error-text"
+    ></div>
+  </div>
+  <div class="flex flex-col items-end">
+    <app-checkbox
+      customClass="flex-row-reverse gap-3"
+      formControlName="isChecked"
+      label="בדקתי עם חברת התעופה/התיירות והם אישרו שניתן לשנות את השם המלא של הנוסע בכרטיס/בהזמנה שאני מעלה למכירה.לשאלות ועזרה פנו אלינו בצ׳אט"
+    ></app-checkbox>
+    <div
+      *ngIf="
+        ticketForm.get('isChecked')?.touched &&
+        !ticketForm.get('isChecked')?.value
+      "
+      class="error-text text-sm mt-1 w-full"
+    >
+      חובה לאשר סעיף זה
+    </div>
+  </div>
+
+  <app-button
+    buttonClasses="mt-6"
+    [label]="isEditMode ? 'שמירה' : 'סיום'"
+    type="submit"
+    [disabled]="!ticketForm.valid"
+  ></app-button>
+</form>

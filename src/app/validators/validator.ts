@@ -19,3 +19,17 @@ export function salePriceValidator(controlName1: string, controlName2: string): 
     return null; 
   };
 }
+
+export function matchEmailsValidator(control: AbstractControl): ValidationErrors | null {
+  const email = control.get('email')?.value;
+  const confirmEmail = control.get('confirmEmail')?.value;
+
+  return email === confirmEmail ? null : { emailsDoNotMatch: true };
+}
+
+export function dateValidator() {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const valid = /^\d{2}\/\d{2}\/\d{4}$/.test(control.value);
+    return valid ? null : { invalidDate: { value: control.value } };
+  };
+}

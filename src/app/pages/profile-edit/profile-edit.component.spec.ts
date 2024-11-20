@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewAdComponent } from './new-ad.component';
+import { ProfileEditComponent } from './profile-edit.component';
 
-describe('NewAdComponent', () => {
-  let component: NewAdComponent;
-  let fixture: ComponentFixture<NewAdComponent>;
+describe('ProfileEditComponent', () => {
+  let component: ProfileEditComponent;
+  let fixture: ComponentFixture<ProfileEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewAdComponent]
+      imports: [ProfileEditComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NewAdComponent);
+    fixture = TestBed.createComponent(ProfileEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

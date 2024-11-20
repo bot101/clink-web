@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import Intercom from '@intercom/messenger-js-sdk';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
 
 Intercom({
   app_id: environment.INTERCOM_APP_ID,
@@ -16,10 +17,10 @@ Intercom({
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  constructor(private authService:AuthService) {}
+  constructor(private authService:AuthService,private userService:UserService) {}
   ngOnInit(): void {
     if(this.authService.isLoggedIn()) {
-      this.authService.getUserInfo()
+      this.userService.loadUserData();
     }
   }
 }

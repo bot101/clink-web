@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
-import { LogoComponent } from "../logo/logo.component";
+
 import { RoundedPersonComponent } from "../icons/rounded-person/rounded-person.component";
 import { HamburgerComponent } from "../icons/hamburger/hamburger.component";
 import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, LogoComponent, RoundedPersonComponent, HamburgerComponent, MobileMenuComponent],
+  imports: [CommonModule, RouterModule,  RoundedPersonComponent, HamburgerComponent, MobileMenuComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   host: {
@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private authService:AuthService, private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
     this.resizeListener = this.renderer.listen('window', 'resize', () => {
       this.updateHeaderHeight();
     });
@@ -55,15 +56,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profile']);
   }
 
+
   private updateHeaderHeight(): void {
     const headerElement = this.el.nativeElement.querySelector('#header');
     if (headerElement) {
       const offsetHeight = headerElement.offsetHeight;
       this.renderer.setStyle(headerElement, 'height', `${offsetHeight}px`);
+      console.log(offsetHeight);
+      
     }
   }
   signOut() {
     this.authService.signOut();
+    this.isSubmenuOpen = false;
+    this.isLoggedIn = false;
   }
 
 }

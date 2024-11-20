@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AdService } from '../../services/ad/ad.service';
+import { AdService, CompleteTicketFlightData } from '../../services/ad/ad.service';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
-import { LogoComponent } from '../logo/logo.component';
+
 import { OnboardingHeaderComponent } from '../onboarding-header/onboarding-header.component';
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 import { TimePickerComponent } from '../time-picker/time-picker.component';
+import { ButtonComponent } from '../button/button.component';
+import { dateValidator } from '../../validators/validator';
 
 @Component({
-  selector: 'app-new-ad2',
+  selector: 'app-ticket-flight-dates',
   standalone: true,
   imports: [
     CommonModule,
@@ -19,14 +21,15 @@ import { TimePickerComponent } from '../time-picker/time-picker.component';
     TimePickerComponent,
     RadioGroupComponent,
     OnboardingHeaderComponent,
-    LogoComponent
+    ButtonComponent
 ],
-  templateUrl: './new-ad2.component.html',
-  styleUrl: './new-ad2.component.scss'
+  templateUrl: './ticket-flight-dates.component.html',
+  styleUrl: './ticket-flight-dates.component.scss'
 })
-export class NewAd2Component implements OnInit {
+export class TicketFlightDatesComponent implements OnInit {
   @Output() nextStep = new EventEmitter<void>();
   @Output() previousStep = new EventEmitter<void>();
+  @Input() isEditMode:boolean = false;
 
   isOneWayFlight: boolean = false;
   departureDateValue: string = '';
@@ -38,34 +41,45 @@ export class NewAd2Component implements OnInit {
   returnDateValue: string = '';
   returnTimeValue: string = '';
   flightForm!: FormGroup;
-  submitted = false;
+  today = new Date().toISOString().split('T')[0];
 
   constructor(
     private fb: FormBuilder,
     private adService: AdService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.flightForm = this.fb.group({
-      departureDate: ['', [Validators.required, this.dateValidator()]],
+      departureDate: ['', [Validators.required, dateValidator()]],
       departureTime: ['', Validators.required],
-      arrivalDate: ['', [Validators.required, this.dateValidator()]],
+      arrivalDate: ['', [Validators.required, dateValidator()]],
       arrivalTime: ['', Validators.required],
       returnDepartureDate: [''],
       returnDepartureTime: [''],
       returnDate: [''],
       returnTime: ['']
     }, { validator: this.dateComparisonValidator });
+  }
 
-    const savedData = this.adService.getFormData();
-    if (savedData.newAd2) {
-      this.flightForm.patchValue(savedData.newAd2);
+  loadSavedFormData() {
+    const savedData:Partial<CompleteTicketFlightData> = this.adService.getFormData();
+    
+    console.log(savedData);
+    this.isOneWayFlight = savedData.flightType === 'one_way';
+    if (savedData) {
+      this.flightForm.patchValue({
+        departureDate: savedData.departureDate || '',
+        departureTime: savedData.departureTime || '',
+        arrivalDate: savedData.arrivalDate || '',
+        arrivalTime: savedData.arrivalTime || '',
+        returnDepartureDate: savedData.returnDepartureDate || '',
+        returnDepartureTime: savedData.returnDepartureTime || '',
+        returnDate: savedData.returnDate || '',
+        returnTime: savedData.returnTime || '',
+      });
     }
+  }
+  ngOnInit() {
 
-    this.flightForm?.valueChanges.subscribe((value: string) => {
-    });
-
-    this.isOneWayFlight = savedData.newAd?.flightType === 'one_way';
+    this.loadSavedFormData();
     this.setReturnFieldValidators(!this.isOneWayFlight);
 
     this.flightForm.valueChanges.subscribe(() => {
@@ -99,12 +113,7 @@ export class NewAd2Component implements OnInit {
     });
   }
 
-  dateValidator() {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const valid = /^\d{2}\/\d{2}\/\d{4}$/.test(control.value);
-      return valid ? null : { invalidDate: { value: control.value } };
-    };
-  }
+
 
   formatDate(date: string) {
     const [day, month, year] = date.split('/');
@@ -168,7 +177,7 @@ export class NewAd2Component implements OnInit {
   };
 
   setReturnFieldValidators(required: boolean) {
-    const validators = required ? [Validators.required, this.dateValidator()] : [];
+    const validators = required ? [Validators.required, dateValidator()] : [];
     this.flightForm.get('returnDepartureDate')?.setValidators(validators);
     this.flightForm.get('returnDepartureTime')?.setValidators(required ? [Validators.required] : []);
     this.flightForm.get('returnDate')?.setValidators(validators);
@@ -177,9 +186,8 @@ export class NewAd2Component implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
     if (this.flightForm.valid) {
-      this.adService.updateFormData({ newAd2: this.flightForm.value });
+      this.adService.updateFormData(this.flightForm.value);
       this.nextStep.emit();
     } else {
       Object.keys(this.flightForm.controls).forEach(key => {
@@ -189,7 +197,7 @@ export class NewAd2Component implements OnInit {
     }
   }
 
-  cancel() {
+  onBack() {
     this.previousStep.emit();
   }
 

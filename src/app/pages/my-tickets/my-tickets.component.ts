@@ -20,91 +20,17 @@ export class MyTicketsComponent implements OnInit {
   tickets: Ad[] = [];
   showConfirmationDialog: boolean = false;
   ticketId: string = '';
+  isLoading:boolean = false;
   constructor(public router: Router,private adService:AdService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.adService.getUserAds().subscribe({
       next: (res)=>{
         this.tickets = res
-        
+        this.isLoading = false;
       }
     })
-    // Fetch tickets from a service
-    // setTimeout(() => {
-      // this.tickets = [
-      //   // Sample data, replace with actual data from your service
-      //   {
-      //     id: 'CL00021',
-      //     name: 'אביב גפן בפארק הירקון',
-      //     numberOfTickets: 2,
-      //     sold: false,
-      //     eventDate: new Date('2025-12-31'),
-      //     location: 'Stadium A',
-      //     originalPrice: 100,
-      //     salePrice: 90,
-      //     description: 'Great seats!',
-      //     eventWebsite: 'ticket-details'
-      //   },
-      //   {
-      //     id: '2',
-      //     name: 'Flight Ticket',
-      //     numberOfTickets: 1,
-      //     sold: true,
-      //     status: 'pending',
-      //     departureDate: new Date('2023-11-15'),
-      //     arrivalDate: new Date('2023-11-16'),
-      //     returnDepartureDate: new Date('2023-11-17'),
-      //     returnDate: new Date('2023-11-18'),
-      //     departureLocation: 'New York',
-      //     arrivalLocation: 'London',
-      //     ticketNumber: '1234567890',
-      //     originalPrice: 500,
-      //     salePrice: 450,
-      //     detailsUpdated: false
-      //   }
-      // ,
-      // {
-      //   id: '3',
-      //   name: 'Theater Show',
-      //   numberOfTickets: 3,
-      //   sold: false,
-      //   eventDate: new Date('2024-02-14'),
-      //   location: 'City Theater',
-      //   originalPrice: 75,
-      //   salePrice: 70,
-      //   description: 'Valentine\'s Day special performance',
-      //   eventWebsite: 'https://citytheater.com'
-      // },
-      // {
-      //   id: '4',
-      //   name: 'Flight Ticket',
-      //   numberOfTickets: 1,
-      //   sold: true,
-      //   status: 'completed',
-      //   departureDate: new Date('2023-12-01'),
-      //   arrivalDate: new Date('2023-12-02'),
-      //   departureLocation: 'Los Angeles',
-      //   arrivalLocation: 'Tokyo',
-      //   ticketNumber: '1234567890',
-      //   originalPrice: 800,
-      //   salePrice: 750,
-      //   detailsUpdated: true
-      // },
-      // {
-      //   id: '5',
-      //   name: 'Sports Game',
-      //   numberOfTickets: 4,
-      //   sold: true,
-      //   status: 'canceled',
-      //   eventDate: new Date('2023-11-20'),
-      //   location: 'Sports Arena',
-      //   originalPrice: 120,
-      //   salePrice: 100,
-      //   description: 'Season opener',
-      //   eventWebsite: 'https://sportsarena.com'
-      // }
-      // ];
-    // }, 3000);
   }
 
   goBack() {
@@ -112,24 +38,18 @@ export class MyTicketsComponent implements OnInit {
   }
 
   onEditTicket(ticketId: string) {
-    // Navigate to edit page
-    this.router.navigate(['/edit-ticket', ticketId]);
+    this.router.navigate(['/ticketId']);
   }
 
   onDeleteTicket(ticketId: string) {
-    this.ticketId = ticketId;
-    this.showConfirmationDialog = true; 
-  }
+    this.adService.delete(ticketId).subscribe({
+      next:()=>{
+        this.tickets = this.tickets.filter(ticket => ticket._id.toString() !== ticketId);
+      },
+      error: ()=> {
 
-  onCancelConfirmation() {
-    this.showConfirmationDialog = false;
-  }
-
-  onConfirmAction() {
-    this.showConfirmationDialog = false;
-    //this.tickets = this.tickets.filter(ticket => ticket.id !== this.ticketId);
-    //this.ticketId = '';
-    // this.router.navigate(['/ad-selection']);
+      }
+    })
   }
 
   onCopyLink(ticketId: string) {
@@ -139,7 +59,6 @@ export class MyTicketsComponent implements OnInit {
   }
 
   onMarkDetailsUpdated(ticketId: string) {
-    // Update ticket details logic
-    this.router.navigate(['/update-flight-details', ticketId]);
+    this.adService.markDetailsUpdated(ticketId).subscribe(()=>{});
   }
 }

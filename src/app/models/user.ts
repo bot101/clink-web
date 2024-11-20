@@ -5,6 +5,9 @@ export interface User {
     phone: string;
     email: string;
     isVerified: boolean;
+    isTrustedSeller?:boolean;
+    ticketsSold?:number;
+    paymentType:'bit' | 'bank';
     paymentBank?: string;
     paymentNumber?: string;
     paymentBranch?: string;

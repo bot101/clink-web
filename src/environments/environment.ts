@@ -1,5 +1,8 @@
 export const environment = {
-    apiUrl: 'https://jsonplaceholder.typicode.com',
+    // apiUrl: 'https://clink.co.il/api',
+    // INTERCOM_APP_ID: 'hoyw5lxm',
+    // BASE_URL:'https://clink.co.il'
+    apiUrl: 'http://localhost:3000',
     INTERCOM_APP_ID: 'hoyw5lxm',
-    REGULA_API_KEY: 'OL109615'
+    BASE_URL:'http://localhost:4200'
 };

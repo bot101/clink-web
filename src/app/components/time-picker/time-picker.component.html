@@ -1,5 +1,5 @@
 <div>
-    <label [for]="id" class="block text-sm text-gray-700">{{ label }}</label>
+    <label [for]="id" class="block text-lg text-gray-700">{{ label }}</label>
     <input [class.error-field]="ngControl.invalid && ngControl.touched" type="time" [id]="id" (ngModelChange)="onTimeChange($event)" [ngModelOptions]="{standalone: true}" [name]="name" [(ngModel)]="selectedTime" [required]="required"
       class="mt-1 block rounded-xl border-[#D9D9D9] border px-4 py-3">
   </div>
