@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm install -g @angular/cli
+  pre_build:
+    commands:
+      - npm install
+      - npm run lint
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - npm install express
+      - zip -r deploy.zip . -x "node_modules/*" 
+artifacts:
+  files:
+    - deploy.zip
